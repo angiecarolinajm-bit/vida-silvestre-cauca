@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "vida-silvestre-v4";
+const CACHE_NAME = "vida-silvestre-v5";
 
 const ARCHIVOS_INICIALES = [
   "./",
@@ -127,6 +127,7 @@ const ARCHIVOS_INICIALES = [
 const esVideo = (url) =>
   /\.(mp4|webm|ogg|mov|m4v)$/i.test(url.pathname);
 
+// Descarga y guarda un archivo completo en caché.
 async function guardarArchivo(cache, archivo) {
   try {
     const url = new URL(archivo, self.registration.scope);
@@ -135,10 +136,10 @@ async function guardarArchivo(cache, archivo) {
     });
 
     if (respuesta.ok && respuesta.type === "basic") {
-      await cache.put(url.href, respuesta);
+      await cache.put(url.href, respuesta.clone());
     } else {
       console.warn(
-        "No se pudo guardar el archivo:",
+        "No se pudo guardar:",
         archivo,
         respuesta.status
       );
@@ -153,7 +154,7 @@ self.addEventListener("install", (event) => {
     (async () => {
       const cache = await caches.open(CACHE_NAME);
 
-      // Guardar uno por uno para evitar demasiadas descargas simultáneas.
+      // Guardar uno por uno para reducir descargas simultáneas.
       for (const archivo of ARCHIVOS_INICIALES) {
         await guardarArchivo(cache, archivo);
       }
@@ -183,8 +184,7 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-// Permite reproducir videos guardados incluso cuando el navegador
-// solicita solamente un fragmento del archivo (HTTP Range).
+// Sirve videos completos o fragmentos HTTP Range desde la caché.
 async function responderVideo(solicitud, url) {
   const cache = await caches.open(CACHE_NAME);
   const guardado = await cache.match(url.href);
@@ -198,12 +198,10 @@ async function responderVideo(solicitud, url) {
 
     const coincidencia = rango.match(/^bytes=(\d*)-(\d*)$/);
 
-    if (!coincidencia) {
+    if (!coincidencia || (!coincidencia[1] && !coincidencia[2])) {
       return new Response(null, {
         status: 416,
-        headers: {
-          "Content-Range": "bytes */0"
-        }
+        headers: { "Content-Range": "bytes */0" }
       });
     }
 
@@ -234,11 +232,7 @@ async function responderVideo(solicitud, url) {
         : total - 1;
     }
 
-    if (
-      inicio >= total ||
-      fin < inicio ||
-      total === 0
-    ) {
+    if (inicio >= total || fin < inicio || total === 0) {
       return new Response(null, {
         status: 416,
         headers: {
@@ -255,33 +249,29 @@ async function responderVideo(solicitud, url) {
         status: 206,
         headers: {
           "Content-Type":
-            guardado.headers.get("Content-Type") ||
-            "video/mp4",
+            guardado.headers.get("Content-Type") || "video/mp4",
           "Accept-Ranges": "bytes",
-          "Content-Range":
-            `bytes ${inicio}-${fin}/${total}`,
+          "Content-Range": `bytes ${inicio}-${fin}/${total}`,
           "Content-Length": String(fin - inicio + 1)
         }
       }
     );
   }
 
-  // Si todavía no está guardado, intentar obtenerlo de internet.
+  // Sin una copia completa, intenta descargar el video.
+  // Una respuesta parcial 206 no se guarda como archivo completo.
   try {
     const respuesta = await fetch(solicitud);
 
-    if (
-      respuesta.status === 200 &&
-      respuesta.type === "basic"
-    ) {
+    if (respuesta.status === 200 && respuesta.type === "basic") {
       await cache.put(url.href, respuesta.clone());
     }
 
     return respuesta;
   } catch (error) {
     return new Response(
-      "Este video todavía no está disponible sin conexión. " +
-      "Conéctate a internet y vuelve a cargarlo.",
+      "Este video no está guardado para uso sin conexión. " +
+      "Conéctate a internet y vuelve a cargar la página.",
       {
         status: 503,
         headers: {
@@ -313,16 +303,9 @@ self.addEventListener("fetch", (event) => {
       try {
         const respuesta = await fetch(solicitud);
 
-        if (
-          respuesta.ok &&
-          respuesta.type === "basic"
-        ) {
+        if (respuesta.ok && respuesta.type === "basic") {
           const cache = await caches.open(CACHE_NAME);
-
-          await cache.put(
-            solicitud,
-            respuesta.clone()
-          );
+          await cache.put(solicitud, respuesta.clone());
         }
 
         return respuesta;
@@ -335,18 +318,23 @@ self.addEventListener("fetch", (event) => {
           return guardada;
         }
 
-        // Si una URL de navegación tiene parámetros, buscar
-        // también la página HTML guardada sin esos parámetros.
+        // Para páginas de detalle con parámetros en la URL.
         if (solicitud.mode === "navigate") {
-          const pagina = await caches.match(url.pathname);
+          const paginaUrl = new URL(url.pathname, self.location.origin);
+          const pagina = await caches.match(paginaUrl.href, {
+            ignoreSearch: true
+          });
 
           if (pagina) {
             return pagina;
           }
 
-          const inicio = await caches.match(
-            new URL("./index.html", self.registration.scope).href
+          const inicioUrl = new URL(
+            "./index.html",
+            self.registration.scope
           );
+
+          const inicio = await caches.match(inicioUrl.href);
 
           if (inicio) {
             return inicio;
