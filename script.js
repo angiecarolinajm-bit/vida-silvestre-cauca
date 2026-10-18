@@ -35,11 +35,10 @@ if ("serviceWorker" in navigator) {
       );
 
       await registro.update();
+
+      console.log("Modo sin conexión registrado y actualizado.");
     } catch (error) {
-      console.error(
-        "No se pudo activar el modo sin conexión:",
-        error
-      );
+      console.error("No se pudo activar el modo sin conexión:", error);
     }
   });
 }
