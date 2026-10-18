@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "vida-silvestre-v6";
+const CACHE_NAME = "vida-silvestre-v7";
 
 const ARCHIVOS_INICIALES = [
   "./",
@@ -16,14 +16,11 @@ const ARCHIVOS_INICIALES = [
   "./script.js",
   "./manifest.json",
 
-  // Imágenes principales
   "./imagenes/cauca.jpg",
   "./imagenes/oso.jpg",
   "./imagenes/munchique.jpg",
   "./imagenes/orquidea.jpg",
   "./imagenes/deforestacion.jpg",
-
-  // Fauna
   "./imagenes/fauna-portada.jpg",
   "./imagenes/mamiferos.jpg",
   "./imagenes/aves.jpg",
@@ -31,8 +28,6 @@ const ARCHIVOS_INICIALES = [
   "./imagenes/reptiles.jpg",
   "./imagenes/insectos.jpg",
   "./imagenes/faunaacuatica.jpg",
-
-  // Flora y conservación
   "./imagenes/semillas.jpg",
   "./imagenes/orquidea%201.jpg",
   "./imagenes/bromelias.jpg",
@@ -42,7 +37,6 @@ const ARCHIVOS_INICIALES = [
   "./imagenes/ilustracioneducativa.jpg",
   "./imagenes/restauracion.jpg",
 
-  // Amenazas
   "./imagenes/amenaza-agua.jpg",
   "./imagenes/amenaza-quemas.jpg",
   "./imagenes/amenaza-residuos.jpg",
@@ -50,7 +44,6 @@ const ARCHIVOS_INICIALES = [
   "./imagenes/amenaza-especies.jpg",
   "./imagenes/amenaza-conservacion.jpg",
 
-  // Educación
   "./imagenes/educacion-portada.jpg",
   "./imagenes/educacion-aula.jpg",
   "./imagenes/educacion-glosario.jpg",
@@ -59,7 +52,6 @@ const ARCHIVOS_INICIALES = [
   "./imagenes/educacion-biblioteca.jpg",
   "./imagenes/educacion-actividad.jpg",
 
-  // Imágenes de amenazas
   "./imagenes/agua-principal.jpg",
   "./imagenes/agua-1.jpg",
   "./imagenes/agua-2.jpg",
@@ -79,7 +71,6 @@ const ARCHIVOS_INICIALES = [
   "./imagenes/acciones-1.jpg",
   "./imagenes/acciones-2.jpg",
 
-  // Videos de flora
   "./videos/orquideas-1.mp4",
   "./videos/orquideas-2.mp4",
   "./videos/bromelias-1.mp4",
@@ -93,7 +84,6 @@ const ARCHIVOS_INICIALES = [
   "./videos/plantasecosistemas-1.mp4",
   "./videos/plantasecosistemas-2.mp4",
 
-  // Videos de fauna
   "./videos/mamiferos-1.mp4",
   "./videos/mamiferos-2.mp4",
   "./videos/aves-1.mp4",
@@ -107,7 +97,6 @@ const ARCHIVOS_INICIALES = [
   "./videos/fauna-acuatica-1.mp4",
   "./videos/fauna-acuatica-2.mp4",
 
-  // Videos de amenazas
   "./videos/agua-1.mp4",
   "./videos/agua-2.mp4",
   "./videos/quemas-1.mp4",
@@ -149,7 +138,6 @@ async function guardarArchivo(cache, archivo) {
   return false;
 }
 
-// Instala el nuevo caché e intenta guardar cada recurso.
 self.addEventListener("install", (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
@@ -162,7 +150,6 @@ self.addEventListener("install", (event) => {
   })());
 });
 
-// Activa la versión nueva y elimina cachés antiguos del proyecto.
 self.addEventListener("activate", (event) => {
   event.waitUntil((async () => {
     const nombres = await caches.keys();
@@ -180,19 +167,23 @@ self.addEventListener("activate", (event) => {
   })());
 });
 
-// Responde a los videos guardados, incluso si el reproductor pide rangos.
 async function responderVideo(solicitud, url) {
-  let guardado = await buscarEnCache(url.href);
+  const cache = await caches.open(CACHE_NAME);
+  let guardado = await cache.match(url.href);
 
   if (!guardado) {
     try {
-      const respuesta = await fetch(solicitud);
+      const respuesta = await fetch(
+        new Request(url.href, {
+          method: "GET",
+          credentials: "same-origin"
+        })
+      );
 
-      if (respuesta.status !== 200) {
+      if (!respuesta.ok || respuesta.status !== 200) {
         return respuesta;
       }
 
-      const cache = await caches.open(CACHE_NAME);
       await cache.put(url.href, respuesta.clone());
       guardado = respuesta;
     } catch (error) {
@@ -200,7 +191,9 @@ async function responderVideo(solicitud, url) {
         "Este video no está guardado para usarlo sin conexión.",
         {
           status: 503,
-          headers: { "Content-Type": "text/plain; charset=utf-8" }
+          headers: {
+            "Content-Type": "text/plain; charset=utf-8"
+          }
         }
       );
     }
@@ -210,17 +203,17 @@ async function responderVideo(solicitud, url) {
     return guardado;
   }
 
-  const coincidencia = solicitud.headers
-    .get("Range")
-    .match(/^bytes=(\d*)-(\d*)$/);
-
+  const rango = solicitud.headers.get("Range");
+  const coincidencia = rango.match(/^bytes=(\d*)-(\d*)$/);
   const archivo = await guardado.arrayBuffer();
   const total = archivo.byteLength;
 
   if (!coincidencia || (!coincidencia[1] && !coincidencia[2])) {
     return new Response(null, {
       status: 416,
-      headers: { "Content-Range": `bytes */${total}` }
+      headers: {
+        "Content-Range": `bytes */${total}`
+      }
     });
   }
 
@@ -233,7 +226,9 @@ async function responderVideo(solicitud, url) {
     if (sufijo <= 0 || total === 0) {
       return new Response(null, {
         status: 416,
-        headers: { "Content-Range": `bytes */${total}` }
+        headers: {
+          "Content-Range": `bytes */${total}`
+        }
       });
     }
 
@@ -251,17 +246,15 @@ async function responderVideo(solicitud, url) {
   if (inicio < 0 || inicio >= total || fin < inicio) {
     return new Response(null, {
       status: 416,
-      headers: { "Content-Range": `bytes */${total}` }
+      headers: {
+        "Content-Range": `bytes */${total}`
+      }
     });
   }
 
   const fragmento = archivo.slice(inicio, fin + 1);
-  const headers = new Headers();
+  const headers = new Headers(guardado.headers);
 
-  headers.set(
-    "Content-Type",
-    guardado.headers.get("Content-Type") || "video/mp4"
-  );
   headers.set("Accept-Ranges", "bytes");
   headers.set("Content-Range", `bytes ${inicio}-${fin}/${total}`);
   headers.set("Content-Length", String(fragmento.byteLength));
@@ -282,23 +275,16 @@ self.addEventListener("fetch", (event) => {
   if (url.origin !== self.location.origin) return;
 
   event.respondWith((async () => {
-    // Primero intenta usar la copia local.
-    const guardado = await buscarEnCache(url.href);
-
-    if (guardado) {
-      if (esVideo(url)) {
-        return responderVideo(solicitud, url);
-      }
-
-      return guardado;
-    }
-
-    // Para videos, conserva el manejo especial de rangos.
     if (esVideo(url)) {
       return responderVideo(solicitud, url);
     }
 
-    // Si el recurso no está guardado, intenta obtenerlo de internet.
+    const guardado = await buscarEnCache(url.href);
+
+    if (guardado) {
+      return guardado;
+    }
+
     try {
       const respuesta = await fetch(solicitud);
 
@@ -307,20 +293,21 @@ self.addEventListener("fetch", (event) => {
           const cache = await caches.open(CACHE_NAME);
           await cache.put(url.href, respuesta.clone());
         } catch (error) {
-          console.warn("No se pudo guardar el recurso:", url.href, error);
+          console.warn("No se pudo guardar:", url.href, error);
         }
       }
 
       return respuesta;
     } catch (error) {
-      // No devuelve al usuario a la página de inicio.
       return new Response(
         solicitud.mode === "navigate"
-          ? "Esta página no se ha guardado todavía. Conéctate a internet y vuelve a abrirla."
+          ? "Esta página no está guardada para usarla sin conexión."
           : "Este recurso no está disponible sin conexión.",
         {
           status: 503,
-          headers: { "Content-Type": "text/plain; charset=utf-8" }
+          headers: {
+            "Content-Type": "text/plain; charset=utf-8"
+          }
         }
       );
     }

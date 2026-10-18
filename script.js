@@ -25,12 +25,21 @@ if (botonMenu && menuNavegacion) {
   });
 }
 
-// Activar el modo sin conexión
+// Activar y actualizar el modo sin conexión
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js")
-      .catch((error) => {
-        console.error("No se pudo activar el modo sin conexión:", error);
-      });
+  window.addEventListener("load", async () => {
+    try {
+      const registro = await navigator.serviceWorker.register(
+        "./service-worker.js",
+        { updateViaCache: "none" }
+      );
+
+      await registro.update();
+    } catch (error) {
+      console.error(
+        "No se pudo activar el modo sin conexión:",
+        error
+      );
+    }
   });
 }
