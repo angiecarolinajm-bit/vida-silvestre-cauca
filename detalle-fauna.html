@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Información educativa sobre fauna, amenazas ambientales y conservación en el Cauca.">
+<title>Detalle de fauna | Vida Silvestre Cauca</title>
+<style>
+:root {
+  --verde: #28543a;
+  --verde-oscuro: #173d2b;
+  --texto: #526255;
+  --cafe: #9b5b2e;
+  --cafe-oscuro: #6f3c1e;
+  --crema: #fff4e8;
+  --naranja: #e58a3a;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #fffaf4;
+  color: var(--texto);
+  font: 16px/1.75 "Segoe UI", Arial, sans-serif;
+}
+.encabezado, .pie {
+  padding: 24px 5%;
+  text-align: center;
+  color: var(--cafe-oscuro);
+  background: linear-gradient(110deg, #f0d2b5, #f8e2c9, #dce8d9);
+}
+.encabezado { border-bottom: 2px solid #d9ad84; }
+.encabezado a, .pie a {
+  color: var(--cafe-oscuro);
+  font-weight: 800;
+  text-decoration: none;
+}
+.contenedor {
+  width: min(1100px, 92%);
+  margin: 32px auto 55px;
+}
+.regresar {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: var(--cafe);
+  font-weight: 800;
+}
+.portada {
+  overflow: hidden;
+  margin: 0;
+  border: 5px solid white;
+  border-radius: 28px;
+  background: #fff4e8;
+  box-shadow: 0 15px 35px #503b2b20;
+}
+.portada img {
+  display: block;
+  width: 100%;
+  height: clamp(300px, 45vw, 560px);
+  object-fit: cover;
+}
+.etiqueta {
+  display: inline-block;
+  margin-top: 25px;
+  color: var(--cafe);
+  font-size: .85rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+h1 {
+  color: var(--verde-oscuro);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.15;
+}
+.introduccion { max-width: 900px; }
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 25px;
+}
+.tarjeta {
+  padding: 22px;
+  border: 1px solid #e9d9c9;
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 8px 25px #513b2e0c;
+}
+.tarjeta h2 {
+  margin-top: 0;
+  color: var(--verde);
+}
+.conservacion {
+  margin-top: 24px;
+  padding: 25px;
+  border: 1px solid #dfb58f;
+  border-radius: 22px;
+  background: linear-gradient(130deg, #f5dfc9, #fff0df, #e2eadc);
+}
+.conservacion h2 { color: var(--cafe-oscuro); }
+.conservacion li { margin-bottom: 7px; }
+.seccion-extra {
+  margin-top: 32px;
+  padding: 28px;
+  border: 1px solid #e9d9c9;
+  border-radius: 24px;
+  background: white;
+  box-shadow: 0 10px 28px #50334d0c;
+}
+.seccion-extra > h2 {
+  margin-top: 0;
+  color: var(--cafe-oscuro);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+.videos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.video-card {
+  overflow: hidden;
+  border: 1px solid #e9d9c9;
+  border-radius: 16px;
+  background: #fffaf4;
+}
+.video-card video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #251b2c;
+}
+.video-contenido { padding: 16px; }
+.video-contenido h3 { color: var(--verde); }
+.progreso {
+  height: 12px;
+  margin: 18px 0;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #f0e4d7;
+}
+.progreso-barra {
+  width: 0;
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #9b5b2e, #e58a3a);
+  transition: width .3s ease;
+}
+.pregunta-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  font-weight: 800;
+}
+.pregunta-numero { color: var(--cafe); }
+.puntaje {
+  padding: 5px 12px;
+  border-radius: 30px;
+  background: #f5dfc9;
+  color: var(--cafe-oscuro);
+}
+.pregunta-texto {
+  color: var(--verde-oscuro);
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1.5;
+}
+.opciones {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.opcion {
+  width: 100%;
+  min-height: 58px;
+  padding: 13px;
+  border: 2px solid #e5d9ce;
+  border-radius: 14px;
+  background: white;
+  color: #514538;
+  font: inherit;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+}
+.opcion:hover:not(:disabled) {
+  border-color: #e58a3a;
+  background: #fff4e8;
+}
+.opcion:disabled { cursor: default; }
+.opcion.correcta {
+  border-color: #4b9564;
+  background: #e7f6e9;
+  color: #205a32;
+}
+.opcion.incorrecta {
+  border-color: #d66d7c;
+  background: #fff0f1;
+  color: #922d40;
+}
+.retroalimentacion {
+  margin: 18px 0 10px;
+  padding: 12px 15px;
+  border-radius: 12px;
+  background: #fff4e8;
+}
+.retroalimentacion:empty { display: none; }
+.boton {
+  margin: 12px 8px 0 0;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 30px;
+  background: var(--cafe);
+  color: white;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+.boton:hover { background: var(--cafe-oscuro); }
+.boton.secundario {
+  border: 1px solid #dfb58f;
+  background: #f5dfc9;
+  color: var(--cafe-oscuro);
+}
+.resultado {
+  padding: 22px;
+  border: 1px solid #dfb58f;
+  border-radius: 18px;
+  background: linear-gradient(130deg, #f5dfc9, #e2eadc);
+  text-align: center;
+}
+.resultado h3 { color: var(--cafe-oscuro); }
+.resultado-grande {
+  color: var(--verde-oscuro);
+  font-size: 2rem;
+  font-weight: 900;
+}
+.estadisticas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+.estadisticas span {
+  padding: 8px 14px;
+  border-radius: 30px;
+  background: #f5dfc9;
+  color: var(--cafe-oscuro);
+  font-weight: 800;
+}
+.tablero {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.carta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  min-width: 0;
+  padding: 6px;
+  border: 2px solid #dfb58f;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #9b5b2e, #e58a3a);
+  color: white;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  cursor: pointer;
+  box-shadow: 0 5px 12px #50334d12;
+  transition: transform .2s, background .2s;
+}
+.carta:hover:not(:disabled) { transform: translateY(-3px); }
+.carta.revelada {
+  background: #fffaf4;
+  color: #6f3c1e;
+}
+.carta.encontrada {
+  border-color: #80b38b;
+  background: #e8f7eb;
+  cursor: default;
+}
+.mensaje-juego { font-weight: 700; }
+[hidden] { display: none !important; }
+@media (max-width: 700px) {
+  .rejilla, .videos, .opciones {
+    grid-template-columns: 1fr;
+  }
+  .seccion-extra { padding: 20px; }
+  .tablero {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+</style>
+</head>
+<body>
+<header class="encabezado">
+  <a href="index.html">🌿 VIDA SILVESTRE · CONÓCELAS, CUÍDALAS</a>
+</header>
+<main class="contenedor">
+  <a class="regresar" href="fauna.html#explorar-fauna">
+    ← Volver a las categorías de fauna
+  </a>
+  <figure class="portada">
+    <img id="imagen-animal" src="imagenes/mamiferogrande.jpg" alt="Animales de la categoría seleccionada">
+  </figure>
+  <span class="etiqueta" id="categoria-animal"></span>
+  <h1 id="titulo-animal"></h1>
+  <p class="introduccion" id="introduccion-animal"></p>
+  <section class="rejilla">
+    <article class="tarjeta">
+      <h2>🐾 Características</h2>
+      <p id="caracteristicas-animal"></p>
+    </article>
+    <article class="tarjeta">
+      <h2>🌎 Hábitat</h2>
+      <p id="habitat-animal"></p>
+    </article>
+    <article class="tarjeta">
+      <h2>💚 Importancia ecológica</h2>
+      <p id="importancia-animal"></p>
+    </article>
+    <article class="tarjeta">
+      <h2>🔎 Para aprender más</h2>
+      <p id="curiosidad-animal"></p>
+    </article>
+  </section>
+  <section class="conservacion">
+    <h2>⚠️ Amenazas y conservación</h2>
+    <p id="amenazas-animal"></p>
+    <h3>¿Cómo podemos protegerlos?</h3>
+    <ul id="cuidados-animal"></ul>
+  </section>
+  <section class="seccion-extra">
+    <h2>🎬 Aprende con nuestros videos</h2>
+    <p>Explora los videos educativos y descubre más sobre los animales, sus hábitats y las acciones para protegerlos.</p>
+    <div class="videos" id="videos"></div>
+  </section>
+  <section class="seccion-extra">
+    <h2>🎮 ¡Aprende jugando!</h2>
+    <p id="introduccion-juegos"></p>
+    <article class="tarjeta">
+      <h2>🧠 Pon a prueba lo aprendido</h2>
+      <p>Responde las diez preguntas. La información que necesitas está en esta misma sección.</p>
+      <div class="progreso" id="contenedor-progreso">
+        <div class="progreso-barra" id="progreso-barra"></div>
+      </div>
+      <div id="zona-preguntas">
+        <div class="pregunta-cabecera">
+          <span class="pregunta-numero" id="pregunta-numero"></span>
+          <span class="puntaje" id="puntaje"></span>
+        </div>
+        <p class="pregunta-texto" id="pregunta-texto"></p>
+        <div class="opciones" id="opciones"></div>
+        <p class="retroalimentacion" id="retroalimentacion" aria-live="polite"></p>
+        <button class="boton" id="siguiente" hidden>Siguiente pregunta →</button>
+        <button class="boton secundario" id="reiniciar-preguntas">Reiniciar cuestionario</button>
+      </div>
+      <div class="resultado" id="resultado" hidden>
+        <h3>¡Terminaste el cuestionario!</h3>
+        <p>Tu resultado:</p>
+        <p class="resultado-grande" id="resultado-puntaje"></p>
+        <p id="resultado-mensaje"></p>
+        <button class="boton" id="volver-a-jugar">Volver a jugar</button>
+      </div>
+    </article>
+    <article class="tarjeta" style="margin-top: 25px;">
+      <h2 id="titulo-memoria">🎲 Encuentra las parejas</h2>
+      <p id="instrucciones-memoria">Elige una carta y después otra. Si sus símbolos coinciden, la pareja quedará descubierta. Encuentra las seis parejas.</p>
+      <div class="estadisticas">
+        <span id="parejas">Parejas: 0 de 6</span>
+        <span id="intentos">Intentos: 0</span>
+      </div>
+      <div class="tablero" id="tablero"></div>
+      <p class="mensaje-juego" id="mensaje-memoria" aria-live="polite">¡Encuentra las seis parejas!</p>
+      <button class="boton" id="reiniciar-memoria">🔄 Mezclar y volver a jugar</button>
+    </article>
+  </section>
+</main>
+<footer class="pie">
+  <p>Vida Silvestre · Conócelas, cuídalas</p>
+  <a href="fauna.html#explorar-fauna">← Volver a la fauna</a>
+</footer>
+<script>
+const fauna = {
+  mamiferos: {
+    titulo: "Mamíferos",
+    categoria: "Animales vertebrados",
+    imagen: "imagenes/mamiferogrande.jpg",
+    introduccion: "Los mamíferos son animales vertebrados. Las hembras producen leche para alimentar a sus crías y muchas especies tienen pelo en alguna etapa de su vida. Habitan ambientes terrestres, acuáticos y, en el caso de los murciélagos, también pueden volar.",
+    caracteristicas: "Los mamíferos respiran mediante pulmones. Sus formas de alimentación son variadas: hay especies herbívoras, carnívoras y omnívoras. Sus cuerpos y comportamientos presentan adaptaciones relacionadas con los ambientes donde viven.",
+    habitat: "En el Cauca existen ambientes diversos, desde bosques andinos y zonas de montaña hasta ecosistemas del Pacífico. Las especies de mamíferos necesitan hábitats adecuados para encontrar alimento, refugio y sitios de reproducción.",
+    importancia: "Según la especie, los mamíferos pueden dispersar semillas, controlar poblaciones de otros animales y participar en las redes alimentarias. Sus relaciones con el ambiente contribuyen al funcionamiento de los ecosistemas.",
+    curiosidad: "Los murciélagos son mamíferos. Algunas especies contribuyen a la dispersión de semillas o a la polinización, mientras que otras consumen insectos.",
+    amenazas: "La pérdida y fragmentación de los hábitats, la caza y captura ilegal, el tráfico de fauna y los conflictos entre personas y animales pueden afectar a distintas especies. Los impactos varían según el lugar y la especie.",
+    cuidados: ["Proteger los bosques y corredores naturales.", "No capturar ni comprar animales silvestres.", "No alimentar ni perseguir a la fauna.", "Evitar la contaminación y respetar los refugios naturales.", "Informar a las autoridades ambientales si un animal silvestre está en riesgo."],
+    videos: [
+      ["Conociendo los mamíferos", "Características, hábitats y funciones ecológicas.", "videos/mamiferos-1.mp4"],
+      ["Protejamos a los mamíferos", "Acciones para respetar la fauna y conservar sus hábitats.", "videos/mamiferos-2.mp4"]
+    ],
+    simbolos: ["🐻", "🦊", "🐵", "🦁", "🐼", "🐯"],
+    preguntas: [
+      ["¿Qué producen las hembras de los mamíferos para alimentar a sus crías?", ["Semillas", "Leche", "Néctar", "Agua salada"], 1],
+      ["¿Cómo respiran los mamíferos?", ["Mediante pulmones", "Mediante branquias todos", "Por las hojas", "Por antenas"], 0],
+      ["¿Qué formas de alimentación pueden tener?", ["Solo herbívora", "Solo carnívora", "Herbívora, carnívora u omnívora", "Ninguna"], 2],
+      ["¿Qué necesitan para sobrevivir?", ["Solo edificios", "Solo luz artificial", "Solo agua", "Alimento, refugio y hábitat adecuado"], 3],
+      ["¿Qué pueden dispersar algunas especies?", ["Semillas", "Plástico", "Vidrio", "Metal"], 0],
+      ["¿Qué grupo incluye a los murciélagos?", ["Aves", "Mamíferos", "Reptiles", "Anfibios"], 1],
+      ["¿Qué puede afectar a sus poblaciones?", ["Proteger los bosques", "Observarlos a distancia", "La pérdida de hábitat y la caza ilegal", "Conservar los corredores"], 2],
+      ["¿Cómo debemos observar la fauna silvestre?", ["Persiguiéndola", "Capturándola", "Alimentándola siempre", "A una distancia respetuosa"], 3],
+      ["¿Qué acción ayuda a proteger a los mamíferos?", ["Conservar los bosques y corredores", "Destruir refugios", "Comprar animales silvestres", "Contaminar quebradas"], 0],
+      ["¿Qué se debe evitar?", ["Respetar los hábitats", "Capturar o comprar animales silvestres", "Informar sobre animales en riesgo", "Reducir la contaminación"], 1]
+    ]
+  },
+  aves: {
+    titulo: "Aves",
+    categoria: "Animales vertebrados",
+    imagen: "imagenes/avegrande.jpg",
+    introduccion: "Las aves son vertebrados con plumas, pico y alas. La mayoría pone huevos y muchas especies pueden volar, aunque no todas lo hacen. En el Cauca, la variedad de ecosistemas ofrece hábitats para numerosas aves.",
+    caracteristicas: "El cuerpo de las aves está cubierto de plumas. La forma del pico y las patas varía entre especies y se relaciona con la alimentación, el desplazamiento y el ambiente que utilizan.",
+    habitat: "Las aves pueden vivir en bosques, montañas, humedales, riberas y zonas costeras. Cada especie necesita condiciones adecuadas para alimentarse, descansar y reproducirse.",
+    importancia: "Algunas aves dispersan semillas, otras polinizan flores y otras consumen insectos o pequeños animales. Estas funciones contribuyen a las relaciones ecológicas de sus hábitats.",
+    curiosidad: "La forma del pico puede dar pistas sobre los alimentos que consume un ave y la manera en que los obtiene.",
+    amenazas: "La tala, los incendios, la contaminación, la captura de ejemplares y la destrucción de nidos pueden afectar a las aves. La gravedad de estas amenazas depende de cada especie y de su entorno.",
+    cuidados: ["Conservar árboles, bosques y humedales.", "No destruir nidos ni retirar huevos.", "No capturar ni comprar aves silvestres.", "Evitar residuos en los espacios naturales.", "Observar y fotografiar aves sin perseguirlas."],
+    videos: [
+      ["Conociendo las aves", "Descubre sus plumas, picos, hábitats y comportamientos.", "videos/aves-1.mp4"],
+      ["Cuidemos las aves", "Aprende a proteger los lugares donde se alimentan y anidan.", "videos/aves-2.mp4"]
+    ],
+    simbolos: ["🦜", "🦉", "🦅", "🦚", "🐧", "🐦"],
+    preguntas: [
+      ["¿Qué cubre el cuerpo de las aves?", ["Escamas", "Plumas", "Pelo", "Corteza"], 1],
+      ["¿Qué estructura tienen en lugar de dientes?", ["Pico", "Aletas", "Antenas", "Branquias"], 0],
+      ["¿Qué hacen la mayoría de las aves?", ["Producen leche", "Tienen seis patas", "Ponen huevos", "Respiran por branquias"], 2],
+      ["¿Qué puede indicar la forma del pico?", ["El color del suelo", "La edad exacta", "La temperatura del aire", "Parte de su alimentación"], 3],
+      ["¿Qué función cumplen algunas aves?", ["Dispersar semillas", "Producir plástico", "Contaminar ríos", "Destruir todos los hábitats"], 0],
+      ["¿Qué amenaza puede afectar a las aves?", ["Proteger humedales", "La destrucción de nidos", "Conservar los bosques", "Observarlas a distancia"], 1],
+      ["¿Dónde pueden vivir las aves?", ["Solo en ciudades", "Solo en desiertos", "En bosques, humedales y otros ambientes", "Solo bajo el agua"], 2],
+      ["¿Cómo debemos observar las aves?", ["Persiguiéndolas", "Destruyendo nidos", "Capturándolas", "Sin molestarlas ni acercarse demasiado"], 3],
+      ["¿Qué ayuda a su conservación?", ["Proteger bosques y humedales", "Talar árboles", "Contaminar ríos", "Capturar ejemplares"], 0],
+      ["¿Qué debemos evitar?", ["Fotografiarlas sin molestarlas", "Capturar aves silvestres", "Cuidar árboles", "Mantener limpio el entorno"], 1]
+    ]
+  },
+  anfibios: {
+    titulo: "Anfibios",
+    categoria: "Animales vertebrados",
+    imagen: "imagenes/anfibiogrande.jpg",
+    introduccion: "Los anfibios incluyen ranas, sapos y salamandras. Muchas especies dependen de ambientes húmedos y presentan etapas de desarrollo diferentes. En numerosas especies, las larvas viven en el agua antes de transformarse.",
+    caracteristicas: "Muchos anfibios tienen piel permeable y necesitan condiciones ambientales apropiadas. En muchas especies, los huevos y las larvas se desarrollan en el agua, aunque existen diferentes formas de reproducción.",
+    habitat: "Pueden vivir en bosques húmedos, quebradas, charcas y otros ambientes. La humedad y la calidad del agua son importantes para muchas especies.",
+    importancia: "Muchos anfibios consumen pequeños invertebrados y sirven de alimento para otros animales. Así participan en las redes alimentarias de los ecosistemas.",
+    curiosidad: "En muchas especies, el desarrollo incluye una metamorfosis: el cuerpo cambia entre la etapa larvaria y la adulta.",
+    amenazas: "La contaminación del agua, la destrucción de humedales y bosques, y los cambios ambientales pueden perjudicar a muchas especies de anfibios.",
+    cuidados: ["Proteger quebradas, charcas y bosques.", "No contaminar el agua ni el suelo.", "No capturar anfibios silvestres.", "Evitar destruir refugios y lugares de reproducción.", "Observarlos sin manipularlos."],
+    videos: [
+      ["Conociendo los anfibios", "Aprende sobre ranas, sapos, desarrollo y hábitats.", "videos/anfibios-1.mp4"],
+      ["Protejamos los anfibios", "Descubre por qué los ambientes limpios son importantes.", "videos/anfibios-2.mp4"]
+    ],
+    simbolos: ["🐸", "🦎", "🐊", "💧", "🌧️", "🪷"],
+    preguntas: [
+      ["¿Cuál de estos animales es un anfibio?", ["Águila", "Rana", "Mariposa", "Tiburón"], 1],
+      ["¿Qué característica tiene la piel de muchos anfibios?", ["Es permeable", "Tiene plumas", "Está cubierta de pelo", "Forma un caparazón duro siempre"], 0],
+      ["¿Dónde se desarrollan los huevos de muchas especies?", ["En el aire siempre", "Dentro de árboles", "En el agua", "En arena seca siempre"], 2],
+      ["¿Qué proceso ocurre en muchos anfibios durante su desarrollo?", ["Polinización", "Migración de semillas", "Fotosíntesis", "Metamorfosis"], 3],
+      ["¿Qué comen muchos anfibios?", ["Pequeños invertebrados", "Piedras", "Plástico", "Metal"], 0],
+      ["¿Qué necesitan muchas especies?", ["Agua contaminada", "Ambientes húmedos adecuados", "Humo", "Basura"], 1],
+      ["¿Qué función cumplen en las redes alimentarias?", ["No se relacionan con otros animales", "Solo producen semillas", "Pueden consumir y servir de alimento", "Producen plástico"], 2],
+      ["¿Qué puede perjudicar a los anfibios?", ["La protección del agua", "Conservar los bosques", "Observarlos a distancia", "La contaminación y destrucción de hábitats"], 3],
+      ["¿Cómo debemos observarlos?", ["Sin manipularlos", "Capturándolos", "Llevándolos a casa", "Dañando sus refugios"], 0],
+      ["¿Qué ayuda a conservarlos?", ["Drenar charcas", "Proteger agua y hábitats", "Arrojar químicos", "Destruir la vegetación"], 1]
+    ]
+  },
+  reptiles: {
+    titulo: "Reptiles",
+    categoria: "Animales vertebrados",
+    imagen: "imagenes/reptilgrande.jpg",
+    introduccion: "Los reptiles incluyen serpientes, tortugas, lagartos y cocodrilianos. Son vertebrados y, por lo general, tienen la piel cubierta de escamas. Sus características y hábitos varían entre grupos y especies.",
+    caracteristicas: "Muchos reptiles tienen escamas y respiran mediante pulmones. La mayoría pone huevos, aunque hay especies con otras formas de reproducción.",
+    habitat: "Pueden vivir en bosques, zonas rocosas, humedales, ríos y otros ambientes. Cada especie necesita condiciones particulares para alimentarse, refugiarse y reproducirse.",
+    importancia: "Los reptiles participan en las redes alimentarias. Algunas especies consumen insectos o pequeños animales y otras sirven de alimento a diferentes depredadores.",
+    curiosidad: "Las serpientes son reptiles, pero no todos los reptiles son serpientes: también existen tortugas, lagartos y cocodrilianos.",
+    amenazas: "La pérdida de hábitat, la contaminación, el tráfico de fauna y la persecución por miedo o desconocimiento pueden afectar a los reptiles.",
+    cuidados: ["No capturar ni maltratar reptiles.", "No intentar manipular serpientes desconocidas.", "Conservar bosques, humedales y otros hábitats.", "No comprar animales silvestres como mascotas.", "Ante un animal silvestre en riesgo, contactar a la autoridad ambiental."],
+    videos: [
+      ["Conociendo los reptiles", "Descubre sus características, diversidad y adaptaciones.", "videos/reptiles-1.mp4"],
+      ["Respetemos los reptiles", "Aprende a convivir de manera responsable con la fauna.", "videos/reptiles-2.mp4"]
+    ],
+    simbolos: ["🐍", "🐢", "🦎", "🐊", "🥚", "☀️"],
+    preguntas: [
+      ["¿Cuál de estos animales es un reptil?", ["Mariposa", "Tortuga", "Rana", "Colibrí"], 1],
+      ["¿Qué cubre la piel de muchos reptiles?", ["Escamas", "Plumas", "Pelo", "Musgo"], 0],
+      ["¿Cómo respiran los reptiles?", ["Mediante branquias todos", "Por las hojas", "Mediante pulmones", "Por antenas"], 2],
+      ["¿Cuál afirmación es correcta?", ["Todos los reptiles son serpientes", "Todos viven en el agua", "Todos tienen alas", "Hay serpientes, tortugas y lagartos"], 3],
+      ["¿Dónde pueden vivir?", ["En bosques, humedales y otros ambientes", "Solo en hielo", "Solo en edificios", "Solo bajo el agua"], 0],
+      ["¿Qué función cumplen algunas especies?", ["Producir flores", "Participar en las redes alimentarias", "Crear residuos", "Polinizar todas las plantas"], 1],
+      ["¿Qué puede afectar a los reptiles?", ["La conservación de bosques", "Respetar su espacio", "La pérdida de hábitat y el tráfico de fauna", "Proteger humedales"], 2],
+      ["¿Qué debemos hacer ante una serpiente desconocida?", ["Agarrarla", "Acercar la cara", "Intentar capturarla", "Mantener distancia y no manipularla"], 3],
+      ["¿Cómo debemos tratarlos?", ["Sin maltratarlos ni capturarlos", "Como juguetes", "Como mascotas siempre", "Persiguiéndolos"], 0],
+      ["¿Qué hacer si un reptil está en riesgo?", ["Llevarlo a casa", "Contactar a la autoridad ambiental competente", "Venderlo", "Manipularlo sin orientación"], 1]
+    ]
+  },
+  insectos: {
+    titulo: "Insectos",
+    categoria: "Animales invertebrados",
+    imagen: "imagenes/insectogrande.jpg",
+    introduccion: "Los insectos son animales invertebrados con el cuerpo dividido en cabeza, tórax y abdomen. Tienen seis patas y un par de antenas. Muchas especies poseen alas durante alguna etapa de su vida.",
+    caracteristicas: "Su cuerpo se divide en tres regiones principales: cabeza, tórax y abdomen. Tienen seis patas y un par de antenas. Sus formas, tamaños, colores y hábitos son muy diversos.",
+    habitat: "Los insectos habitan bosques, jardines, praderas, suelos y muchos otros ambientes. Cada especie ocupa lugares adecuados para alimentarse, refugiarse y reproducirse.",
+    importancia: "Algunos insectos polinizan flores, otros descomponen materia orgánica y muchos sirven de alimento para aves, anfibios y otros animales.",
+    curiosidad: "Las mariposas, las abejas, los escarabajos, las hormigas y las libélulas son insectos, aunque tienen formas y comportamientos diferentes.",
+    amenazas: "La pérdida de vegetación, la contaminación y el uso indiscriminado de insecticidas pueden afectar a los insectos y a las funciones que cumplen en los ecosistemas.",
+    cuidados: ["Proteger las plantas y los espacios verdes.", "Evitar el uso indiscriminado de insecticidas.", "No destruir refugios sin necesidad.", "Mantener los ecosistemas limpios.", "Valorar el papel de los insectos en la naturaleza."],
+    videos: [
+      ["Conociendo los insectos", "Descubre sus partes, diversidad y funciones ecológicas.", "videos/insectos-1.mp4"],
+      ["Insectos y biodiversidad", "Aprende cómo ayudan a mantener los ecosistemas.", "videos/insectos-2.mp4"]
+    ],
+    simbolos: ["🦋", "🐝", "🐞", "🐜", "🪲", "🦗"],
+    preguntas: [
+      ["¿Cuántas patas tienen los insectos?", ["Cuatro", "Seis", "Ocho", "Diez"], 1],
+      ["¿En cuántas regiones principales se divide su cuerpo?", ["Tres", "Dos", "Cuatro", "Cinco"], 0],
+      ["¿Qué estructuras tienen en la cabeza?", ["Aletas", "Plumas", "Antenas", "Branquias"], 2],
+      ["¿Cuál de estos animales es un insecto?", ["Rana", "Tortuga", "Murciélago", "Mariposa"], 3],
+      ["¿Qué función cumplen algunas especies?", ["Polinizar flores", "Producir plástico", "Contaminar el agua", "Eliminar todos los árboles"], 0],
+      ["¿Qué pueden hacer algunos insectos?", ["Crear semillas de plástico", "Descomponer materia orgánica", "Producir lluvia", "Eliminar todos los microorganismos"], 1],
+      ["¿Qué animales consumen algunos insectos?", ["Solo árboles", "Solo rocas", "Aves y anfibios, entre otros", "Ningún animal"], 2],
+      ["¿Qué puede afectar a los insectos?", ["Proteger las plantas", "Conservar espacios verdes", "Reducir químicos", "El uso indiscriminado de insecticidas"], 3],
+      ["¿Cómo ayudar a conservarlos?", ["Proteger plantas y espacios verdes", "Destruir toda vegetación", "Contaminar el suelo", "Eliminar refugios"], 0],
+      ["¿Qué debemos evitar?", ["Cuidar los jardines", "Usar insecticidas indiscriminadamente", "Mantener limpio el entorno", "Valorar la polinización"], 1]
+    ]
+  },
+  acuaticos: {
+    titulo: "Fauna acuática",
+    categoria: "Animales de ambientes acuáticos",
+    imagen: "imagenes/fauna-acuatica-grande.jpg",
+    introduccion: "La fauna acuática incluye animales que viven total o parcialmente en el agua. En el Cauca, ríos, quebradas, lagunas y humedales ofrecen hábitats para especies con distintas adaptaciones.",
+    caracteristicas: "Las especies acuáticas presentan diferentes formas de respiración, alimentación y desplazamiento. Algunas pasan toda su vida en el agua y otras dependen de ella durante ciertas etapas o para alimentarse.",
+    habitat: "La fauna acuática puede encontrarse en ríos, quebradas, lagunas, humedales y mares. La temperatura, el oxígeno, la calidad del agua y el alimento influyen en la vida de sus habitantes.",
+    importancia: "Los animales acuáticos participan en las redes alimentarias y contribuyen al funcionamiento de los ecosistemas. Sus poblaciones se relacionan con la calidad y las condiciones de los ambientes donde viven.",
+    curiosidad: "Una quebrada no contiene solamente agua: también ofrece alimento y refugio a numerosos organismos que dependen de la calidad de ese ambiente.",
+    amenazas: "La contaminación, los residuos, la alteración de riberas y humedales, y algunas prácticas de extracción pueden afectar los hábitats y las poblaciones de animales acuáticos.",
+    cuidados: ["No arrojar basura ni sustancias contaminantes al agua.", "Proteger riberas y vegetación cercana.", "Evitar liberar animales domésticos o exóticos en ambientes naturales.", "Respetar las normas de pesca aplicables.", "Cuidar ríos, quebradas, lagunas y humedales."],
+    videos: [
+      ["Conociendo la fauna acuática", "Explora animales que viven en ríos, quebradas y otros ambientes.", "videos/fauna-acuatica-1.mp4"],
+      ["Protejamos el agua y sus animales", "Aprende acciones para reducir la contaminación acuática.", "videos/fauna-acuatica-2.mp4"]
+    ],
+    simbolos: ["🐟", "🐠", "🐙", "🦀", "🐬", "🐢"],
+    preguntas: [
+      ["¿Qué incluye la fauna acuática?", ["Solo aves", "Animales que viven total o parcialmente en el agua", "Solo mamíferos terrestres", "Solo insectos voladores"], 1],
+      ["¿Cómo respiran muchos peces?", ["Mediante branquias", "Por plumas", "Por hojas", "Por antenas"], 0],
+      ["¿Cuál es un ambiente acuático?", ["Una montaña seca", "Un edificio", "Una quebrada", "Una carretera"], 2],
+      ["¿Qué influye en la vida acuática?", ["Solo el color de las piedras", "Solo el ruido", "Solo la luz artificial", "La calidad del agua y el oxígeno, entre otros factores"], 3],
+      ["¿Qué hacen los animales acuáticos?", ["Participan en las redes alimentarias", "Producen plástico", "Eliminan toda vegetación", "Evitan los ciclos naturales"], 0],
+      ["¿Qué puede contaminar los ríos?", ["Proteger las riberas", "Basura y sustancias contaminantes", "Conservar la vegetación", "Observar responsablemente"], 1],
+      ["¿Qué ofrece una quebrada a sus habitantes?", ["Solo agua sin vida", "Únicamente piedras", "Refugio y alimento", "Solo arena seca"], 2],
+      ["¿Qué debemos evitar?", ["Cuidar el agua", "Proteger humedales", "Mantener limpias las riberas", "Arrojar residuos al agua"], 3],
+      ["¿Cómo proteger ambientes acuáticos?", ["Reducir la contaminación", "Arrojar químicos", "Destruir la vegetación ribereña", "Abandonar residuos"], 0],
+      ["¿Qué hacer con animales exóticos?", ["Liberarlos en cualquier río", "No liberarlos en ambientes naturales", "Abandonarlos en lagunas", "Trasladarlos sin orientación"], 1]
+    ]
+  }
+};
+
+const parametros = new URLSearchParams(window.location.search);
+const clave = parametros.get("animal") || "mamiferos";
+const animal = fauna[clave] || fauna.mamiferos;
+const $ = id => document.getElementById(id);
+
+document.title = animal.titulo + " | Vida Silvestre Cauca";
+$("imagen-animal").src = animal.imagen;
+$("imagen-animal").alt = animal.titulo;
+$("categoria-animal").textContent = animal.categoria;
+$("titulo-animal").textContent = animal.titulo;
+$("introduccion-animal").textContent = animal.introduccion;
+$("caracteristicas-animal").textContent = animal.caracteristicas;
+$("habitat-animal").textContent = animal.habitat;
+$("importancia-animal").textContent = animal.importancia;
+$("curiosidad-animal").textContent = animal.curiosidad;
+$("amenazas-animal").textContent = animal.amenazas;
+
+animal.cuidados.forEach(cuidado => {
+  const li = document.createElement("li");
+  li.textContent = cuidado;
+  $("cuidados-animal").appendChild(li);
+});
+
+$("introduccion-juegos").textContent =
+  "Pon a prueba lo que aprendiste sobre " +
+  animal.titulo.toLowerCase() +
+  ". Primero responde el cuestionario y después encuentra las parejas.";
+
+
+ // Videos correspondientes a cada categoría.
+animal.videos.forEach((video, indice) => {
+  const tarjeta = document.createElement("article");
+  tarjeta.className = "video-card";
+
+  const reproductor = document.createElement("video");
+  reproductor.controls = true;
+  reproductor.preload = "metadata";
+  reproductor.playsInline = true;
+
+  // Identificar cada video de forma independiente.
+  reproductor.dataset.video = video[2];
+  reproductor.setAttribute("aria-label", video[0]);
+
+  const fuente = document.createElement("source");
+  fuente.src = new URL(video[2], document.baseURI).href;
+  fuente.type = "video/mp4";
+
+  reproductor.appendChild(fuente);
+
+  // Mostrar un mensaje si el navegador no logra cargarlo.
+  reproductor.addEventListener("error", () => {
+    console.error(
+      "Error al cargar el video:",
+      video[0],
+      fuente.src,
+      reproductor.error
+    );
+  });
+
+  fuente.addEventListener("error", () => {
+    console.error("No se pudo cargar el archivo:", fuente.src);
+  });
+
+  const contenido = document.createElement("div");
+  contenido.className = "video-contenido";
+
+  const titulo = document.createElement("h3");
+  titulo.textContent = video[0];
+
+  const descripcion = document.createElement("p");
+  descripcion.textContent = video[1];
+
+  contenido.append(titulo, descripcion);
+  tarjeta.append(reproductor, contenido);
+  $("videos").appendChild(tarjeta);
+});
+
+
+// CUESTIONARIO.
+let indicePregunta = 0;
+let puntos = 0;
+let respondida = false;
+
+function mostrarPregunta() {
+  respondida = false;
+  const pregunta = animal.preguntas[indicePregunta];
+
+  $("pregunta-numero").textContent =
+    "Pregunta " + (indicePregunta + 1) +
+    " de " + animal.preguntas.length;
+  $("puntaje").textContent = "Puntos: " + puntos;
+  $("pregunta-texto").textContent = pregunta[0];
+  $("opciones").innerHTML = "";
+  $("retroalimentacion").textContent = "";
+  $("siguiente").hidden = true;
+
+  $("progreso-barra").style.width =
+    (indicePregunta / animal.preguntas.length * 100) + "%";
+
+  pregunta[1].forEach((opcion, indice) => {
+    const boton = document.createElement("button");
+    boton.className = "opcion";
+    boton.textContent = opcion;
+    boton.addEventListener("click", () => responder(indice, boton));
+    $("opciones").appendChild(boton);
+  });
+}
+
+function responder(seleccion, botonSeleccionado) {
+  if (respondida) return;
+  respondida = true;
+
+  const pregunta = animal.preguntas[indicePregunta];
+
+  [...$("opciones").children].forEach((boton, indice) => {
+    boton.disabled = true;
+    if (indice === pregunta[2]) boton.classList.add("correcta");
+  });
+
+  if (seleccion === pregunta[2]) {
+    puntos++;
+    $("retroalimentacion").textContent = "¡Muy bien! Respuesta correcta.";
+  } else {
+    botonSeleccionado.classList.add("incorrecta");
+    $("retroalimentacion").textContent =
+      "La respuesta correcta es: " + pregunta[1][pregunta[2]] + ".";
+  }
+
+  $("puntaje").textContent = "Puntos: " + puntos;
+  $("progreso-barra").style.width =
+    ((indicePregunta + 1) / animal.preguntas.length * 100) + "%";
+
+  $("siguiente").textContent =
+    indicePregunta === animal.preguntas.length - 1
+      ? "Ver resultado →"
+      : "Siguiente pregunta →";
+
+  $("siguiente").hidden = false;
+}
+
+function reiniciarPreguntas() {
+  indicePregunta = 0;
+  puntos = 0;
+  $("resultado").hidden = true;
+  $("zona-preguntas").hidden = false;
+  $("contenedor-progreso").hidden = false;
+  mostrarPregunta();
+}
+
+$("siguiente").addEventListener("click", () => {
+  if (!respondida) return;
+
+  if (indicePregunta < animal.preguntas.length - 1) {
+    indicePregunta++;
+    mostrarPregunta();
+  } else {
+    $("zona-preguntas").hidden = true;
+    $("contenedor-progreso").hidden = true;
+    $("resultado").hidden = false;
+    $("resultado-puntaje").textContent =
+      puntos + " de " + animal.preguntas.length;
+
+    $("resultado-mensaje").textContent =
+      puntos === animal.preguntas.length
+        ? "¡Excelente! Respondiste todas correctamente."
+        : puntos >= 7
+          ? "¡Muy bien! Puedes repasar y volver a intentarlo."
+          : "¡Buen intento! Lee de nuevo la información y juega otra vez.";
+  }
+});
+
+$("reiniciar-preguntas").addEventListener("click", reiniciarPreguntas);
+$("volver-a-jugar").addEventListener("click", reiniciarPreguntas);
+mostrarPregunta();
+
+// JUEGO DE MEMORIA.
+let cartasElegidas = [];
+let parejasEncontradas = 0;
+let intentos = 0;
+let bloqueado = false;
+let partida = 0;
+
+function crearTablero() {
+  partida++;
+  cartasElegidas = [];
+  parejasEncontradas = 0;
+  intentos = 0;
+  bloqueado = false;
+
+  $("parejas").textContent = "Parejas: 0 de 6";
+  $("intentos").textContent = "Intentos: 0";
+  $("mensaje-memoria").textContent =
+    "¡Encuentra las seis parejas de " + animal.titulo.toLowerCase() + "!";
+  $("titulo-memoria").textContent =
+    "🎲 ¡Encuentra las parejas de " + animal.titulo.toLowerCase() + "!";
+
+  const mazo = [...animal.simbolos, ...animal.simbolos];
+
+  for (let i = mazo.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [mazo[i], mazo[j]] = [mazo[j], mazo[i]];
+  }
+
+  $("tablero").innerHTML = "";
+
+  mazo.forEach((simbolo, indice) => {
+    const carta = document.createElement("button");
+    carta.className = "carta";
+    carta.textContent = "❔";
+    carta.setAttribute("aria-label", "Carta oculta " + (indice + 1));
+    carta.dataset.simbolo = simbolo;
+    carta.addEventListener("click", () => voltearCarta(carta));
+    $("tablero").appendChild(carta);
+  });
+}
+
+function voltearCarta(carta) {
+  if (
+    bloqueado ||
+    carta.classList.contains("revelada") ||
+    carta.classList.contains("encontrada")
+  ) return;
+
+  carta.textContent = carta.dataset.simbolo;
+  carta.classList.add("revelada");
+  carta.setAttribute("aria-label", carta.dataset.simbolo);
+  cartasElegidas.push(carta);
+
+  if (cartasElegidas.length !== 2) return;
+
+  intentos++;
+  $("intentos").textContent = "Intentos: " + intentos;
+
+  const [primera, segunda] = cartasElegidas;
+
+  if (primera.dataset.simbolo === segunda.dataset.simbolo) {
+    primera.classList.add("encontrada");
+    segunda.classList.add("encontrada");
+    primera.disabled = true;
+    segunda.disabled = true;
+    cartasElegidas = [];
+    parejasEncontradas++;
+
+    $("parejas").textContent = "Parejas: " + parejasEncontradas + " de 6";
+    $("mensaje-memoria").textContent =
+      parejasEncontradas === 6
+        ? "🎉 ¡Lo lograste! Encontraste las seis parejas en " + intentos + " intentos."
+        : "¡Pareja encontrada! Sigue buscando.";
+  } else {
+    bloqueado = true;
+    const partidaActual = partida;
+
+    window.setTimeout(() => {
+      if (partidaActual !== partida) return;
+
+      primera.textContent = "❔";
+      segunda.textContent = "❔";
+      primera.classList.remove("revelada");
+      segunda.classList.remove("revelada");
+      primera.setAttribute("aria-label", "Carta oculta");
+      segunda.setAttribute("aria-label", "Carta oculta");
+      cartasElegidas = [];
+      bloqueado = false;
+      $("mensaje-memoria").textContent =
+        "No coinciden. ¡Prueba con otras cartas!";
+    }, 800);
+  }
+}
+
+$("reiniciar-memoria").addEventListener("click", crearTablero);
+crearTablero();
+</script>
+</body>
+</html>

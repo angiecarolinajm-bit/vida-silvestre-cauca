@@ -1,0 +1,692 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Descubre la flora, las plantas y la riqueza vegetal del Cauca y aprende a proteger la biodiversidad.">
+  <title>Flora | Vida Silvestre Cauca</title>
+
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+
+  <style>
+    :root {
+      --verde: #28543a;
+      --verde-oscuro: #173d2b;
+      --texto: #526255;
+      --morado: #75409a;
+      --morado-oscuro: #54266f;
+      --lila: #e5d0f5;
+      --rosa: #f7dce9;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--texto);
+      font-size: 16px;
+    }
+
+    .flora-header {
+      width: 100%;
+      min-height: 135px;
+      padding: 20px 5%;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(110deg, #d7b3f0, #e8ccfa, #f4d9ee);
+      border-bottom: 2px solid #c49cde;
+    }
+
+    .flora-header .flora-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 17px;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .flora-header .brand-mark {
+      font-size: 2.8rem;
+      line-height: 1;
+    }
+
+    .flora-header .flora-brand strong {
+      display: block;
+      color: var(--morado-oscuro);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.2;
+      letter-spacing: 1.5px;
+    }
+
+    .flora-header .flora-brand small {
+      display: block;
+      margin-top: 7px;
+      color: #75409a;
+      font-size: 1.2rem;
+    }
+
+    .flora-hero {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 42px;
+      align-items: center;
+      padding: 58px 6%;
+      background: linear-gradient(120deg, #e8f1e1, #fbf3f8 60%, #e9dafa);
+    }
+
+    .flora-hero-contenido { max-width: 650px; }
+
+    .flora-etiqueta {
+      color: var(--morado);
+      font-size: .85rem;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .flora-hero h1 {
+      color: var(--verde-oscuro);
+      font-size: clamp(2.2rem, 4vw, 3.6rem);
+      line-height: 1.12;
+      margin: 16px 0;
+    }
+
+    .flora-hero p {
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .flora-hero-imagen {
+      display: block;
+      width: 100%;
+      height: 360px;
+      object-fit: cover;
+      border-radius: 28px 65px 28px 28px;
+      box-shadow: 0 15px 35px #50334d20;
+    }
+
+    .flora-botones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .flora-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 20px;
+      border-radius: 999px;
+      font-size: .96rem;
+      font-weight: 750;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .flora-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 18px #6e47751c;
+    }
+
+    .flora-btn-principal {
+      background: var(--verde);
+      color: white;
+    }
+
+    .flora-btn-secundario {
+      border: 1px solid #b58eb8;
+      color: #704477;
+      background: #fffafc;
+    }
+
+    .flora-beneficios {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      padding: 24px 6%;
+      background: linear-gradient(110deg, #e8d4fa, #f6e3f4, #e1d4f7);
+    }
+
+    .flora-beneficio {
+      display: flex;
+      gap: 13px;
+      align-items: center;
+      padding: 19px;
+      border: 1px solid #d8bde9;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .9);
+      box-shadow: 0 5px 16px #81517b0b;
+    }
+
+    .flora-beneficio .icono {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .flora-beneficio strong {
+      display: block;
+      color: var(--morado);
+      font-size: 1.03rem;
+      margin-bottom: 5px;
+    }
+
+    .flora-beneficio small {
+      color: #68556d;
+      font-size: .94rem;
+      line-height: 1.6;
+    }
+
+    .flora-contenido {
+      max-width: 1280px;
+      margin: auto;
+      padding: 58px 6%;
+    }
+
+    .flora-introduccion {
+      max-width: 850px;
+      margin: 0 auto 35px;
+      text-align: center;
+    }
+
+    .flora-introduccion h2 {
+      color: var(--verde);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      margin: 12px 0;
+    }
+
+    .flora-introduccion p {
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .flora-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .flora-card {
+      overflow: hidden;
+      border: 1px solid #eadfeb;
+      border-radius: 20px;
+      background: white;
+      box-shadow: 0 8px 25px #51334e0c;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .flora-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 28px #51334e19;
+    }
+
+    .flora-card img {
+      display: block;
+      width: 100%;
+      height: 225px;
+      object-fit: cover;
+      background: #f3eaf5;
+    }
+
+    .flora-card-body { padding: 22px; }
+
+    .flora-card .flora-etiqueta { font-size: .78rem; }
+
+    .flora-card h3 {
+      margin: 10px 0;
+      color: var(--verde);
+      font-size: 1.3rem;
+    }
+
+    .flora-card p {
+      font-size: .97rem;
+      line-height: 1.8;
+    }
+
+    .flora-dato {
+      margin-top: 15px;
+      padding: 13px;
+      border-radius: 12px;
+      background: #f0e5fa;
+      color: #654c70;
+      font-size: .93rem;
+      line-height: 1.7;
+    }
+
+    /* ÚNICO CAMBIO: ENLACE PEQUEÑO QUE ABRE OTRA PÁGINA */
+    .flora-enlace-detalle {
+      display: inline-block;
+      margin-top: 13px;
+      color: var(--morado);
+      font-size: .88rem;
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .flora-enlace-detalle:hover {
+      color: var(--morado-oscuro);
+    }
+
+    .flora-cierre {
+      margin-top: 50px;
+      padding: 35px;
+      border-radius: 26px;
+      background: linear-gradient(130deg, #e5d0f5, #f5ddec 52%, #dcd7f7);
+      border: 1px solid #d6b8e9;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 32px;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .flora-cierre .flora-etiqueta { color: var(--morado); }
+
+    .flora-cierre h2 {
+      color: var(--morado-oscuro);
+      font-size: clamp(1.7rem, 3vw, 2.35rem);
+      line-height: 1.25;
+      margin: 12px 0;
+    }
+
+    .flora-cierre p,
+    .flora-cierre li {
+      color: #66536d;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .flora-cierre ul {
+      padding-left: 22px;
+      margin-bottom: 24px;
+    }
+
+    .flora-cierre li { margin-bottom: 5px; }
+
+    .flora-cierre .flora-btn-principal {
+      background: linear-gradient(110deg, #75409a, #a34e91);
+      color: white;
+      box-shadow: 0 7px 18px #9a528b25;
+    }
+
+    .flora-cierre-imagen {
+      display: block;
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 22px 60px 22px 22px;
+      box-shadow: 0 12px 30px #78518b22;
+    }
+
+    .site-footer {
+      background: linear-gradient(110deg, #d9b9f0, #ead5fa, #e3c8f2);
+      color: var(--morado-oscuro);
+      text-align: center;
+      padding: 32px 6%;
+    }
+
+    .site-footer p {
+      max-width: 750px;
+      margin: 0 auto 12px;
+      text-align: center;
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .site-footer a {
+      display: inline-block;
+      color: var(--morado-oscuro);
+      font-weight: 750;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .flora-hero {
+        grid-template-columns: 1fr;
+        gap: 26px;
+      }
+
+      .flora-hero-imagen { height: 320px; }
+
+      .flora-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .flora-beneficios { grid-template-columns: 1fr; }
+
+      .flora-cierre { grid-template-columns: 1fr; }
+
+      .flora-cierre-imagen { height: 290px; }
+    }
+
+    @media (max-width: 580px) {
+      .flora-header {
+        min-height: 110px;
+        padding: 18px 4%;
+      }
+
+      .flora-header .brand-mark { font-size: 2rem; }
+
+      .flora-header .flora-brand { gap: 10px; }
+
+      .flora-header .flora-brand strong {
+        font-size: 1.65rem;
+        letter-spacing: .5px;
+      }
+
+      .flora-header .flora-brand small { font-size: 1rem; }
+
+      .flora-hero { padding: 40px 5%; }
+
+      .flora-hero-imagen { height: 245px; }
+
+      .flora-contenido { padding: 40px 5%; }
+
+      .flora-grid { grid-template-columns: 1fr; }
+
+      .flora-card img { height: 245px; }
+
+      .flora-cierre { padding: 23px; }
+
+      .flora-beneficios { padding: 20px 5%; }
+
+      .flora-beneficio { padding: 17px; }
+
+      .flora-beneficio small { font-size: .92rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header flora-header">
+  <a class="brand flora-brand" href="index.html" aria-label="Regresar al inicio">
+    <span class="brand-mark">🌿</span>
+    <span>
+      <strong>VIDA SILVESTRE</strong>
+      <small>Conócelas, cuídalas</small>
+    </span>
+  </a>
+</header>
+
+<main>
+
+  <section class="flora-hero">
+    <div class="flora-hero-contenido">
+      <span class="flora-etiqueta">🌱 Riqueza vegetal del Cauca</span>
+
+      <h1>Un mundo verde por descubrir</h1>
+
+      <p>
+        Desde pequeñas semillas hasta los árboles que protegen nuestros bosques,
+        las plantas sostienen la vida. Descubre sus formas y aprende cómo ayudar
+        a conservar la riqueza vegetal de nuestro territorio.
+      </p>
+
+      <div class="flora-botones">
+        <a class="flora-btn flora-btn-principal" href="#explorar-plantas">
+          Descubre las plantas ↓
+        </a>
+
+        <a class="flora-btn flora-btn-secundario" href="#cuidar-flora">
+          Cómo podemos cuidarlas 🌿
+        </a>
+      </div>
+    </div>
+
+    <img class="flora-hero-imagen"
+         src="imagenes/semillas.jpg"
+         alt="Brote verde que comienza a crecer en la tierra">
+  </section>
+
+  <section class="flora-beneficios" aria-label="Importancia de las plantas">
+
+    <div class="flora-beneficio">
+      <span class="icono" aria-hidden="true">🌬️</span>
+      <div>
+        <strong>Aire y vida</strong>
+        <small>Participan en el ciclo del oxígeno y el carbono.</small>
+      </div>
+    </div>
+
+    <div class="flora-beneficio">
+      <span class="icono" aria-hidden="true">💧</span>
+      <div>
+        <strong>Agua y suelo</strong>
+        <small>La vegetación ayuda a proteger el suelo y el agua.</small>
+      </div>
+    </div>
+
+    <div class="flora-beneficio">
+      <span class="icono" aria-hidden="true">🐝</span>
+      <div>
+        <strong>Hogar para la vida</strong>
+        <small>Ofrece alimento y refugio a muchos organismos.</small>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="flora-contenido" id="explorar-plantas">
+
+    <div class="flora-introduccion">
+      <span class="flora-etiqueta">Explora y aprende</span>
+
+      <h2>Pequeñas maravillas del mundo vegetal</h2>
+
+      <p>
+        Las plantas producen alimento, participan en los ciclos naturales,
+        ayudan a proteger el suelo y ofrecen refugio a numerosos seres vivos.
+        Cada grupo vegetal cumple funciones importantes en los ecosistemas.
+      </p>
+    </div>
+
+    <div class="flora-grid">
+
+      <!-- 1. ORQUÍDEAS -->
+      <article class="flora-card">
+        <img src="imagenes/orquidea%201.jpg"
+             alt="Orquídea de flores rosadas y moradas"
+             loading="lazy">
+
+        <div class="flora-card-body">
+          <span class="flora-etiqueta">Plantas con flores</span>
+          <h3>Orquídeas</h3>
+
+          <p>
+            Se destacan por la variedad de formas y colores. Muchas dependen
+            de polinizadores y de condiciones ambientales adecuadas para desarrollarse.
+          </p>
+
+          <div class="flora-dato">
+            <strong>Dato curioso:</strong> algunas crecen sobre ramas como soporte,
+            sin parasitar al árbol.
+          </div>
+
+          <a class="flora-enlace-detalle" href="detalle-flora.html?planta=orquideas">Saber más →</a>
+        </div>
+      </article>
+
+      <!-- 2. BROMELIAS -->
+      <article class="flora-card">
+        <img src="imagenes/bromelias.jpg"
+             alt="Bromelia tropical con hojas en roseta"
+             loading="lazy">
+
+        <div class="flora-card-body">
+          <span class="flora-etiqueta">Plantas tropicales</span>
+          <h3>Bromelias</h3>
+
+          <p>
+            Algunas forman una roseta de hojas que puede retener agua y crear
+            pequeños espacios para otros organismos.
+          </p>
+
+          <div class="flora-dato">
+            <strong>Su importancia:</strong> contribuyen a la diversidad
+            de microhábitats.
+          </div>
+
+          <a class="flora-enlace-detalle" href="detalle-flora.html?planta=bromelias">Saber más →</a>
+        </div>
+      </article>
+
+      <!-- 3. HELECHOS -->
+      <article class="flora-card">
+        <img src="imagenes/helechos.jpg"
+             alt="Frondas verdes de un helecho"
+             loading="lazy">
+
+        <div class="flora-card-body">
+          <span class="flora-etiqueta">Vegetación de bosque</span>
+          <h3>Helechos</h3>
+
+          <p>
+            No producen flores ni semillas: se reproducen mediante esporas.
+            Muchas especies prefieren lugares húmedos y sombreados.
+          </p>
+
+          <div class="flora-dato">
+            <strong>Para descubrir:</strong> algunas hojas presentan grupos
+            de esporas en su parte inferior.
+          </div>
+
+          <a class="flora-enlace-detalle" href="detalle-flora.html?planta=helechos">Saber más →</a>
+        </div>
+      </article>
+
+      <!-- 4. ÁRBOLES NATIVOS -->
+      <article class="flora-card">
+        <img src="imagenes/arbolesnativos.jpg"
+             alt="Árboles que forman parte de un bosque"
+             loading="lazy">
+
+        <div class="flora-card-body">
+          <span class="flora-etiqueta">Bosques y hábitats</span>
+          <h3>Árboles nativos</h3>
+
+          <p>
+            Los árboles propios de cada región pueden ofrecer alimento y refugio,
+            almacenar carbono y contribuir a proteger el suelo y el agua.
+          </p>
+
+          <div class="flora-dato">
+            <strong>Acción responsable:</strong> conservar los árboles existentes
+            y elegir especies adecuadas al territorio para restaurar.
+          </div>
+
+          <a class="flora-enlace-detalle" href="detalle-flora.html?planta=arboles">Saber más →</a>
+        </div>
+      </article>
+
+      <!-- 5. MUSGOS -->
+      <article class="flora-card">
+        <img src="imagenes/musgos.jpg"
+             alt="Musgos verdes creciendo sobre una superficie húmeda"
+             loading="lazy">
+
+        <div class="flora-card-body">
+          <span class="flora-etiqueta">Pequeñas plantas</span>
+          <h3>Musgos</h3>
+
+          <p>
+            Son plantas pequeñas frecuentes en ambientes húmedos. Contribuyen
+            a mantener microambientes en las superficies donde crecen.
+          </p>
+
+          <div class="flora-dato">
+            <strong>Recuerda:</strong> obsérvalos y fotografíalos sin extraerlos
+            ni dañar su hábitat.
+          </div>
+
+          <a class="flora-enlace-detalle" href="detalle-flora.html?planta=musgos">Saber más →</a>
+        </div>
+      </article>
+
+      <!-- 6. LAS PLANTAS Y SU ECOSISTEMA -->
+      <article class="flora-card">
+        <img src="imagenes/ilustracioneducativa.jpg"
+             alt="Ilustración educativa de árboles, plantas, raíces y suelo"
+             loading="lazy">
+
+        <div class="flora-card-body">
+          <span class="flora-etiqueta">Aprende con imágenes</span>
+          <h3>Las plantas y su ecosistema</h3>
+
+          <p>
+            Las plantas se relacionan con el suelo, el agua, la luz, los animales
+            y otros organismos. Estas conexiones ayudan a sostener los ecosistemas.
+          </p>
+
+          <div class="flora-dato">
+            <strong>Observa:</strong> identifica las raíces, las hojas y el suelo
+            en la ilustración.
+          </div>
+
+          <a class="flora-enlace-detalle" href="detalle-flora.html?planta=ecosistema">Saber más →</a>
+        </div>
+      </article>
+
+    </div>
+
+    <section class="flora-cierre" id="cuidar-flora">
+
+      <div>
+        <span class="flora-etiqueta">🌸 Pequeñas acciones, grandes aportes</span>
+
+        <h2>¡Cuidar las plantas también es cuidar la vida!</h2>
+
+        <p>
+          La naturaleza necesita de nuestras acciones. Con pequeños hábitos
+          podemos contribuir a proteger las flores, los bosques y los seres
+          vivos que dependen de ellos.
+        </p>
+
+        <ul>
+          <li>Evita extraer plantas de su ambiente natural.</li>
+          <li>Protege los bosques y las fuentes de agua.</li>
+          <li>No arrojes residuos en zonas verdes ni quebradas.</li>
+          <li>Participa en iniciativas responsables de restauración ecológica.</li>
+          <li>Observa y fotografía las plantas sin dañar su entorno.</li>
+        </ul>
+
+        <a class="flora-btn flora-btn-principal" href="conservacion.html">
+          Conoce más sobre conservación →
+        </a>
+      </div>
+
+      <img class="flora-cierre-imagen"
+           src="imagenes/restauracion.jpg"
+           alt="Manos sembrando una planta joven en la tierra"
+           loading="lazy">
+
+    </section>
+
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Vida Silvestre · Conócelas, cuídalas</p>
+  <a href="index.html">← Regresar a Inicio</a>
+</footer>
+
+</body>
+</html>

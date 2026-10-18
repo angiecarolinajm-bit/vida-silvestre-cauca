@@ -1,0 +1,1681 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Aprende sobre las amenazas a la biodiversidad y descubre cómo proteger la vida silvestre del Cauca.">
+<title>Amenazas y conservación | Vida Silvestre</title>
+
+<style>
+:root {
+  --azul: #1261ff;
+  --azul-brillante: #008cff;
+  --azul-oscuro: #082b68;
+  --rojo: #ff1744;
+  --rojo-oscuro: #c90032;
+  --texto: #35445f;
+  --fondo: #edf4ff;
+  --azul-claro: #e4efff;
+  --rosa-claro: #fff0f3;
+  --blanco: #ffffff;
+  --borde: #dce7fa;
+  --sombra: 0 12px 30px rgba(8,43,104,.10);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.7;
+}
+
+a { text-decoration: none; }
+button, input { font: inherit; }
+
+header {
+  text-align: center;
+  padding: 22px 15px;
+  background: linear-gradient(115deg,#082b68,#1261d8 52%,#ff1744);
+  border-bottom: 4px solid #ff3155;
+  box-shadow: 0 5px 20px #082b6820;
+}
+
+.marca {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.marca h1 {
+  font-size: clamp(1.8rem,4vw,2.7rem);
+  font-weight: 900;
+  color: white;
+  line-height: 1.2;
+}
+
+.marca p {
+  color: white;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.linea {
+  width: 90px;
+  height: 4px;
+  border-radius: 10px;
+  background: white;
+  margin-top: 10px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 13px;
+  background: #e2ecff;
+  border-bottom: 1px solid var(--borde);
+}
+
+nav a {
+  color: var(--azul-oscuro);
+  font-size: .9rem;
+  font-weight: 800;
+  padding: 8px 14px;
+  border-radius: 20px;
+}
+
+nav a:hover {
+  color: white;
+  background: var(--azul);
+}
+
+nav a.volver {
+  color: var(--rojo-oscuro);
+  background: #ffe1e9;
+}
+
+.hero {
+  padding: 60px 22px;
+  text-align: center;
+  background: linear-gradient(120deg,#d8eaff,#edf1ff 48%,#ffe0e8);
+}
+
+.hero-contenido {
+  max-width: 900px;
+  margin: auto;
+}
+
+.etiqueta {
+  display: inline-block;
+  padding: 6px 15px;
+  border-radius: 30px;
+  background: #ffe3eb;
+  color: var(--rojo-oscuro);
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.hero h2 {
+  color: var(--azul-oscuro);
+  font-size: clamp(2rem,5vw,3.4rem);
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+
+.hero h2 span { color: var(--rojo); }
+
+.hero p {
+  max-width: 750px;
+  margin: auto;
+  font-size: 1.04rem;
+}
+
+.contenedor {
+  max-width: 1100px;
+  margin: auto;
+  padding: 35px 20px 65px;
+}
+
+.selector {
+  background: #e3eeff;
+  border: 1px solid #d2e2ff;
+  padding: 22px;
+  border-radius: 20px;
+  margin-bottom: 30px;
+}
+
+.selector h2 {
+  color: var(--azul-oscuro);
+  font-size: 1.25rem;
+  margin-bottom: 14px;
+}
+
+.temas {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 12px;
+}
+
+.tema-btn {
+  cursor: pointer;
+  border: 1px solid #d7e3f8;
+  border-radius: 12px;
+  background: #fff7f9;
+  color: var(--azul-oscuro);
+  font-weight: 800;
+  font-size: .9rem;
+  padding: 13px 10px;
+  transition: .2s;
+}
+
+.tema-btn:hover,
+.tema-btn.activo {
+  color: white;
+  background: linear-gradient(110deg,var(--azul),var(--rojo));
+  border-color: transparent;
+  transform: translateY(-2px);
+}
+
+.panel {
+  background: #fff9fa;
+  border: 1px solid var(--borde);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--sombra);
+}
+
+.panel-cabecera {
+  padding: 35px;
+  background: linear-gradient(120deg,#e2efff,#fff0f3);
+  border-bottom: 1px solid var(--borde);
+}
+
+.panel-cabecera h2 {
+  color: var(--azul-oscuro);
+  font-size: clamp(1.8rem,4vw,2.6rem);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.panel-cabecera h2 span { color: var(--rojo); }
+
+.panel-cuerpo { padding: 30px; }
+.bloque { margin-bottom: 32px; }
+.bloque:last-child { margin-bottom: 0; }
+
+.bloque h3 {
+  font-size: 1.35rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 12px;
+}
+
+.bloque h3 span { color: var(--rojo); }
+.bloque p { margin-bottom: 12px; }
+
+.lista {
+  padding-left: 24px;
+  margin: 12px 0;
+}
+
+.lista li { margin-bottom: 8px; }
+
+.dato {
+  padding: 17px 20px;
+  border-left: 5px solid var(--rojo);
+  background: #ffeaf0;
+  border-radius: 0 13px 13px 0;
+  margin: 18px 0;
+}
+
+.dato strong { color: var(--rojo-oscuro); }
+
+.mensaje-azul {
+  padding: 17px 20px;
+  border-left: 5px solid var(--azul);
+  background: #e7f0ff;
+  border-radius: 0 13px 13px 0;
+  margin: 18px 0;
+}
+
+.imagen-grande {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 17px;
+  background: linear-gradient(135deg,#dceaff,#ffe3eb);
+  border: 1px solid var(--borde);
+  display: block;
+}
+
+.pie-imagen {
+  color: #68758b;
+  font-size: .83rem;
+  margin-top: 8px;
+}
+
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 18px;
+}
+
+.galeria img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 14px;
+  background: linear-gradient(135deg,#dceaff,#ffe3eb);
+  border: 1px solid var(--borde);
+}
+
+.galeria .pie-imagen {
+  color: var(--rojo);
+  font-weight: 800;
+  margin-top: 8px;
+}
+
+/* VIDEOS PEQUEÑOS, UNO AL LADO DEL OTRO */
+.videos-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 20px;
+}
+
+.video-item {
+  min-width: 0;
+}
+
+.video {
+  display: block;
+  width: 100%;
+  height: 255px;
+  object-fit: contain;
+  object-position: center;
+  background: #dce8ff;
+  border: 1px solid #cbdcff;
+  border-radius: 15px;
+  margin-top: 12px;
+}
+
+.titulo-video {
+  display: block;
+  padding: 11px 14px;
+  color: #1261ff;
+  background: linear-gradient(100deg,#e4efff,#f0f5ff);
+  border-left: 5px solid #1261ff;
+  border-radius: 0 10px 10px 0;
+  font-size: .95rem;
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.video-ayuda {
+  color: #68758b;
+  font-size: .85rem;
+  margin-top: 8px;
+}
+
+.recomendaciones {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 12px;
+}
+
+.recomendacion {
+  background: #eaf2ff;
+  border: 1px solid #dbe7fa;
+  border-radius: 14px;
+  padding: 17px;
+}
+
+.recomendacion strong {
+  display: block;
+  color: var(--azul-oscuro);
+  margin-bottom: 5px;
+}
+
+.boton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 20px;
+  color: white;
+  background: linear-gradient(100deg,var(--azul),var(--azul-brillante));
+  font-weight: 800;
+  transition: .2s;
+}
+
+.boton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px #1261ff30;
+}
+
+.boton-rojo {
+  background: linear-gradient(100deg,#c90032,#ff3155);
+}
+
+.juegos {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+.juego {
+  padding: 28px;
+  border-radius: 22px;
+  background: linear-gradient(135deg,#e3eeff,#fff0f3);
+  border: 1px solid var(--borde);
+  box-shadow: var(--sombra);
+}
+
+.juego h2 {
+  color: var(--azul-oscuro);
+  font-size: 1.7rem;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.juego h2 span { color: var(--rojo); }
+.juego-intro { margin-bottom: 20px; }
+
+.pregunta {
+  padding: 18px;
+  border-radius: 14px;
+  background: #fffafb;
+  border: 1px solid #f4dce4;
+  margin-bottom: 15px;
+}
+
+.pregunta h3 {
+  color: var(--azul-oscuro);
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.opcion {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.opcion:hover { background: #e9f1ff; }
+
+.opcion input {
+  margin-top: 6px;
+  accent-color: var(--azul);
+}
+
+.resultado {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #e4efff;
+  color: var(--azul-oscuro);
+  font-weight: 700;
+}
+
+.resultado:empty,
+.resultado[hidden] {
+  display: none;
+}
+
+/* SOPA DE LETRAS */
+.sopa-instrucciones {
+  margin-bottom: 15px;
+}
+
+.sopa {
+  display: grid;
+  grid-template-columns: repeat(12,minmax(0,1fr));
+  gap: 4px;
+  max-width: 520px;
+  margin: 20px auto;
+}
+
+.letra {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid #ccdcf5;
+  border-radius: 6px;
+  background: #fff9fa;
+  color: var(--azul-oscuro);
+  font-size: clamp(.65rem,1.8vw,.95rem);
+  font-weight: 900;
+  cursor: pointer;
+  user-select: none;
+  transition: .15s;
+  min-width: 0;
+}
+
+.letra:hover { background: #dceaff; }
+
+.letra.seleccionada {
+  color: white;
+  background: var(--azul);
+  border-color: var(--azul);
+}
+
+.letra.encontrada {
+  color: white;
+  background: var(--rojo);
+  border-color: var(--rojo);
+}
+
+/* AYUDA: PALABRA RESALTADA EN AMARILLO */
+.letra.pista {
+  color: #082b68;
+  background: #ffd54f;
+  border: 2px solid #ff9800;
+  box-shadow: 0 0 9px rgba(255,152,0,.5);
+}
+
+.palabras {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+  margin: 18px 0;
+}
+
+.palabra {
+  background: #fff9fa;
+  border: 1px solid #f0dbe2;
+  border-radius: 25px;
+  padding: 6px 12px;
+  color: var(--azul-oscuro);
+  font-weight: 800;
+  font-size: .85rem;
+}
+
+.palabra.encontrada {
+  background: #dceaff;
+  color: var(--azul);
+  text-decoration: line-through;
+  border-color: #b9d2ff;
+}
+
+.controles-sopa {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.aviso-sopa {
+  text-align: center;
+  font-weight: 700;
+  color: var(--azul-oscuro);
+  margin: 12px 0;
+}
+
+footer {
+  text-align: center;
+  padding: 32px 20px;
+  color: #e7edff;
+  background: linear-gradient(115deg,#071e49,#103b79 55%,#7f183f);
+}
+
+footer strong {
+  display: block;
+  font-size: 1.25rem;
+  color: white;
+  margin-bottom: 5px;
+}
+
+footer strong span { color: #ff8da5; }
+
+@media(max-width:760px) {
+  .temas { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .panel-cabecera { padding: 25px 20px; }
+  .panel-cuerpo { padding: 20px; }
+  .recomendaciones { grid-template-columns: 1fr; }
+  .galeria { grid-template-columns: 1fr; }
+  .galeria img { height: 220px; }
+  .imagen-grande { height: 230px; }
+  .juego { padding: 20px; }
+  .videos-grid { grid-template-columns: 1fr; }
+  .video { height: 250px; }
+}
+
+@media(max-width:430px) {
+  .temas { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .tema-btn { font-size: .78rem; padding: 10px 5px; }
+  .sopa { gap: 2px; }
+  .letra { border-radius: 4px; font-size: .7rem; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="marca" href="conservacion.html">
+    <h1>🌿 VIDA SILVESTRE</h1>
+    <p>Conócelas, cuídalas</p>
+    <div class="linea"></div>
+  </a>
+</header>
+
+<nav aria-label="Navegación de temas">
+  <a class="volver" href="conservacion.html">← Volver a amenazas</a>
+  <a href="#contenido">Información</a>
+  <a href="#cuestionario">Preguntas</a>
+  <a href="#sopa">Sopa de letras</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-contenido">
+    <span class="etiqueta">Aprender para proteger</span>
+    <h2>Conocer es el primer paso para <span>conservar.</span></h2>
+    <p>
+      Descubre qué amenaza a la biodiversidad, cómo afecta a los ecosistemas
+      y qué podemos hacer para proteger la vida silvestre del Cauca.
+      Lee, explora y demuestra lo aprendido con nuestros juegos educativos.
+    </p>
+  </div>
+</section>
+
+<main class="contenedor">
+
+  <section class="selector">
+    <h2>🌎 Selecciona un tema para aprender</h2>
+    <div class="temas" id="botones-temas">
+      <button class="tema-btn" data-tema="agua">💧 Contaminación del agua</button>
+      <button class="tema-btn" data-tema="quemas">🔥 Quemas e incendios</button>
+      <button class="tema-btn" data-tema="residuos">♻️ Residuos sólidos</button>
+      <button class="tema-btn" data-tema="bosques">🌳 Deforestación</button>
+      <button class="tema-btn" data-tema="especies">🦜 Tráfico y pérdida de especies</button>
+      <button class="tema-btn" data-tema="acciones">💚 Acciones de conservación</button>
+    </div>
+  </section>
+
+  <section class="panel" id="contenido">
+    <div class="panel-cabecera">
+      <span class="etiqueta" id="categoria">Recursos hídricos</span>
+      <h2 id="titulo">Contaminación del <span>agua</span></h2>
+      <p id="resumen"></p>
+    </div>
+
+    <div class="panel-cuerpo">
+
+      <div class="bloque">
+        <img
+          id="imagen-principal"
+          class="imagen-grande"
+          src="imagenes/agua-principal.jpg"
+          alt="Imagen ilustrativa del tema seleccionado"
+        >
+      </div>
+
+      <div class="bloque">
+        <h3>📘 ¿Qué debemos <span>conocer?</span></h3>
+        <div id="informacion"></div>
+      </div>
+
+      <div class="bloque">
+        <h3>⚠️ ¿Por qué es importante?</h3>
+        <div id="importancia"></div>
+      </div>
+
+      <div class="bloque">
+        <h3>🌱 ¿Qué podemos hacer?</h3>
+        <div id="soluciones"></div>
+      </div>
+
+      <div class="bloque">
+        <h3>🖼️ Galería del tema</h3>
+        <div class="galeria" id="galeria"></div>
+      </div>
+
+      <div class="bloque">
+        <h3>🎬 Aprende también con videos</h3>
+        <div id="videos"></div>
+      </div>
+
+      <div class="bloque">
+        <h3>💡 Ideas que vale la pena recordar</h3>
+        <div class="recomendaciones" id="recordatorios"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="juegos">
+
+    <div class="juego" id="cuestionario">
+      <span class="etiqueta">Juego 1 · Pon a prueba lo aprendido</span>
+      <h2>🧠 El reto de la <span>biodiversidad</span></h2>
+
+      <p class="juego-intro">
+        Responde las preguntas sobre el tema que estás estudiando.
+        Selecciona una opción por pregunta y comprueba tus resultados.
+      </p>
+
+      <form id="formulario-quiz">
+        <div id="preguntas-quiz"></div>
+
+        <button class="boton" type="submit">
+          Comprobar respuestas ✓
+        </button>
+
+        <button class="boton boton-rojo" type="button" id="reiniciar-quiz">
+          Intentarlo de nuevo ↻
+        </button>
+      </form>
+
+      <div class="resultado" id="resultado-quiz" aria-live="polite"></div>
+    </div>
+
+    <div class="juego" id="sopa">
+      <span class="etiqueta">Juego 2 · Encuentra las palabras</span>
+      <h2>🔎 Sopa de letras <span>ambiental</span></h2>
+
+      <p class="sopa-instrucciones">
+        Busca las cinco palabras relacionadas con el tema.
+        Selecciona la primera y la última letra.
+        Las palabras pueden estar en horizontal, vertical o diagonal,
+        incluso en sentido inverso.
+      </p>
+
+      <div class="palabras" id="lista-palabras"></div>
+
+      <div
+        class="sopa"
+        id="tablero-sopa"
+        aria-label="Tablero de sopa de letras"
+      ></div>
+
+      <p class="aviso-sopa" id="mensaje-sopa" aria-live="polite">
+        ¡Encuentra todas las palabras!
+      </p>
+
+      <div class="controles-sopa">
+        <button class="boton" type="button" id="comprobar-sopa">
+          💡 Ayuda para encontrar una palabra
+        </button>
+
+        <button class="boton boton-rojo" type="button" id="reiniciar-sopa">
+          Nueva sopa ↻
+        </button>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <strong>🌿 VIDA <span>SILVESTRE</span></strong>
+  <p>Conócelas, cuídalas.</p>
+  <p>Plataforma para la divulgación y conservación de la biodiversidad del Cauca.</p>
+</footer>
+
+<script>
+
+/* =====================================================
+   CONTENIDO EDUCATIVO DE LOS SEIS TEMAS
+   ===================================================== */
+
+const datos = {
+
+  agua: {
+    categoria: "Recursos hídricos",
+    titulo: "Contaminación del agua",
+    resumen: "El agua es indispensable para la vida. Proteger ríos, quebradas y humedales significa cuidar los ecosistemas, la fauna y las comunidades que dependen de ellos.",
+    imagen: "imagenes/agua-principal.jpg",
+    galeria: [
+      ["imagenes/agua-1.jpg", "Río o quebrada"],
+      ["imagenes/agua-2.jpg", "Cuidado de las fuentes de agua"]
+    ],
+    videos: ["videos/agua-1.mp4", "videos/agua-2.mp4"],
+    informacion: `
+      <p>La contaminación del agua ocurre cuando residuos, sustancias químicas, aguas residuales u otros contaminantes alteran su calidad. Puede afectar ríos, quebradas, lagunas, humedales y aguas subterráneas.</p>
+      <p>Entre sus causas se encuentran la disposición inadecuada de basuras, los vertimientos sin tratamiento, algunas actividades agrícolas y mineras y el uso incorrecto de productos químicos.</p>
+      <p>Cuando el agua se contamina, los peces, anfibios, insectos acuáticos y otros organismos pueden sufrir daños. También se deterioran los hábitats y se compromete el agua disponible para las personas y los animales.</p>
+    `,
+    importancia: `
+      <ul class="lista">
+        <li>Los ecosistemas acuáticos dependen de una buena calidad del agua para mantenerse saludables.</li>
+        <li>Los contaminantes pueden afectar la reproducción, la alimentación y la supervivencia de diferentes especies.</li>
+        <li>Las fuentes de agua limpias son fundamentales para la salud, la agricultura y la vida de las comunidades.</li>
+      </ul>
+      <div class="dato"><strong>Dato clave:</strong> un río no solo transporta agua: también sostiene hábitats, conecta ecosistemas y contribuye al equilibrio natural.</div>
+    `,
+    soluciones: `
+      <ul class="lista">
+        <li>No arrojar basuras, aceites, medicamentos ni productos químicos a desagües, ríos o quebradas.</li>
+        <li>Reducir el uso de productos contaminantes y disponer correctamente de sus envases.</li>
+        <li>Participar en jornadas responsables de limpieza y protección de fuentes hídricas.</li>
+        <li>Informar a las autoridades ambientales sobre posibles vertimientos o afectaciones graves.</li>
+        <li>Promover el ahorro del agua y la educación ambiental en la comunidad.</li>
+      </ul>
+    `,
+    recordatorios: [
+      ["💧 Cuida cada fuente", "No arrojes residuos en ríos, quebradas ni humedales."],
+      ["🐟 Protege la vida acuática", "La calidad del agua es esencial para los organismos que viven en ella."],
+      ["🤝 Actúa en comunidad", "La protección de las fuentes hídricas requiere compromiso colectivo."]
+    ],
+    quiz: [
+      ["¿Qué puede contaminar una fuente de agua?", ["La disposición de residuos y vertimientos", "La protección de la vegetación", "La reducción de basuras"], 0, "Los residuos y vertimientos pueden deteriorar la calidad del agua."],
+      ["¿Qué organismo puede verse afectado por la contaminación acuática?", ["Únicamente los árboles", "Peces y anfibios", "Ningún ser vivo"], 1, "Los peces, anfibios y otros organismos dependen de la calidad de su hábitat."],
+      ["¿Cuál es una acción adecuada?", ["Arrojar aceite al desagüe", "Dejar residuos junto al río", "Disponer correctamente los residuos"], 2, "Una disposición adecuada ayuda a evitar la contaminación."]
+    ]
+  },
+
+  quemas: {
+    categoria: "Prevención de incendios",
+    titulo: "Quemas e incendios forestales",
+    resumen: "El fuego puede transformar los ecosistemas, destruir refugios naturales y poner en peligro a las especies, los suelos y las comunidades.",
+    imagen: "imagenes/quemas-principal.jpg",
+    galeria: [
+      ["imagenes/quemas-1.jpg", "Vegetación afectada por el fuego"],
+      ["imagenes/quemas-2.jpg", "Prevención de incendios"]
+    ],
+    videos: ["videos/quemas-1.mp4", "videos/quemas-2.mp4"],
+    informacion: `
+      <p>Las quemas y los incendios forestales afectan la vegetación y los espacios donde viven los animales. Algunos incendios se producen por causas naturales, pero muchos están relacionados con actividades humanas.</p>
+      <p>Las quemas realizadas sin control, las fogatas mal apagadas y la disposición inadecuada de materiales que pueden arder aumentan el riesgo de propagación del fuego. Las condiciones secas y el viento pueden agravar la situación.</p>
+      <p>El fuego puede destruir nidos, refugios y fuentes de alimento. También puede alterar las propiedades del suelo, afectar la calidad del aire y aumentar la erosión.</p>
+    `,
+    importancia: `
+      <ul class="lista">
+        <li>Los animales pueden perder sus refugios y tener dificultades para encontrar alimento.</li>
+        <li>La vegetación necesita tiempo para recuperarse, y algunos hábitats pueden sufrir daños prolongados.</li>
+        <li>El humo y la propagación del fuego también representan riesgos para las personas y sus bienes.</li>
+      </ul>
+      <div class="dato"><strong>Dato clave:</strong> un incendio puede afectar simultáneamente la vegetación, el suelo, el agua, la fauna y la salud humana.</div>
+    `,
+    soluciones: `
+      <ul class="lista">
+        <li>No realizar quemas sin autorización ni dejar fogatas encendidas.</li>
+        <li>No arrojar colillas ni materiales calientes en zonas de vegetación.</li>
+        <li>Evitar actividades que puedan generar chispas durante condiciones de alto riesgo.</li>
+        <li>Ante un incendio, alejarse del peligro y avisar a los organismos de emergencia.</li>
+        <li>Apoyar la recuperación de las áreas afectadas mediante acciones planificadas y seguras.</li>
+      </ul>
+    `,
+    recordatorios: [
+      ["🔥 Prevenir es fundamental", "Una pequeña fuente de ignición puede originar un incendio peligroso."],
+      ["🦎 Protege los refugios", "La vegetación ofrece alimento y protección a numerosas especies."],
+      ["🚨 Prioriza la seguridad", "No intentes combatir un incendio que pueda ponerte en riesgo."]
+    ],
+    quiz: [
+      ["¿Qué puede causar un incendio forestal?", ["La protección de un bosque", "Una quema sin control", "La siembra de árboles"], 1, "Las quemas sin control pueden iniciar incendios y facilitar su propagación."],
+      ["¿Qué puede perder la fauna durante un incendio?", ["Sus refugios y fuentes de alimento", "La contaminación del agua", "Únicamente el color de su hábitat"], 0, "El fuego puede destruir los lugares donde los animales se refugian y alimentan."],
+      ["¿Qué debes hacer si detectas un incendio peligroso?", ["Acercarte para grabarlo", "Intentar apagarlo sin protección", "Alejarte y avisar a emergencias"], 2, "La prioridad es mantenerse a salvo y alertar a los organismos responsables."]
+    ]
+  },
+
+  residuos: {
+    categoria: "Manejo responsable de residuos",
+    titulo: "Residuos sólidos",
+    resumen: "Lo que desechamos también afecta a la naturaleza. Reducir los residuos y manejarlos correctamente ayuda a prevenir la contaminación y a proteger la fauna.",
+    imagen: "imagenes/residuos-principal.jpg",
+    galeria: [
+      ["imagenes/residuos-1.jpg", "Residuos en el ambiente"],
+      ["imagenes/residuos-2.jpg", "Separación de residuos"]
+    ],
+    videos: ["videos/residuos-1.mp4", "videos/residuos-2.mp4"],
+    informacion: `
+      <p>Los residuos sólidos son materiales que desechamos después de utilizarlos, como envases, empaques, papel, restos de comida y otros objetos. Su impacto depende de su composición y de la forma en que se recolectan, aprovechan o disponen.</p>
+      <p>Cuando se abandonan en calles, bosques, ríos o zonas rurales, pueden contaminar el suelo y el agua, obstruir desagües y convertirse en un peligro para los animales.</p>
+      <p>Algunas especies pueden ingerir plásticos por accidente o quedar atrapadas en empaques y otros materiales. Además, la acumulación de residuos puede deteriorar los hábitats y favorecer condiciones sanitarias inadecuadas.</p>
+    `,
+    importancia: `
+      <ul class="lista">
+        <li>Los residuos abandonados pueden permanecer en el ambiente durante periodos prolongados.</li>
+        <li>Los plásticos y otros materiales pueden lesionar a la fauna o alterar sus espacios de alimentación.</li>
+        <li>Reducir y separar los residuos permite aprovechar materiales y disminuir la cantidad que llega a los sitios de disposición final.</li>
+      </ul>
+      <div class="dato"><strong>Dato clave:</strong> la mejor gestión comienza antes de desechar: consumir responsablemente también reduce la contaminación.</div>
+    `,
+    soluciones: `
+      <ul class="lista">
+        <li>Reducir los productos desechables y preferir alternativas reutilizables.</li>
+        <li>Separar los residuos de acuerdo con las indicaciones locales de recolección.</li>
+        <li>Entregar pilas, aparatos electrónicos, medicamentos y otros residuos especiales a sistemas autorizados.</li>
+        <li>No abandonar basuras en caminos, bosques, quebradas ni espacios públicos.</li>
+        <li>Participar en actividades de educación ambiental y limpieza responsable.</li>
+      </ul>
+    `,
+    recordatorios: [
+      ["♻️ Reduce y reutiliza", "Evitar residuos innecesarios es una forma directa de prevenir contaminación."],
+      ["🐢 Piensa en los animales", "Un empaque abandonado puede convertirse en una trampa o ser ingerido."],
+      ["🗑️ Separa correctamente", "Consulta las instrucciones locales para disponer de cada material."]
+    ],
+    quiz: [
+      ["¿Qué puede ocurrir cuando los residuos llegan a los ríos?", ["Mejora siempre la calidad del agua", "Pueden contaminar el agua y afectar a la fauna", "No producen ningún efecto"], 1, "Los residuos pueden afectar los ecosistemas acuáticos y los organismos que viven allí."],
+      ["¿Qué práctica ayuda a reducir residuos?", ["Usar productos reutilizables", "Dejar empaques en el bosque", "Mezclar todos los residuos sin criterio"], 0, "Reutilizar y reducir el consumo de productos desechables disminuye la generación de residuos."],
+      ["¿Dónde deben entregarse residuos especiales?", ["En cualquier río", "En espacios naturales", "En sistemas de recolección autorizados"], 2, "Los residuos especiales requieren canales de manejo apropiados."]
+    ]
+  },
+
+  bosques: {
+    categoria: "Protección de ecosistemas",
+    titulo: "Deforestación y pérdida de hábitat",
+    resumen: "Los bosques proporcionan refugio, alimento y espacios de reproducción. Cuando desaparecen o se fragmentan, numerosas especies pierden condiciones necesarias para sobrevivir.",
+    imagen: "imagenes/bosques-principal.jpg",
+    galeria: [
+      ["imagenes/bosques-1.jpg", "Bosque y cobertura vegetal"],
+      ["imagenes/bosques-2.jpg", "Restauración ecológica"]
+    ],
+    videos: ["videos/bosques-1.mp4", "videos/bosques-2.mp4"],
+    informacion: `
+      <p>La deforestación es la pérdida de bosques por causas como el cambio de uso del suelo, la expansión de actividades productivas, la tala y otras intervenciones. La pérdida de hábitat también puede afectar humedales, matorrales y otros ecosistemas naturales.</p>
+      <p>Cuando un ecosistema se fragmenta, los espacios naturales quedan separados por carreteras, cultivos, construcciones u otras áreas transformadas. Esto puede dificultar el desplazamiento de los animales y el intercambio entre poblaciones.</p>
+      <p>La eliminación de vegetación también puede aumentar la erosión y modificar la regulación del agua y el microclima. La magnitud del impacto depende del lugar, el tipo de ecosistema y la intensidad de la transformación.</p>
+    `,
+    importancia: `
+      <ul class="lista">
+        <li>Los árboles y otras plantas forman parte de hábitats donde muchas especies se alimentan, se reproducen y encuentran refugio.</li>
+        <li>La vegetación ayuda a proteger el suelo y participa en el ciclo del agua.</li>
+        <li>La fragmentación puede aislar poblaciones y dificultar la movilidad de algunas especies.</li>
+      </ul>
+      <div class="dato"><strong>Dato clave:</strong> conservar un bosque significa proteger también las relaciones entre plantas, animales, agua, suelo y comunidades.</div>
+    `,
+    soluciones: `
+      <ul class="lista">
+        <li>Proteger los bosques y la vegetación nativa que aún se conserva.</li>
+        <li>Promover la restauración ecológica con especies apropiadas para el lugar.</li>
+        <li>Evitar la tala ilegal y reportar afectaciones a las autoridades competentes.</li>
+        <li>Consumir productos de origen responsable y reducir el desperdicio de papel y madera.</li>
+        <li>Apoyar iniciativas comunitarias de conservación y educación ambiental.</li>
+      </ul>
+    `,
+    recordatorios: [
+      ["🌳 Protege los bosques", "Los ecosistemas naturales ofrecen refugio y alimento a muchas especies."],
+      ["🦋 Conserva la conexión", "Los corredores naturales pueden facilitar el desplazamiento de la fauna."],
+      ["🌱 Restaura con cuidado", "La recuperación de un ecosistema requiere planificación y seguimiento."]
+    ],
+    quiz: [
+      ["¿Qué es la deforestación?", ["La recuperación natural de un bosque", "La pérdida de cobertura forestal", "La limpieza de un río"], 1, "La deforestación implica la pérdida de bosques o de su cobertura forestal."],
+      ["¿Qué efecto puede tener la fragmentación del hábitat?", ["Aislar poblaciones de animales", "Garantizar alimento ilimitado", "Eliminar todos los riesgos"], 0, "La fragmentación puede separar los espacios naturales y dificultar el desplazamiento de especies."],
+      ["¿Qué contribuye a conservar los ecosistemas?", ["Eliminar toda la vegetación", "Abandonar residuos", "Proteger y restaurar hábitats"], 2, "La protección y restauración responsable favorecen la recuperación de los ecosistemas."]
+    ]
+  },
+
+  especies: {
+    categoria: "Protección de fauna silvestre",
+    titulo: "Tráfico y pérdida de especies",
+    resumen: "La captura y el comercio ilegal de animales, junto con la destrucción de sus hábitats, pueden reducir las poblaciones silvestres y amenazar su supervivencia.",
+    imagen: "imagenes/especies-principal.jpg",
+    galeria: [
+      ["imagenes/especies-1.jpg", "Fauna silvestre"],
+      ["imagenes/especies-2.jpg", "Protección de animales"]
+    ],
+    videos: ["videos/especies-1.mp4", "videos/especies-2.mp4"],
+    informacion: `
+      <p>El tráfico ilegal de fauna silvestre comprende la captura, posesión, transporte o comercialización de animales y sus partes en contravención de las normas aplicables. Esta actividad puede afectar a las especies y a los ecosistemas de los que forman parte.</p>
+      <p>Los animales extraídos de su ambiente pueden sufrir lesiones, estrés, enfermedades y dificultades para alimentarse. Además, retirar individuos de una población puede afectar su reproducción y su función ecológica.</p>
+      <p>La pérdida de especies también puede relacionarse con la destrucción del hábitat, la contaminación, la caza ilegal y otros factores. Cada especie cumple funciones que contribuyen al equilibrio de los ecosistemas.</p>
+    `,
+    importancia: `
+      <ul class="lista">
+        <li>Las especies participan en procesos como la polinización, la dispersión de semillas y la regulación de poblaciones.</li>
+        <li>La extracción de animales puede alterar las relaciones entre las especies y afectar la estabilidad ecológica.</li>
+        <li>La fauna silvestre necesita condiciones adecuadas para vivir y cumplir sus funciones naturales.</li>
+      </ul>
+      <div class="dato"><strong>Dato clave:</strong> los animales silvestres no son mascotas domésticas. Su cuidado y manejo requieren condiciones especializadas y el cumplimiento de la normativa aplicable.</div>
+    `,
+    soluciones: `
+      <ul class="lista">
+        <li>No comprar ni mantener fauna silvestre obtenida ilegalmente.</li>
+        <li>No capturar animales por curiosidad ni extraerlos de sus nidos o refugios.</li>
+        <li>Evitar compartir información que facilite la captura o comercialización de especies amenazadas.</li>
+        <li>Informar a las autoridades ambientales cuando se identifiquen posibles casos de tráfico de fauna.</li>
+        <li>Promover la observación responsable de animales en su ambiente natural.</li>
+      </ul>
+    `,
+    recordatorios: [
+      ["🦜 Libres en su hábitat", "La fauna silvestre debe vivir en condiciones adecuadas para su especie."],
+      ["🚫 No compres fauna ilegal", "La demanda puede incentivar la captura y comercialización de animales."],
+      ["🌿 Protege su hogar", "Conservar los hábitats es esencial para la supervivencia de las especies."]
+    ],
+    quiz: [
+      ["¿Qué puede causar el tráfico ilegal de fauna?", ["La recuperación garantizada de las especies", "La pérdida de individuos y daños a sus poblaciones", "La protección automática de los hábitats"], 1, "La captura y comercialización ilegal pueden reducir poblaciones y afectar a los animales."],
+      ["¿Qué debes hacer si encuentras un animal silvestre herido?", ["Manipularlo y llevártelo a casa", "Intentar domesticarlo", "Contactar a la autoridad ambiental o a personal especializado"], 2, "El manejo debe realizarse con orientación especializada para evitar daños adicionales."],
+      ["¿Qué ayuda a proteger las especies?", ["No comprar fauna silvestre de origen ilegal", "Capturar animales por curiosidad", "Destruir sus refugios"], 0, "Evitar la compra de fauna ilegal ayuda a reducir la demanda que alimenta este comercio."]
+    ]
+  },
+
+  acciones: {
+    categoria: "Soluciones y participación",
+    titulo: "Acciones para la conservación",
+    resumen: "La conservación empieza con decisiones cotidianas y se fortalece con la educación ambiental, la participación comunitaria y la protección responsable de los ecosistemas.",
+    imagen: "imagenes/acciones-principal.jpg",
+    galeria: [
+      ["imagenes/acciones-1.jpg", "Participación ambiental"],
+      ["imagenes/acciones-2.jpg", "Cuidado de la biodiversidad"]
+    ],
+    videos: ["videos/acciones-1.mp4", "videos/acciones-2.mp4"],
+    informacion: `
+      <p>Conservar la biodiversidad significa proteger las especies, los ecosistemas y los procesos naturales que permiten el funcionamiento de la vida. Para lograrlo, se necesitan acciones individuales, comunitarias e institucionales.</p>
+      <p>La educación ambiental permite comprender los problemas y tomar decisiones informadas. Las iniciativas de restauración, el manejo responsable de residuos, la protección de fuentes hídricas y el cuidado de la fauna son ejemplos de acciones que pueden contribuir a este objetivo.</p>
+      <p>Las medidas deben adaptarse a las condiciones de cada territorio y realizarse de manera responsable. Plantar árboles, por ejemplo, debe acompañarse de la selección de especies apropiadas y de cuidados posteriores.</p>
+    `,
+    importancia: `
+      <ul class="lista">
+        <li>La participación de las comunidades puede ayudar a identificar problemas y promover soluciones locales.</li>
+        <li>La educación ambiental fortalece el conocimiento y el compromiso con la naturaleza.</li>
+        <li>Las acciones coordinadas pueden contribuir a proteger los hábitats y reducir las presiones sobre las especies.</li>
+      </ul>
+      <div class="dato"><strong>Dato clave:</strong> conservar no es una acción de un solo día; requiere compromiso, continuidad y colaboración.</div>
+    `,
+    soluciones: `
+      <ul class="lista">
+        <li>Ahorrar agua y energía y reducir el consumo de productos desechables.</li>
+        <li>Separar los residuos y disponer correctamente los materiales especiales.</li>
+        <li>Proteger la vegetación nativa y participar en restauraciones planificadas.</li>
+        <li>Respetar a los animales silvestres y observarlos sin alterar su comportamiento.</li>
+        <li>Compartir información ambiental confiable y participar en actividades comunitarias.</li>
+      </ul>
+    `,
+    recordatorios: [
+      ["💙 Empieza en casa", "Los hábitos responsables pueden reducir la presión sobre los recursos naturales."],
+      ["🤝 Súmate a tu comunidad", "La colaboración ayuda a sostener iniciativas ambientales."],
+      ["🌎 Comparte lo aprendido", "La educación ambiental permite que más personas participen en la conservación."]
+    ],
+    quiz: [
+      ["¿Qué significa conservar la biodiversidad?", ["Proteger especies, ecosistemas y procesos naturales", "Utilizar los recursos sin límites", "Retirar animales de sus hábitats"], 0, "La conservación busca proteger la diversidad de la vida y los ecosistemas que la sostienen."],
+      ["¿Qué debe considerarse al plantar árboles?", ["Sembrar cualquier especie en cualquier lugar", "Elegir especies apropiadas para el territorio y cuidarlas", "Abandonar las plantas después de sembrarlas"], 1, "La selección adecuada y el seguimiento favorecen el éxito de una restauración."],
+      ["¿Qué fortalece la conservación?", ["La indiferencia comunitaria", "La contaminación de fuentes hídricas", "La educación y participación ambiental"], 2, "La educación y la colaboración ayudan a impulsar acciones responsables y duraderas."]
+    ]
+  }
+};
+
+/* =====================================================
+   MOSTRAR EL TEMA SELECCIONADO
+   ===================================================== */
+
+const $ = id => document.getElementById(id);
+
+let temaActual = "agua";
+
+function mostrarTema(tema) {
+  if (!datos[tema]) tema = "agua";
+
+  temaActual = tema;
+  const d = datos[tema];
+
+  $("categoria").textContent = d.categoria;
+
+  $("titulo").innerHTML = d.titulo.replace(
+    / (agua|forestales|sólidos|hábitat|especies|conservación)$/i,
+    " <span>$1</span>"
+  );
+
+  $("resumen").textContent = d.resumen;
+
+  $("imagen-principal").src = d.imagen;
+  $("imagen-principal").alt = d.titulo;
+
+  $("informacion").innerHTML = d.informacion;
+  $("importancia").innerHTML = d.importancia;
+  $("soluciones").innerHTML = d.soluciones;
+
+  $("galeria").innerHTML = d.galeria.map(item => `
+    <div>
+      <img src="${item[0]}" alt="${item[1]}" loading="lazy">
+      <p class="pie-imagen">${item[1]}</p>
+    </div>
+  `).join("");
+
+  $("videos").innerHTML = `
+    <div class="videos-grid">
+      ${d.videos.map((video, i) => `
+        <div class="video-item">
+          <strong class="titulo-video">
+            🎬 Video ${i + 1}: ${d.titulo}
+          </strong>
+          <video class="video" controls preload="metadata" playsinline>
+            <source src="${video}" type="video/mp4">
+            Tu navegador no puede reproducir este video.
+          </video>
+        </div>
+      `).join("")}
+    </div>
+  `;
+
+  $("recordatorios").innerHTML = d.recordatorios.map(item => `
+    <div class="recomendacion">
+      <strong>${item[0]}</strong>
+      <p>${item[1]}</p>
+    </div>
+  `).join("");
+
+  document.querySelectorAll(".tema-btn").forEach(btn => {
+    btn.classList.toggle("activo", btn.dataset.tema === tema);
+  });
+
+  crearQuiz();
+  crearSopa();
+}
+
+document.querySelectorAll(".tema-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    mostrarTema(btn.dataset.tema);
+
+    $("contenido").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+});
+
+/* =====================================================
+   CUESTIONARIO INTERACTIVO
+   ===================================================== */
+
+function crearQuiz() {
+  const preguntas = datos[temaActual].quiz;
+
+  $("preguntas-quiz").innerHTML = preguntas.map((p, i) => `
+    <div class="pregunta">
+      <h3>${i + 1}. ${p[0]}</h3>
+
+      ${p[1].map((op, j) => `
+        <label class="opcion">
+          <input type="radio" name="pregunta${i}" value="${j}">
+          <span>${op}</span>
+        </label>
+      `).join("")}
+
+      <div id="explicacion${i}" class="resultado" hidden></div>
+    </div>
+  `).join("");
+
+  $("resultado-quiz").textContent = "";
+}
+
+$("formulario-quiz").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const preguntas = datos[temaActual].quiz;
+  let puntos = 0;
+  let respondidas = 0;
+
+  preguntas.forEach((p, i) => {
+    const seleccion = document.querySelector(
+      `input[name="pregunta${i}"]:checked`
+    );
+
+    const caja = $("explicacion" + i);
+    caja.hidden = false;
+
+    if (seleccion) {
+      respondidas++;
+
+      if (Number(seleccion.value) === p[2]) {
+        puntos++;
+        caja.textContent = "¡Correcto! " + p[3];
+        caja.style.background = "#dceeff";
+      } else {
+        caja.textContent = "No exactamente. " + p[3];
+        caja.style.background = "#ffe5eb";
+      }
+    } else {
+      caja.textContent =
+        "Esta pregunta quedó sin responder. " + p[3];
+      caja.style.background = "#fff0d8";
+    }
+  });
+
+  $("resultado-quiz").textContent =
+    `Resultado: ${puntos} de ${preguntas.length} respuestas correctas. ` +
+    `Respondiste ${respondidas} preguntas. ` +
+    (puntos === preguntas.length
+      ? "¡Excelente! Dominas este tema."
+      : "¡Sigue aprendiendo! Puedes intentarlo de nuevo.");
+});
+
+$("reiniciar-quiz").addEventListener("click", crearQuiz);
+
+/* =====================================================
+   SOPA DE LETRAS MEJORADA
+   - CINCO PALABRAS ALEATORIAS POR RONDA
+   - BANCO AMPLIO PARA LOS SEIS TEMAS
+   - OCHO DIRECCIONES
+   - TODAS LAS PALABRAS VERIFICADAS
+   - AYUDA QUE RESALTA LA PALABRA PENDIENTE
+   ===================================================== */
+
+const bancoPalabras = {
+  agua: [
+    "AGUA", "RIO", "VIDA", "FAUNA", "CUIDAR",
+    "PECES", "LLUVIA", "FUENTE", "LIMPIO", "HUMEDAL",
+    "AHORRO", "ACUATICO", "NATURA", "PROTEGER",
+    "QUEBRADA", "AMBIENTE", "LAGUNA", "RIBERA",
+    "CORRIENTE", "OXIGENO", "MANANTIAL"
+  ],
+
+  quemas: [
+    "FUEGO", "BOSQUE", "FAUNA", "VIDA", "CUIDAR",
+    "HUMO", "ARBOL", "RIESGO", "PREVENIR", "CENIZA",
+    "BOMBERO", "INCENDIO", "BOSQUES", "VEGETAL",
+    "ALERTA", "CUIDADO", "NATURA", "BRIGADA",
+    "SEGURIDAD", "PREVENCION", "REFUGIO"
+  ],
+
+  residuos: [
+    "RECICLA", "RESIDUO", "AGUA", "FAUNA", "CUIDAR",
+    "REUSAR", "REDUCIR", "LIMPIO", "BASURA", "PLASTICO",
+    "PAPEL", "VIDRIO", "CARTON", "SEPARAR",
+    "RECICLAJE", "AMBIENTE", "REUTILIZA", "ORGANICO",
+    "ENVASE", "CONSUMO", "APROVECHAR"
+  ],
+
+  bosques: [
+    "BOSQUE", "ARBOL", "FAUNA", "HABITAT", "VIDA",
+    "SELVA", "RAICES", "SUELO", "NATURA", "PLANTAS",
+    "SEMILLA", "SOMBRA", "ESPECIE", "CUIDAR",
+    "RESTAURAR", "PROTEGER", "VEGETAL", "ECOLOGIA",
+    "REFORESTAR", "CORREDOR", "CONSERVAR"
+  ],
+
+  especies: [
+    "FAUNA", "ESPECIE", "VIDA", "CUIDAR", "LIBRE",
+    "ANIMAL", "AVES", "HABITAT", "SILVESTRE", "RESPETO",
+    "PROTEGER", "NATURA", "LIBERTAD", "CONSERVAR",
+    "REFUGIO", "ECOLOGIA", "CUIDADO", "TRAFICO",
+    "PRESERVAR", "POBLACION", "DIVERSIDAD"
+  ],
+
+  acciones: [
+    "CUIDAR", "VIDA", "AGUA", "BOSQUE", "FAUNA",
+    "RECICLA", "AHORRO", "SEMBRAR", "PROTEGER", "LIMPIAR",
+    "RESTAURAR", "RESPETO", "AMBIENTE", "NATURA",
+    "CONSERVAR", "AYUDAR", "PLANTAR", "ACCIONES",
+    "PARTICIPAR", "REDUCIR", "EDUCACION"
+  ]
+};
+
+const FILAS = 12;
+const COLUMNAS = 12;
+const CANTIDAD_PALABRAS = 5;
+
+const DIRECCIONES = [
+  [0, 1],
+  [0, -1],
+  [1, 0],
+  [-1, 0],
+  [1, 1],
+  [-1, -1],
+  [1, -1],
+  [-1, 1]
+];
+
+let tablero = [];
+let palabrasRonda = [];
+let palabrasEncontradas = new Set();
+let posicionesPalabras = {};
+let seleccionInicial = null;
+let celdasSeleccionadas = [];
+let palabrasRondaAnterior = {};
+
+/* NORMALIZAR PALABRAS */
+
+function normalizarPalabra(palabra) {
+  return palabra
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^A-Z]/gi, "")
+    .toUpperCase();
+}
+
+/* MEZCLAR UN ARREGLO ALEATORIAMENTE */
+
+function mezclar(lista) {
+  const copia = [...lista];
+
+  for (let i = copia.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copia[i], copia[j]] = [copia[j], copia[i]];
+  }
+
+  return copia;
+}
+
+/* ELEGIR PALABRAS DISTINTAS PARA CADA PARTIDA */
+
+function elegirPalabras() {
+  const banco = [...new Set(
+    bancoPalabras[temaActual]
+      .map(normalizarPalabra)
+      .filter(p => p.length >= 3 && p.length <= FILAS)
+  )];
+
+  const anteriores = palabrasRondaAnterior[temaActual] || [];
+
+  /* Preferir palabras que no salieron en la ronda anterior. */
+  const nuevas = mezclar(
+    banco.filter(p => !anteriores.includes(p))
+  );
+
+  const restantes = mezclar(
+    banco.filter(p => anteriores.includes(p))
+  );
+
+  return [...nuevas, ...restantes].slice(0, CANTIDAD_PALABRAS);
+}
+
+/* COLOCAR UNA PALABRA EN EL TABLERO */
+
+function intentarColocarPalabra(palabra) {
+  const opciones = [];
+
+  for (let f = 0; f < FILAS; f++) {
+    for (let c = 0; c < COLUMNAS; c++) {
+      for (const [df, dc] of DIRECCIONES) {
+
+        const finalF = f + df * (palabra.length - 1);
+        const finalC = c + dc * (palabra.length - 1);
+
+        if (
+          finalF < 0 || finalF >= FILAS ||
+          finalC < 0 || finalC >= COLUMNAS
+        ) {
+          continue;
+        }
+
+        let compatible = true;
+        let cruces = 0;
+
+        for (let i = 0; i < palabra.length; i++) {
+          const existente = tablero[f + df * i][c + dc * i];
+
+          if (existente !== "" && existente !== palabra[i]) {
+            compatible = false;
+            break;
+          }
+
+          if (existente === palabra[i]) {
+            cruces++;
+          }
+        }
+
+        if (compatible) {
+          opciones.push({ f, c, df, dc, cruces });
+        }
+      }
+    }
+  }
+
+  if (!opciones.length) return false;
+
+  /* Dar variedad a las posiciones y direcciones. */
+  const opcion = opciones[
+    Math.floor(Math.random() * opciones.length)
+  ];
+
+  const coordenadas = [];
+
+  for (let i = 0; i < palabra.length; i++) {
+    const fila = opcion.f + opcion.df * i;
+    const columna = opcion.c + opcion.dc * i;
+
+    tablero[fila][columna] = palabra[i];
+    coordenadas.push({ fila, columna });
+  }
+
+  posicionesPalabras[palabra] = coordenadas;
+
+  return true;
+}
+
+/* COMPROBAR QUE UNA PALABRA ESTÁ EN EL TABLERO */
+
+function verificarPalabra(palabra) {
+  const coordenadas = posicionesPalabras[palabra];
+
+  if (!coordenadas || coordenadas.length !== palabra.length) {
+    return false;
+  }
+
+  return coordenadas.every((pos, i) =>
+    tablero[pos.fila][pos.columna] === palabra[i]
+  );
+}
+
+/* CREAR LA SOPA COMPLETA */
+
+function crearSopa() {
+  let generado = false;
+
+  palabrasRonda = elegirPalabras();
+
+  for (let intento = 0; intento < 1000 && !generado; intento++) {
+
+    tablero = Array.from({ length: FILAS }, () =>
+      Array(COLUMNAS).fill("")
+    );
+
+    posicionesPalabras = {};
+
+    const ordenadas = [...palabrasRonda]
+      .sort((a, b) => b.length - a.length);
+
+    generado = ordenadas.every(intentarColocarPalabra);
+
+    if (generado) {
+      generado = palabrasRonda.every(verificarPalabra);
+    }
+  }
+
+  if (!generado) {
+    $("mensaje-sopa").textContent =
+      "No se pudo generar el tablero completo. Pulsa «Nueva sopa» para intentarlo nuevamente.";
+    return;
+  }
+
+  /* RELLENAR CASILLAS VACÍAS */
+
+  const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  for (let f = 0; f < FILAS; f++) {
+    for (let c = 0; c < COLUMNAS; c++) {
+      if (tablero[f][c] === "") {
+        tablero[f][c] =
+          alfabeto[Math.floor(Math.random() * alfabeto.length)];
+      }
+    }
+  }
+
+  /* GUARDAR LAS PALABRAS DE LA RONDA */
+  palabrasRondaAnterior[temaActual] = [...palabrasRonda];
+
+  palabrasEncontradas = new Set();
+  seleccionInicial = null;
+  celdasSeleccionadas = [];
+
+  dibujarSopa();
+}
+
+/* DIBUJAR TABLERO Y LISTA DE PALABRAS */
+
+function dibujarSopa() {
+  $("tablero-sopa").innerHTML = "";
+
+  tablero.forEach((fila, i) => {
+    fila.forEach((letra, j) => {
+
+      const celda = document.createElement("button");
+
+      celda.type = "button";
+      celda.className = "letra";
+      celda.textContent = letra;
+      celda.dataset.fila = i;
+      celda.dataset.columna = j;
+
+      celda.setAttribute(
+        "aria-label",
+        `Fila ${i + 1}, columna ${j + 1}, letra ${letra}`
+      );
+
+      celda.addEventListener("click", () => {
+        seleccionarCelda(i, j);
+      });
+
+      $("tablero-sopa").appendChild(celda);
+    });
+  });
+
+  $("lista-palabras").innerHTML = palabrasRonda
+    .map(palabra => `
+      <span class="palabra" id="palabra-${palabra}">
+        ${palabra}
+      </span>
+    `)
+    .join("");
+
+  $("mensaje-sopa").textContent =
+    "Encuentra las 5 palabras. Algunas están al revés. Si necesitas ayuda, pulsa el botón azul.";
+}
+
+/* OBTENER UNA CASILLA */
+
+function obtenerCelda(fila, columna) {
+  return document.querySelector(
+    `.letra[data-fila="${fila}"][data-columna="${columna}"]`
+  );
+}
+
+/* LIMPIAR SELECCIÓN AZUL */
+
+function limpiarSeleccion() {
+  document.querySelectorAll(".letra.seleccionada")
+    .forEach(celda => {
+      celda.classList.remove("seleccionada");
+    });
+}
+
+/* LIMPIAR RESALTADO AMARILLO */
+
+function limpiarAyuda() {
+  document.querySelectorAll(".letra.pista")
+    .forEach(celda => {
+      celda.classList.remove("pista");
+    });
+}
+
+/* SELECCIONAR PRIMERA Y ÚLTIMA LETRA */
+
+function seleccionarCelda(fila, columna) {
+  const celda = obtenerCelda(fila, columna);
+
+  if (!celda) return;
+
+  limpiarAyuda();
+
+  if (!seleccionInicial) {
+    limpiarSeleccion();
+
+    seleccionInicial = { fila, columna };
+    celdasSeleccionadas = [celda];
+
+    celda.classList.add("seleccionada");
+
+    $("mensaje-sopa").textContent =
+      "Ahora selecciona la última letra de la palabra.";
+
+    return;
+  }
+
+  const dfTotal = fila - seleccionInicial.fila;
+  const dcTotal = columna - seleccionInicial.columna;
+
+  const horizontal = dfTotal === 0;
+  const vertical = dcTotal === 0;
+  const diagonal = Math.abs(dfTotal) === Math.abs(dcTotal);
+
+  if (!horizontal && !vertical && !diagonal) {
+    limpiarSeleccion();
+
+    seleccionInicial = { fila, columna };
+    celdasSeleccionadas = [celda];
+
+    celda.classList.add("seleccionada");
+
+    $("mensaje-sopa").textContent =
+      "La palabra debe estar en línea horizontal, vertical o diagonal. Intenta nuevamente.";
+
+    return;
+  }
+
+  const pasos = Math.max(
+    Math.abs(dfTotal),
+    Math.abs(dcTotal)
+  );
+
+  if (pasos === 0) {
+    limpiarSeleccion();
+    seleccionInicial = null;
+    celdasSeleccionadas = [];
+
+    $("mensaje-sopa").textContent =
+      "Selecciona dos letras diferentes.";
+
+    return;
+  }
+
+  const df = Math.sign(dfTotal);
+  const dc = Math.sign(dcTotal);
+
+  celdasSeleccionadas = [];
+
+  for (let i = 0; i <= pasos; i++) {
+    const f = seleccionInicial.fila + df * i;
+    const c = seleccionInicial.columna + dc * i;
+
+    const casilla = obtenerCelda(f, c);
+
+    if (!casilla) {
+      limpiarSeleccion();
+      seleccionInicial = null;
+      celdasSeleccionadas = [];
+      return;
+    }
+
+    celdasSeleccionadas.push(casilla);
+  }
+
+  celdasSeleccionadas.forEach(c => {
+    c.classList.add("seleccionada");
+  });
+
+  comprobarSeleccion();
+}
+
+/* COMPROBAR SI SE ENCONTRÓ UNA PALABRA */
+
+function comprobarSeleccion() {
+  const palabra = celdasSeleccionadas
+    .map(c => c.textContent)
+    .join("");
+
+  const inversa = palabra.split("").reverse().join("");
+
+  const encontrada = palabrasRonda.find(p =>
+    p === palabra || p === inversa
+  );
+
+  if (encontrada && !palabrasEncontradas.has(encontrada)) {
+
+    palabrasEncontradas.add(encontrada);
+
+    celdasSeleccionadas.forEach(c => {
+      c.classList.remove("seleccionada");
+      c.classList.add("encontrada");
+    });
+
+    const etiqueta = $("palabra-" + encontrada);
+
+    if (etiqueta) {
+      etiqueta.classList.add("encontrada");
+    }
+
+    const faltantes =
+      palabrasRonda.length - palabrasEncontradas.size;
+
+    if (faltantes === 0) {
+      $("mensaje-sopa").textContent =
+        "🎉 ¡Felicitaciones! Encontraste todas las palabras. ¡Excelente trabajo!";
+    } else {
+      $("mensaje-sopa").textContent =
+        `¡Muy bien! Encontraste ${encontrada}. Te faltan ${faltantes} palabras.`;
+    }
+
+  } else {
+    limpiarSeleccion();
+
+    $("mensaje-sopa").textContent = encontrada
+      ? "¡Esa palabra ya la encontraste! Busca otra."
+      : "Esa selección no corresponde a una palabra de la lista. Inténtalo nuevamente.";
+  }
+
+  seleccionInicial = null;
+  celdasSeleccionadas = [];
+}
+
+/* =====================================================
+   BOTÓN DE AYUDA
+   MUESTRA UNA PALABRA QUE FALTA Y RESALTA SUS LETRAS
+   ===================================================== */
+
+$("comprobar-sopa").addEventListener("click", () => {
+  limpiarSeleccion();
+  limpiarAyuda();
+
+  seleccionInicial = null;
+  celdasSeleccionadas = [];
+
+  const faltante = palabrasRonda.find(p =>
+    !palabrasEncontradas.has(p)
+  );
+
+  if (!faltante) {
+    $("mensaje-sopa").textContent =
+      "🎉 ¡Ya encontraste todas las palabras! Pulsa «Nueva sopa» para seguir jugando.";
+    return;
+  }
+
+  const coordenadas = posicionesPalabras[faltante];
+
+  if (!coordenadas || !coordenadas.length) {
+    $("mensaje-sopa").textContent =
+      "No se encontró la ubicación de la pista. Genera una nueva sopa.";
+    return;
+  }
+
+  coordenadas.forEach(({ fila, columna }) => {
+    const celda = obtenerCelda(fila, columna);
+
+    if (celda) {
+      celda.classList.add("pista");
+    }
+  });
+
+  $("mensaje-sopa").textContent =
+    `💡 ¡Pista! Busca la palabra ${faltante}. Sus letras están resaltadas en amarillo. Selecciona la primera y la última para encontrarla.`;
+});
+
+/* NUEVA SOPA DE LETRAS */
+
+$("reiniciar-sopa").addEventListener("click", crearSopa);
+
+/* =====================================================
+   CARGAR EL TEMA INDICADO EN LA DIRECCIÓN
+   ===================================================== */
+
+const parametros = new URLSearchParams(window.location.search);
+const temaInicial = parametros.get("tema");
+
+mostrarTema(datos[temaInicial] ? temaInicial : "agua");
+
+</script>
+
+</body>
+</html>

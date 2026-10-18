@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vida Silvestre | Conócelas, cuídalas</title>
+
+  <style>
+    :root {
+      --verde: #28543a;
+      --verde-oscuro: #173d2b;
+      --texto: #526255;
+      --morado: #75409a;
+      --morado-oscuro: #54266f;
+      --lila: #e5d0f5;
+      --rosa: #f7dce9;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #fffafc;
+      color: var(--texto);
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    header, footer {
+      padding: 24px 5%;
+      text-align: center;
+      background: linear-gradient(110deg, #d7b3f0, #e8ccfa, #f4d9ee);
+      border-bottom: 2px solid #c49cde;
+    }
+
+    header a, footer a {
+      color: var(--morado-oscuro);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .contenedor {
+      width: min(1100px, 92%);
+      margin: 32px auto 55px;
+    }
+
+    .regresar {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--morado);
+      font-weight: 800;
+    }
+
+    .portada {
+      overflow: hidden;
+      margin: 0;
+      border: 5px solid white;
+      border-radius: 28px;
+      background: #f3eaf5;
+      box-shadow: 0 15px 35px #50334d20;
+    }
+
+    .portada img {
+      display: block;
+      width: 100%;
+      height: clamp(300px, 45vw, 560px);
+      object-fit: cover;
+    }
+
+    .etiqueta {
+      display: inline-block;
+      margin-top: 25px;
+      color: var(--morado);
+      font-size: .85rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      color: var(--verde-oscuro);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.15;
+    }
+
+    .informacion-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 25px;
+    }
+
+    .tarjeta, .seccion-extra {
+      padding: 22px;
+      border: 1px solid #eadfeb;
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 8px 25px #51334e0c;
+    }
+
+    .tarjeta h2, .seccion-extra h2 {
+      margin-top: 0;
+      color: var(--verde);
+    }
+
+    .conservacion {
+      margin-top: 24px;
+      padding: 25px;
+      border-radius: 20px;
+      background: linear-gradient(130deg, #e5d0f5, #f5ddec, #dcd7f7);
+    }
+
+    .conservacion h2 {
+      color: var(--morado-oscuro);
+    }
+
+    .seccion-extra {
+      margin-top: 32px;
+      padding: 28px;
+    }
+
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .video-card {
+      overflow: hidden;
+      border: 1px solid #e8d5ef;
+      border-radius: 15px;
+      background: #fcf7ff;
+    }
+
+    .video-card video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #251b2c;
+    }
+
+    .video-contenido {
+      padding: 16px;
+    }
+
+    .video-contenido h3 {
+      color: var(--verde);
+    }
+
+    .progreso {
+      height: 12px;
+      margin: 18px 0;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #eee3f4;
+    }
+
+    .progreso-barra {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #8d58b2, #d78cbd);
+      transition: width .3s ease;
+    }
+
+    .pregunta-texto {
+      color: var(--verde-oscuro);
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .opciones {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .opcion {
+      min-height: 58px;
+      padding: 13px;
+      border: 2px solid #e5d6ec;
+      border-radius: 14px;
+      background: white;
+      color: #514358;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .opcion:hover:not(:disabled) {
+      background: #faf3ff;
+      border-color: #ad80ca;
+    }
+
+    .opcion.correcta {
+      background: #e7f6e9;
+      border-color: #4b9564;
+    }
+
+    .opcion.incorrecta {
+      background: #fff0f1;
+      border-color: #d66d7c;
+    }
+
+    .boton-juego {
+      margin: 12px 8px 0 0;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: 30px;
+      background: var(--morado);
+      color: white;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .boton-juego:hover {
+      background: var(--morado-oscuro);
+    }
+
+    .boton-secundario {
+      border: 1px solid #d8bde9;
+      background: #f5eafa;
+      color: var(--morado-oscuro);
+    }
+
+    .resultado {
+      padding: 20px;
+      border-radius: 16px;
+      background: #f6eafa;
+      text-align: center;
+    }
+
+    .resultado strong {
+      color: var(--verde-oscuro);
+      font-size: 2rem;
+    }
+
+    .memoria-estadisticas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 15px 0;
+    }
+
+    .memoria-estadisticas span {
+      padding: 7px 14px;
+      border-radius: 30px;
+      background: #f0e5fa;
+      color: var(--morado-oscuro);
+      font-weight: 800;
+    }
+
+    .memoria-tablero {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .carta-memoria {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1 / 1;
+      min-width: 0;
+      padding: 6px;
+      border: 2px solid #d9c0eb;
+      border-radius: 16px;
+      background: linear-gradient(145deg, #8c58b1, #c08bd7);
+      color: white;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      cursor: pointer;
+      box-shadow: 0 5px 12px #50334d12;
+      transition: transform .2s, background .2s;
+    }
+
+    .carta-memoria:hover:not(:disabled) {
+      transform: translateY(-3px);
+    }
+
+    .carta-memoria.revelada {
+      background: #fff7ff;
+      color: #70418d;
+    }
+
+    .carta-memoria.encontrada {
+      border-color: #80b38b;
+      background: #e8f7eb;
+      cursor: default;
+    }
+
+    .memoria-mensaje {
+      margin-top: 15px;
+      font-weight: 700;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 700px) {
+      .informacion-grid,
+      .videos-grid,
+      .opciones {
+        grid-template-columns: 1fr;
+      }
+
+      .seccion-extra, .tarjeta {
+        padding: 18px;
+      }
+
+      .memoria-tablero {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 9px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a href="index.html">🌿 VIDA SILVESTRE · CONÓCELAS, CUÍDALAS</a>
+  </header>
+
+  <main class="contenedor">
+
+    <a class="regresar" href="flora.html#explorar-plantas">
+      ← Volver a las seis tarjetas de flora
+    </a>
+
+    <figure class="portada">
+      <img id="imagen-planta" src="imagenes/orquideagrande.jpg"
+           alt="Planta de la sección seleccionada">
+    </figure>
+
+    <span class="etiqueta" id="categoria-planta"></span>
+    <h1 id="titulo-planta"></h1>
+    <p id="introduccion-planta"></p>
+
+    <section class="informacion-grid">
+      <article class="tarjeta">
+        <h2>🌿 Características</h2>
+        <p id="caracteristicas-planta"></p>
+      </article>
+
+      <article class="tarjeta">
+        <h2>🌎 Hábitat</h2>
+        <p id="habitat-planta"></p>
+      </article>
+
+      <article class="tarjeta">
+        <h2>🐝 Importancia ecológica</h2>
+        <p id="importancia-planta"></p>
+      </article>
+
+      <article class="tarjeta">
+        <h2>🔎 Para aprender más</h2>
+        <p id="curiosidad-planta"></p>
+      </article>
+    </section>
+
+    <section class="conservacion">
+      <h2>💚 ¿Cómo podemos protegerla?</h2>
+      <ul id="cuidados-planta"></ul>
+    </section>
+
+    <section class="seccion-extra">
+      <h2>🎬 Aprende con nuestros videos</h2>
+      <p>Explora las características de esta sección y descubre cómo cuidar la biodiversidad.</p>
+      <div class="videos-grid" id="videos"></div>
+    </section>
+
+    <section class="seccion-extra">
+      <h2>🎮 ¡Aprende jugando!</h2>
+      <p id="introduccion-juegos"></p>
+
+      <article class="tarjeta">
+        <h2>🧠 ¡Aprende y responde!</h2>
+        <p>Contesta las preguntas usando la información que acabas de leer.</p>
+
+        <div class="progreso">
+          <div class="progreso-barra" id="progreso-barra"></div>
+        </div>
+
+        <p id="numero-pregunta"></p>
+        <p class="pregunta-texto" id="pregunta-texto"></p>
+        <div class="opciones" id="opciones"></div>
+        <p id="retroalimentacion" aria-live="polite"></p>
+
+        <button class="boton-juego" id="siguiente" hidden>
+          Siguiente pregunta →
+        </button>
+
+        <button class="boton-juego boton-secundario" id="reiniciar-preguntas">
+          Reiniciar preguntas
+        </button>
+
+        <div class="resultado" id="resultado" hidden>
+          <h3>¡Terminaste el cuestionario!</h3>
+          <p>Tu resultado:</p>
+          <strong id="puntaje-final"></strong>
+          <p id="mensaje-final"></p>
+          <button class="boton-juego" id="volver-preguntas">
+            Volver a jugar
+          </button>
+        </div>
+      </article>
+
+      <article class="tarjeta" style="margin-top: 24px;">
+        <h2 id="titulo-memoria">🎲 ¡Encuentra las parejas!</h2>
+        <p id="instrucciones-memoria">
+          Selecciona una carta para descubrir su símbolo y luego elige otra.
+          Si coinciden, la pareja quedará descubierta.
+        </p>
+
+        <div class="memoria-estadisticas">
+          <span id="parejas">Parejas: 0 de 6</span>
+          <span id="intentos">Intentos: 0</span>
+        </div>
+
+        <div class="memoria-tablero" id="tablero-memoria"></div>
+
+        <p class="memoria-mensaje" id="mensaje-memoria" aria-live="polite">
+          ¡El juego está listo! Encuentra las seis parejas.
+        </p>
+
+        <button class="boton-juego" id="mezclar">
+          🔄 Mezclar y volver a jugar
+        </button>
+      </article>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Vida Silvestre · Conócelas, cuídalas</p>
+    <a href="flora.html#explorar-plantas">← Regresar a la galería de flora</a>
+  </footer>
+
+  <script>
+    const plantas = {
+      orquideas: {
+        titulo: "Orquídeas",
+        categoria: "Plantas con flores · Familia Orchidaceae",
+        imagen: "imagenes/orquideagrande.jpg",
+        alt: "Orquídeas",
+        introduccion: "Las orquídeas son una familia diversa de plantas con flores, formas, colores y adaptaciones variadas.",
+        caracteristicas: "Sus flores presentan formas y colores diversos. Algunas crecen sobre árboles como soporte y otras en el suelo o las rocas.",
+        habitat: "Habitan ambientes variados, incluidos bosques húmedos y zonas de montaña.",
+        importancia: "Muchas mantienen relaciones con polinizadores que participan en su reproducción.",
+        curiosidad: "La forma y el aroma de algunas flores ayudan a atraer determinados polinizadores.",
+        cuidados: ["No extraerlas del bosque.", "Proteger sus hábitats.", "Comprar ejemplares de viveros legales.", "Fotografiarlas sin alterar su entorno."],
+        videos: [["Conociendo las orquídeas", "Descubre sus características y adaptaciones.", "videos/orquideas-1.mp4"], ["Cuidemos las orquídeas", "Aprende por qué es importante proteger sus hábitats.", "videos/orquideas-2.mp4"]],
+        simbolos: ["🦄", "🎮", "💻", "🚀", "🎧", "🌈"],
+        preguntas: [
+          ["¿A qué familia pertenecen las orquídeas?", ["Orchidaceae", "Bromeliaceae", "Helechos", "Musgos"], 0],
+          ["¿Qué variedad presentan sus flores?", ["Solo un color", "Formas y colores variados", "No tienen flores", "Solo hojas"], 1],
+          ["¿Dónde pueden crecer algunas especies?", ["Solo en agua", "Solo desiertos", "Bosques húmedos y montañas", "Solo ciudades"], 2],
+          ["¿Qué significa crecer sobre un árbol como soporte?", ["Se alimenta del árbol", "Es un árbol", "No necesita hábitat", "Lo usa como soporte"], 3],
+          ["¿Qué factores influyen en su crecimiento?", ["Luz, humedad y temperatura", "Solo oscuridad", "Solo agua salada", "Ninguno"], 0],
+          ["¿Con qué se relacionan muchas orquídeas?", ["Con plástico", "Con polinizadores", "Con edificios", "Con metales"], 1],
+          ["¿Qué puede atraer a los polinizadores?", ["Solo las raíces", "La ausencia de flores", "La forma o el aroma de la flor", "La sombra total"], 2],
+          ["¿Cómo se protegen las orquídeas silvestres?", ["Arrancándolas", "Llevándolas a casa", "Comprándolas sin origen", "Protegiendo sus hábitats"], 3],
+          ["¿Dónde se pueden comprar responsablemente?", ["En viveros legales", "En el bosque", "Sin conocer su procedencia", "Arrancándolas de los árboles"], 0],
+          ["¿Cómo observarlas?", ["Cortándolas", "Fotografiándolas sin dañar la planta", "Arrancando sus raíces", "Dañando el hábitat"], 1]
+        ]
+      },
+
+      bromelias: {
+        titulo: "Bromelias",
+        categoria: "Plantas tropicales · Familia Bromeliaceae",
+        imagen: "imagenes/bromeliagrande.jpg",
+        alt: "Bromelias",
+        introduccion: "Las bromelias son plantas diversas que destacan por sus formas, colores y adaptaciones. Muchas presentan hojas en roseta que aprovechan el agua de lluvia.",
+        caracteristicas: "Sus hojas pueden formar una copa central. Algunas bromelias crecen en el suelo y otras utilizan árboles como soporte sin alimentarse de ellos.",
+        habitat: "Pueden crecer en suelo, rocas, troncos y ramas, especialmente en regiones tropicales.",
+        importancia: "Algunas retienen agua y crean microhábitats para insectos y otros organismos.",
+        curiosidad: "El agua acumulada entre las hojas de ciertas bromelias puede servir de refugio para pequeños organismos.",
+        cuidados: ["No extraerlas de ambientes naturales.", "Proteger árboles y hábitats.", "Adquirir ejemplares de viveros responsables.", "Evitar residuos y contaminantes."],
+        videos: [["Conociendo las bromelias", "Descubre sus características y adaptaciones.", "videos/bromelias-1.mp4"], ["Cuidemos las bromelias", "Aprende la importancia de proteger sus hábitats.", "videos/bromelias-2.mp4"]],
+        simbolos: ["🤖", "👾", "🕹️", "🛸", "🧩", "🎲"],
+        preguntas: [
+          ["¿A qué familia pertenecen las bromelias?", ["Orchidaceae", "Bromeliaceae", "Helechos", "Musgos"], 1],
+          ["¿Cómo se disponen muchas de sus hojas?", ["En roseta", "Como agujas", "Bajo tierra", "No tienen hojas"], 0],
+          ["¿Dónde pueden crecer?", ["Solo en agua", "Solo en desiertos", "En suelo, rocas o árboles", "Solo bajo tierra"], 2],
+          ["¿Qué es una bromelia epífita?", ["Se alimenta del árbol", "No necesita agua", "Vive bajo tierra", "Usa el árbol como soporte"], 3],
+          ["¿Qué pueden formar sus hojas?", ["Una copa que recoge agua", "Un fruto subterráneo", "Una raíz dentro del árbol", "Una flor permanente"], 0],
+          ["¿Qué puede albergar el agua acumulada?", ["Piedras preciosas", "Pequeños organismos", "Plástico", "Metales"], 1],
+          ["¿Todas las bromelias retienen agua igual?", ["Sí", "Solo las rojas", "Depende de la especie", "Ninguna"], 2],
+          ["¿Cómo protegerlas?", ["Arrancándolas", "Dañando hojas", "Retirándolas de los árboles", "Protegiendo sus hábitats"], 3],
+          ["¿Dónde adquirirlas responsablemente?", ["En viveros legales", "En cualquier bosque", "Sin procedencia", "Arrancándolas"], 0],
+          ["¿Cómo observarlas?", ["Cortando hojas", "Sin alterar el entorno", "Arrancando raíces", "Retirándolas"], 1]
+        ]
+      },
+
+      helechos: {
+        titulo: "Helechos",
+        categoria: "Vegetación de bosque",
+        imagen: "imagenes/helechogrande.jpg",
+        alt: "Helechos de frondas verdes",
+        introduccion: "Los helechos son plantas vasculares que se distinguen por sus frondas y se reproducen mediante esporas.",
+        caracteristicas: "Sus hojas, llamadas frondas, presentan formas variadas. En muchas especies las hojas jóvenes se desenrollan al crecer.",
+        habitat: "Muchas especies viven en lugares húmedos y sombreados, aunque existen helechos adaptados a otros ambientes.",
+        importancia: "Forman parte de la vegetación de numerosos ecosistemas y contribuyen a la cobertura vegetal.",
+        curiosidad: "En algunas especies se observan grupos de esporas en la parte inferior de las frondas.",
+        cuidados: ["Conservar la vegetación y humedad natural.", "No destruir los lugares donde crecen.", "No extraer plantas silvestres sin autorización.", "Respetar el suelo y la cobertura vegetal."],
+        videos: [["Conociendo los helechos", "Descubre sus características y adaptaciones.", "videos/helechos-1.mp4"], ["Cuidemos los helechos", "Aprende la importancia de proteger sus hábitats.", "videos/helechos-2.mp4"]],
+        simbolos: ["🦖", "🐉", "🦕", "🦋", "🐸", "🐢"],
+        preguntas: [
+          ["¿Cómo se llaman las hojas de los helechos?", ["Pétalos", "Frondas", "Brácteas", "Espinas"], 1],
+          ["¿Cómo se reproducen?", ["Mediante esporas", "Mediante frutos", "Con semillas en flores", "Solo con raíces"], 0],
+          ["¿Qué no producen los helechos?", ["Hojas", "Raíces", "Flores ni semillas", "Frondas"], 2],
+          ["¿Dónde crecen muchos helechos?", ["En el mar", "En desiertos extremos", "Solo en ciudades", "En lugares húmedos y sombreados"], 3],
+          ["¿Qué hacen algunas hojas jóvenes?", ["Se desenrollan al crecer", "Se vuelven flores", "Desaparecen siempre", "Producen frutos"], 0],
+          ["¿Dónde se observan esporas en algunas especies?", ["En los pétalos", "En la parte inferior de las frondas", "En los frutos", "En las semillas"], 1],
+          ["¿Qué aportan al ecosistema?", ["Contaminación", "Erosión siempre", "Cobertura vegetal y diversidad", "Nada"], 2],
+          ["¿Qué se debe evitar?", ["Observarlos", "Fotografiarlos", "Cuidarlos", "Arrancarlos del ambiente"], 3],
+          ["¿Cómo cuidar su entorno?", ["Conservar vegetación y humedad", "Drenar toda el agua", "Quemar la cobertura", "Arrojar residuos"], 0],
+          ["¿Cómo observarlos?", ["Arrancándolos", "Fotografiándolos sin dañarlos", "Pisándolos", "Quitando hojas"], 1]
+        ]
+      },
+
+      arboles: {
+        titulo: "Árboles nativos",
+        categoria: "Bosques y hábitats",
+        imagen: "imagenes/arbolnativogrande.jpg",
+        alt: "Árboles nativos",
+        introduccion: "Los árboles nativos son especies originarias de una región o ecosistema y forman parte importante de los bosques.",
+        caracteristicas: "Son plantas leñosas que pueden desarrollar troncos, ramas, flores y frutos.",
+        habitat: "Cada especie necesita condiciones particulares de suelo, humedad, temperatura y luz.",
+        importancia: "Ofrecen alimento y refugio a la fauna, protegen el suelo y participan en el ciclo del agua y del carbono.",
+        curiosidad: "Una especie nativa adecuada puede favorecer la restauración ecológica y las relaciones con la fauna local.",
+        cuidados: ["Proteger árboles y regeneración natural.", "Evitar tala y quemas.", "Usar especies apropiadas al territorio.", "Cuidar nacimientos de agua y riberas."],
+        videos: [["Conociendo los árboles nativos", "Descubre la importancia de los árboles de nuestra región.", "videos/arbolesnativos-1.mp4"], ["Cuidemos los árboles nativos", "Aprende a proteger los bosques y sus habitantes.", "videos/arbolesnativos-2.mp4"]],
+        simbolos: ["🦁", "🐻", "🐼", "🦊", "🐵", "🐯"],
+        preguntas: [
+          ["¿Qué es un árbol nativo?", ["Originario de una región", "Una planta ornamental cualquiera", "Una planta acuática", "Una planta de maceta"], 0],
+          ["¿Qué tipo de planta es un árbol?", ["Un hongo", "Una planta leñosa", "Un animal", "Un musgo"], 1],
+          ["¿Qué influye en su crecimiento?", ["Solo el color", "Solo el tamaño", "Suelo, humedad, temperatura y luz", "Solo el viento"], 2],
+          ["¿Qué ofrecen a la fauna?", ["Contaminación", "Solo ruido", "Nada", "Alimento y refugio"], 3],
+          ["¿Cómo ayudan al suelo?", ["Ayudan a protegerlo", "Aumentan siempre la erosión", "Eliminan vegetación", "Secan los ríos"], 0],
+          ["¿En qué ciclos participan?", ["En el plástico", "En el agua y el carbono", "En los metales", "En ninguno"], 1],
+          ["¿Qué considerar al sembrar?", ["Cualquier especie", "Ignorar el clima", "Elegir especies adecuadas al territorio", "No mirar el sitio"], 2],
+          ["¿Qué deteriora los bosques?", ["Restauración", "Protección", "Regeneración", "Tala y quemas"], 3],
+          ["¿Cómo conservarlos?", ["Proteger árboles y regeneración", "Talar árboles jóvenes", "Quemar el sotobosque", "Arrojar basura"], 0],
+          ["¿Qué favorece la restauración?", ["Eliminar animales", "Usar especies nativas adecuadas", "Eliminar el agua", "Impedir la biodiversidad"], 1]
+        ]
+      },
+
+      musgos: {
+        titulo: "Musgos",
+        categoria: "Pequeñas plantas",
+        imagen: "imagenes/musgogrande.jpg",
+        alt: "Musgos verdes sobre una superficie húmeda",
+        introduccion: "Los musgos son plantas pequeñas que suelen crecer en superficies húmedas y sombreadas.",
+        caracteristicas: "No producen flores ni semillas y se reproducen mediante esporas.",
+        habitat: "Suelen aparecer en lugares húmedos, sobre rocas, troncos y suelos.",
+        importancia: "Forman coberturas y contribuyen a crear microambientes que retienen humedad.",
+        curiosidad: "De cerca se observan estructuras vegetales muy pequeñas.",
+        cuidados: ["No arrancarlos de rocas, troncos ni suelos.", "Evitar alterar lugares húmedos.", "No contaminar los ambientes naturales.", "Observarlos sin extraerlos."],
+        videos: [["Conociendo los musgos", "Descubre las características de estos pequeños organismos vegetales.", "videos/musgos-1.mp4"], ["Cuidemos los musgos", "Aprende por qué debemos respetar los lugares donde crecen.", "videos/musgos-2.mp4"]],
+        simbolos: ["👽", "🤡", "👻", "🤖", "💩", "👾"],
+        preguntas: [
+          ["¿Cómo son los musgos?", ["Plantas pequeñas", "Árboles gigantes", "Animales acuáticos", "Hongos con flores"], 0],
+          ["¿Cómo se reproducen?", ["Con frutos", "Mediante esporas", "Con semillas en flores", "Solo con raíces"], 1],
+          ["¿Qué no producen?", ["Estructuras", "Cobertura", "Flores ni semillas", "Esporas"], 2],
+          ["¿Dónde suelen crecer?", ["En el océano", "En desiertos", "Solo en macetas", "En superficies húmedas y sombreadas"], 3],
+          ["¿Sobre qué pueden crecer?", ["Rocas, troncos y suelos", "Solo metal", "Solo vidrio", "Solo arena seca"], 0],
+          ["¿Qué pueden retener sus coberturas?", ["Petróleo", "Humedad", "Plástico", "Sal"], 1],
+          ["¿Qué se observa de cerca?", ["Animales", "Flores grandes", "Estructuras vegetales pequeñas", "Piedras"], 2],
+          ["¿Qué debemos evitar?", ["Fotografiarlos", "Observarlos", "Cuidarlos", "Arrancarlos"], 3],
+          ["¿Cómo cuidar su ambiente?", ["No alterarlo ni contaminarlo", "Arrojar basura", "Secarlo", "Pisar la cobertura"], 0],
+          ["¿Cómo observarlos?", ["Arrancándolos", "Fotografiándolos sin extraerlos", "Quitándolos del tronco", "Llevándolos a casa"], 1]
+        ]
+      },
+
+      ecosistema: {
+        titulo: "Las plantas y su ecosistema",
+        categoria: "Educación ambiental",
+        imagen: "imagenes/plantasecosistemagrande.jpg",
+        alt: "Plantas y biodiversidad de un ecosistema",
+        introduccion: "Las plantas se relacionan con el suelo, el agua, la luz solar, los animales, los hongos y otros organismos.",
+        caracteristicas: "Mediante la fotosíntesis, las plantas utilizan la energía de la luz para producir sustancias necesarias para crecer.",
+        habitat: "Las plantas viven en ambientes diversos, desde bosques húmedos hasta zonas abiertas.",
+        importancia: "Ofrecen alimento y refugio, participan en ciclos naturales y mantienen relaciones ecológicas.",
+        curiosidad: "Un ecosistema incluye seres vivos y elementos como agua, aire, suelo, luz y sus interacciones.",
+        cuidados: ["Proteger la vegetación y las fuentes de agua.", "Reducir residuos y evitar contaminación.", "Respetar hábitats naturales.", "Apoyar acciones responsables de conservación."],
+        videos: [["Conociendo los ecosistemas", "Descubre cómo se relacionan las plantas con otros seres vivos.", "videos/plantasecosistemas-1.mp4"], ["Protejamos la biodiversidad", "Aprende acciones que ayudan a cuidar los ecosistemas.", "videos/plantasecosistemas-2.mp4"]],
+        simbolos: ["💻", "📱", "🎮", "🚀", "🎨", "🎸"],
+        preguntas: [
+          ["¿Con qué se relacionan las plantas?", ["Suelo, agua, luz y organismos", "Solo plástico", "Solo rocas", "Con nada"], 0],
+          ["¿Qué proceso usa energía de la luz?", ["Evaporación", "Fotosíntesis", "Erosión", "Combustión"], 1],
+          ["¿Qué integra un ecosistema?", ["Solo animales", "Solo plantas", "Seres vivos y elementos no vivos", "Solo clima"], 2],
+          ["¿Qué ofrecen las plantas?", ["Contaminación", "Ruido", "Plástico", "Alimento y refugio"], 3],
+          ["¿En qué ciclos participan?", ["En los ciclos del agua y del carbono", "En el plástico", "En los metales fabricados", "En ninguno"], 0],
+          ["¿Qué necesita cada especie?", ["Siempre lo mismo", "Condiciones adecuadas", "Solo oscuridad", "Solo suelo seco"], 1],
+          ["¿Qué acción ayuda a conservar?", ["Arrojar basura", "Contaminar el agua", "Proteger vegetación y fuentes de agua", "Destruir hábitats"], 2],
+          ["¿Qué deteriora los ecosistemas?", ["Restauración", "Conservación", "Reducir residuos", "Contaminación"], 3],
+          ["¿Qué incluyen los ecosistemas además de seres vivos?", ["Agua, aire, suelo y luz", "Solo animales domésticos", "Solo árboles", "Solo edificios"], 0],
+          ["¿Cómo contribuir a la biodiversidad?", ["Destruir hábitats", "Respetar hábitats y reducir residuos", "Extraer plantas", "Contaminar ríos"], 1]
+        ]
+      }
+    };
+
+    const parametros = new URLSearchParams(window.location.search);
+    let clave = parametros.get("planta") || "orquideas";
+
+    // Acepta también el nombre antiguo del enlace de árboles.
+    if (clave === "arboles-nativos") clave = "arboles";
+
+    const planta = plantas[clave] || plantas.orquideas;
+
+    document.title = planta.titulo + " | Vida Silvestre Cauca";
+
+    document.getElementById("imagen-planta").src = planta.imagen;
+    document.getElementById("imagen-planta").alt = planta.alt;
+    document.getElementById("categoria-planta").textContent = planta.categoria;
+    document.getElementById("titulo-planta").textContent = planta.titulo;
+    document.getElementById("introduccion-planta").textContent = planta.introduccion;
+    document.getElementById("caracteristicas-planta").textContent = planta.caracteristicas;
+    document.getElementById("habitat-planta").textContent = planta.habitat;
+    document.getElementById("importancia-planta").textContent = planta.importancia;
+    document.getElementById("curiosidad-planta").textContent = planta.curiosidad;
+
+    planta.cuidados.forEach(cuidado => {
+      const li = document.createElement("li");
+      li.textContent = cuidado;
+      document.getElementById("cuidados-planta").appendChild(li);
+    });
+
+    document.getElementById("introduccion-juegos").textContent =
+      "Pon a prueba lo que aprendiste sobre " + planta.titulo.toLowerCase() +
+      " y después diviértete encontrando las parejas.";
+
+    // Cargar los videos de la categoría.
+    planta.videos.forEach(video => {
+      const tarjeta = document.createElement("article");
+      tarjeta.className = "video-card";
+
+      const reproductor = document.createElement("video");
+      reproductor.controls = true;
+      reproductor.preload = "metadata";
+      reproductor.playsInline = true;
+
+      const fuente = document.createElement("source");
+      fuente.src = video[2];
+      fuente.type = "video/mp4";
+      reproductor.appendChild(fuente);
+
+      const contenido = document.createElement("div");
+      contenido.className = "video-contenido";
+
+      const titulo = document.createElement("h3");
+      titulo.textContent = video[0];
+
+      const descripcion = document.createElement("p");
+      descripcion.textContent = video[1];
+
+      contenido.append(titulo, descripcion);
+      tarjeta.append(reproductor, contenido);
+      document.getElementById("videos").appendChild(tarjeta);
+    });
+
+    // CUESTIONARIO
+    let indicePregunta = 0;
+    let puntos = 0;
+    let respondida = false;
+
+    const $ = id => document.getElementById(id);
+
+    function mostrarPregunta() {
+      respondida = false;
+      const pregunta = planta.preguntas[indicePregunta];
+
+      $("numero-pregunta").textContent =
+        "Pregunta " + (indicePregunta + 1) + " de " + planta.preguntas.length +
+        " · Puntos: " + puntos;
+
+      $("pregunta-texto").textContent = pregunta[0];
+      $("opciones").innerHTML = "";
+      $("retroalimentacion").textContent = "";
+      $("siguiente").hidden = true;
+      $("progreso-barra").style.width =
+        (indicePregunta / planta.preguntas.length * 100) + "%";
+
+      pregunta[1].forEach((opcion, i) => {
+        const boton = document.createElement("button");
+        boton.className = "opcion";
+        boton.textContent = opcion;
+        boton.addEventListener("click", () => responder(i, boton));
+        $("opciones").appendChild(boton);
+      });
+    }
+
+    function responder(seleccion, botonSeleccionado) {
+      if (respondida) return;
+      respondida = true;
+
+      const pregunta = planta.preguntas[indicePregunta];
+      const botones = [...$("opciones").children];
+
+      botones.forEach((boton, i) => {
+        boton.disabled = true;
+        if (i === pregunta[2]) boton.classList.add("correcta");
+      });
+
+      if (seleccion === pregunta[2]) {
+        puntos++;
+        $("retroalimentacion").textContent = "¡Muy bien! Respuesta correcta.";
+      } else {
+        botonSeleccionado.classList.add("incorrecta");
+        $("retroalimentacion").textContent =
+          "La respuesta correcta es: " + pregunta[1][pregunta[2]] + ".";
+      }
+
+      $("numero-pregunta").textContent =
+        "Pregunta " + (indicePregunta + 1) + " de " +
+        planta.preguntas.length + " · Puntos: " + puntos;
+
+      $("progreso-barra").style.width =
+        ((indicePregunta + 1) / planta.preguntas.length * 100) + "%";
+
+      $("siguiente").textContent =
+        indicePregunta === planta.preguntas.length - 1
+          ? "Ver resultado →"
+          : "Siguiente pregunta →";
+
+      $("siguiente").hidden = false;
+    }
+
+    function reiniciarPreguntas() {
+      indicePregunta = 0;
+      puntos = 0;
+      $("resultado").hidden = true;
+      $("numero-pregunta").parentElement.hidden = false;
+      $("pregunta-texto").hidden = false;
+      $("opciones").hidden = false;
+      $("progreso-barra").parentElement.hidden = false;
+      mostrarPregunta();
+    }
+
+    $("siguiente").addEventListener("click", () => {
+      if (!respondida) return;
+
+      if (indicePregunta < planta.preguntas.length - 1) {
+        indicePregunta++;
+        mostrarPregunta();
+      } else {
+        $("numero-pregunta").parentElement.hidden = true;
+        $("pregunta-texto").hidden = true;
+        $("opciones").hidden = true;
+        $("siguiente").hidden = true;
+        $("progreso-barra").parentElement.hidden = true;
+        $("resultado").hidden = false;
+        $("puntaje-final").textContent =
+          puntos + " de " + planta.preguntas.length;
+
+        $("mensaje-final").textContent =
+          puntos === planta.preguntas.length
+            ? "¡Excelente! Respondiste todas correctamente."
+            : puntos >= 7
+              ? "¡Muy bien! Tienes buenos conocimientos. Puedes intentarlo otra vez."
+              : "¡Buen intento! Repasa la información y vuelve a jugar.";
+      }
+    });
+
+    $("reiniciar-preguntas").addEventListener("click", reiniciarPreguntas);
+    $("volver-preguntas").addEventListener("click", reiniciarPreguntas);
+
+    mostrarPregunta();
+
+    // JUEGO DE MEMORIA: SEIS PARES DIFERENTES POR CATEGORÍA.
+    // Los símbolos se mezclan en cada partida.
+    const simbolos = planta.simbolos;
+
+    let cartasElegidas = [];
+    let parejasEncontradas = 0;
+    let intentos = 0;
+    let bloqueado = false;
+    let partida = 0;
+
+    function crearTablero() {
+      partida++;
+      cartasElegidas = [];
+      parejasEncontradas = 0;
+      intentos = 0;
+      bloqueado = false;
+
+      $("parejas").textContent = "Parejas: 0 de 6";
+      $("intentos").textContent = "Intentos: 0";
+      $("mensaje-memoria").textContent =
+        "¡Vamos a jugar! Encuentra las seis parejas.";
+
+      $("titulo-memoria").textContent =
+        "🎲 ¡Encuentra las parejas de " + planta.titulo.toLowerCase() + "!";
+
+      const mazo = [...simbolos, ...simbolos];
+
+      // Mezclar las cartas al azar.
+      for (let i = mazo.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [mazo[i], mazo[j]] = [mazo[j], mazo[i]];
+      }
+
+      $("tablero-memoria").innerHTML = "";
+
+      mazo.forEach((simbolo, indice) => {
+        const carta = document.createElement("button");
+        carta.className = "carta-memoria";
+        carta.textContent = "❔";
+        carta.setAttribute("aria-label", "Carta oculta " + (indice + 1));
+        carta.dataset.simbolo = simbolo;
+        carta.addEventListener("click", () => voltearCarta(carta));
+        $("tablero-memoria").appendChild(carta);
+      });
+    }
+
+    function voltearCarta(carta) {
+      if (
+        bloqueado ||
+        carta.classList.contains("revelada") ||
+        carta.classList.contains("encontrada")
+      ) return;
+
+      carta.textContent = carta.dataset.simbolo;
+      carta.classList.add("revelada");
+      carta.setAttribute("aria-label", carta.dataset.simbolo);
+      cartasElegidas.push(carta);
+
+      if (cartasElegidas.length === 2) {
+        intentos++;
+        $("intentos").textContent = "Intentos: " + intentos;
+
+        const [primera, segunda] = cartasElegidas;
+
+        if (primera.dataset.simbolo === segunda.dataset.simbolo) {
+          primera.classList.add("encontrada");
+          segunda.classList.add("encontrada");
+          primera.disabled = true;
+          segunda.disabled = true;
+
+          cartasElegidas = [];
+          parejasEncontradas++;
+
+          $("parejas").textContent =
+            "Parejas: " + parejasEncontradas + " de 6";
+
+          if (parejasEncontradas === 6) {
+            $("mensaje-memoria").textContent =
+              "🎉 ¡Lo lograste! Encontraste las seis parejas en " +
+              intentos + " intentos.";
+          } else {
+            $("mensaje-memoria").textContent = "¡Pareja encontrada! Sigue así.";
+          }
+        } else {
+          bloqueado = true;
+          const turnoActual = partida;
+
+          window.setTimeout(() => {
+            if (turnoActual !== partida) return;
+
+            primera.textContent = "❔";
+            segunda.textContent = "❔";
+            primera.classList.remove("revelada");
+            segunda.classList.remove("revelada");
+            primera.setAttribute("aria-label", "Carta oculta");
+            segunda.setAttribute("aria-label", "Carta oculta");
+
+            cartasElegidas = [];
+            bloqueado = false;
+            $("mensaje-memoria").textContent =
+              "No coinciden todavía. ¡Prueba con otras cartas!";
+          }, 800);
+        }
+      }
+    }
+
+    $("mezclar").addEventListener("click", crearTablero);
+    crearTablero();
+  </script>
+
+</body>
+</html>

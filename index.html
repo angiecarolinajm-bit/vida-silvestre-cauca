@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description"
+        content="Vida Silvestre: conoce y cuida la biodiversidad del departamento del Cauca.">
+
+  <title>Vida Silvestre | Cauca</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Configuración para el modo sin conexión -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#174d35">
+
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <!-- ENCABEZADO Y MENÚ -->
+  <header class="encabezado">
+    <a class="marca" href="index.html" aria-label="Vida Silvestre, inicio">
+      <span class="marca-hoja">🌿</span>
+      <span class="marca-texto">
+        <strong>VIDA SILVESTRE</strong>
+        <small>Conócelas, cuídalas</small>
+      </span>
+    </a>
+
+    <button class="menu-boton" id="menuBoton"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+            aria-controls="menu"
+            type="button">
+      ☰
+    </button>
+
+    <nav class="menu" id="menu" aria-label="Menú principal">
+      <a class="activo" href="index.html">Inicio</a>
+      <a href="fauna.html">Fauna</a>
+      <a href="flora.html">Flora</a>
+      <a href="conservacion.html">Amenazas y conservación</a>
+      <a href="educacion.html">Educación</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- PORTADA PRINCIPAL -->
+    <section class="portada" id="inicio">
+
+      <div class="portada-fondo" aria-hidden="true"></div>
+
+      <div class="portada-contenido">
+        <span class="etiqueta-portada">
+          🌱 BIODIVERSIDAD DEL CAUCA
+        </span>
+
+        <h1>
+          Descubre la riqueza<br>
+          natural del <span>Cauca</span>
+        </h1>
+
+        <p>
+          Conoce la fauna, la flora y los ecosistemas de nuestro
+          territorio. Aprender sobre la naturaleza es el primer
+          paso para protegerla.
+        </p>
+
+        <div class="botones-portada">
+          <a class="boton boton-principal" href="#explorar">
+            Explorar la biodiversidad <span>→</span>
+          </a>
+
+          <a class="boton boton-secundario" href="#proposito">
+            ¿Cómo podemos cuidar? 🌿
+          </a>
+        </div>
+      </div>
+
+      <img class="oso-portada"
+           src="imagenes/oso.jpg"
+           alt="Oso de anteojos, especie nativa de Sudamérica">
+
+      <div class="mensaje-portada">
+        <span>🌿</span>
+        <p>Un territorio lleno de vida</p>
+      </div>
+
+    </section>
+
+    <!-- PROPÓSITO DEL PROYECTO -->
+    <section class="proposito" id="proposito">
+
+      <div class="proposito-icono" aria-hidden="true">🌿</div>
+
+      <div class="proposito-texto">
+        <span class="etiqueta">NUESTRO PROPÓSITO</span>
+
+        <h2>La biodiversidad merece ser conocida y protegida</h2>
+
+        <p>
+          Esta plataforma reúne información educativa sobre especies,
+          ecosistemas, amenazas ambientales y acciones de conservación,
+          para facilitar su consulta y fortalecer la sensibilización
+          ambiental de la comunidad.
+        </p>
+      </div>
+
+      <img class="proposito-imagen"
+           src="imagenes/munchique.jpg"
+           alt="Paisaje natural de montañas y bosques del Cauca"
+           loading="lazy">
+
+    </section>
+
+    <!-- ACCESO A LOS CUATRO APARTADOS -->
+    <section class="explorar" id="explorar">
+
+      <div class="titulo-seccion">
+        <span class="etiqueta">EXPLORA Y APRENDE</span>
+        <h2>Conoce nuestro patrimonio natural</h2>
+        <p>
+          Explora los contenidos y descubre por qué es importante
+          cuidar la biodiversidad de nuestro territorio.
+        </p>
+      </div>
+
+      <div class="tarjetas">
+
+        <article class="tarjeta">
+          <img src="imagenes/oso.jpg"
+               alt="Oso de anteojos en su entorno natural"
+               loading="lazy">
+
+          <div class="tarjeta-contenido">
+            <span class="categoria">01 · FAUNA</span>
+            <h3>La vida animal</h3>
+            <p>
+              Conoce especies animales, sus características,
+              su importancia ecológica y las amenazas que enfrentan.
+            </p>
+            <a class="enlace-tarjeta" href="fauna.html">
+              Explorar fauna →
+            </a>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <img src="imagenes/orquidea.jpg"
+               alt="Orquídea de color rosado y morado"
+               loading="lazy">
+
+          <div class="tarjeta-contenido">
+            <span class="categoria">02 · FLORA</span>
+            <h3>La riqueza vegetal</h3>
+            <p>
+              Descubre plantas, flores y su importancia
+              para el equilibrio de los ecosistemas.
+            </p>
+            <a class="enlace-tarjeta" href="flora.html">
+              Explorar flora →
+            </a>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <img src="imagenes/deforestacion.jpg"
+               alt="Área de bosque afectada por la deforestación"
+               loading="lazy">
+
+          <div class="tarjeta-contenido">
+            <span class="categoria">03 · CONSERVACIÓN</span>
+            <h3>Amenazas y conservación</h3>
+            <p>
+              Identifica amenazas ambientales y aprende
+              recomendaciones para proteger la biodiversidad.
+            </p>
+            <a class="enlace-tarjeta" href="conservacion.html">
+              Aprender a conservar →
+            </a>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <img src="imagenes/munchique.jpg"
+               alt="Bosque y montañas del paisaje caucano"
+               loading="lazy">
+
+          <div class="tarjeta-contenido">
+            <span class="categoria">04 · EDUCACIÓN</span>
+            <h3>Información educativa</h3>
+            <p>
+              Comprende qué es la biodiversidad, cómo funcionan
+              los ecosistemas y por qué debemos conservarlos.
+            </p>
+            <a class="enlace-tarjeta" href="educacion.html">
+              Aprender más →
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- MENSAJE FINAL -->
+    <section class="mensaje-final">
+      <span class="mensaje-icono">🌱</span>
+      <h2>Pequeñas acciones, grandes cambios</h2>
+      <p>
+        Conocer la naturaleza es el primer paso para valorarla,
+        protegerla y compartir su importancia con los demás.
+      </p>
+      <a href="#inicio" class="boton boton-principal">
+        Volver al inicio ↑
+      </a>
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="pie">
+    <a class="marca marca-pie" href="index.html">
+      🌿 VIDA SILVESTRE
+    </a>
+
+    <p>
+      Plataforma educativa para la divulgación y conservación
+      de la biodiversidad del departamento del Cauca.
+    </p>
+
+    <small>Proyecto académico · Elaboración propia</small>
+  </footer>
+
+</body>
+</html>

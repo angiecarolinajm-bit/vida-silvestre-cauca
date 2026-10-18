@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aprende sobre biodiversidad, ecosistemas y conservación ambiental con Vida Silvestre.">
+  <title>Educación ambiental | Vida Silvestre</title>
+
+  <style>
+    :root {
+      --verde: #168b2f;
+      --verde-oscuro: #064d1c;
+      --verde-brillante: #43e52b;
+      --verde-claro: #eaffdf;
+      --blanco: #ffffff;
+      --texto: #314332;
+      --borde: #c9f0bd;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--blanco);
+      background: var(--verde-oscuro);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .contenedor {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    header {
+      background: #ffffff;
+      border-bottom: 4px solid var(--verde-brillante);
+      text-align: center;
+    }
+
+    .barra {
+      min-height: 105px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 0;
+    }
+
+    .logo {
+      display: inline-block;
+      color: var(--verde-oscuro);
+      text-decoration: none;
+      font-weight: 900;
+      font-size: clamp(1.7rem, 4vw, 2.35rem);
+      line-height: 1.2;
+    }
+
+    .logo small {
+      display: block;
+      color: var(--verde);
+      font-size: .9rem;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    .marca-linea {
+      display: block;
+      width: 76px;
+      height: 4px;
+      margin: 12px auto 0;
+      border-radius: 10px;
+      background: var(--verde-brillante);
+    }
+
+    nav { display: none; }
+
+    .portada {
+      padding: 75px 0;
+      background: linear-gradient(120deg, #043d16 0%, #087329 58%, #baff9f 100%);
+    }
+
+    .portada-contenido {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .etiqueta {
+      display: inline-block;
+      background: #ffffff;
+      color: var(--verde-oscuro);
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: .8rem;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    h1, h2, h3 { line-height: 1.25; }
+
+    h1 {
+      color: #ffffff;
+      font-size: clamp(2.3rem, 5vw, 3.6rem);
+      margin: 18px 0;
+    }
+
+    h1 span { color: #baff9f; }
+
+    .portada p {
+      font-size: 1.08rem;
+      max-width: 650px;
+    }
+
+    .portada-imagen {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .portada-imagen img {
+      display: block;
+      width: 100%;
+      height: 390px;
+      object-fit: cover;
+      object-position: center;
+      border: 3px solid #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 16px 38px #002b12a6;
+    }
+
+    .boton {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 13px 22px;
+      border-radius: 12px;
+      background: #43e52b;
+      color: #064d1c;
+      border: 2px solid #43e52b;
+      text-decoration: none;
+      font-weight: 800;
+      transition: .2s;
+    }
+
+    .boton:hover {
+      background: #ffffff;
+      border-color: #ffffff;
+      color: #064d1c;
+      transform: translateY(-2px);
+    }
+
+    section {
+      padding: 65px 0;
+      background: #064d1c;
+    }
+
+    .encabezado {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 35px;
+    }
+
+    .encabezado h2 {
+      color: #ffffff;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 12px;
+    }
+
+    .encabezado p {
+      color: #eaffdf;
+      margin: 0;
+    }
+
+    .tarjetas {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .tarjeta {
+      background: #ffffff;
+      color: #314332;
+      border: 2px solid #eaffdf;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px #001e0c55;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .tarjeta:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 30px #001e0c77;
+    }
+
+    .tarjeta img {
+      display: block;
+      width: 100%;
+      height: 195px;
+      object-fit: cover;
+    }
+
+    .tarjeta-contenido { padding: 22px; }
+
+    .numero {
+      color: #168b2f;
+      font-weight: 800;
+      font-size: .85rem;
+    }
+
+    .tarjeta h3 {
+      color: #064d1c;
+      margin: 8px 0;
+      font-size: 1.3rem;
+    }
+
+    .tarjeta p { font-size: .95rem; }
+
+    .enlace {
+      display: inline-block;
+      color: #064d1c;
+      text-decoration: none;
+      font-weight: 800;
+      margin-top: 7px;
+    }
+
+    .enlace:hover {
+      color: #168b2f;
+      text-decoration: underline;
+    }
+
+    .franja {
+      background: #ffffff;
+      color: #314332;
+      border: 2px solid #43e52b;
+      border-radius: 26px;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: center;
+      box-shadow: 0 8px 25px #001e0c55;
+    }
+
+    .franja h2 {
+      color: #064d1c;
+      margin-top: 0;
+    }
+
+    .franja ul { padding-left: 22px; }
+
+    .franja li { margin-bottom: 10px; }
+
+    .llamado {
+      background: #ffffff;
+      color: #314332;
+      border: 2px solid #43e52b;
+      text-align: center;
+      border-radius: 24px;
+      padding: 38px 25px;
+      box-shadow: 0 8px 25px #001e0c55;
+    }
+
+    .llamado h2 { color: #064d1c; }
+
+    .llamado p {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    footer {
+      padding: 30px 0;
+      background: #033613;
+      border-top: 4px solid #43e52b;
+      color: #ffffff;
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    footer strong {
+      color: #eaffdf;
+      font-size: 1.15rem;
+    }
+
+    footer p { margin: 7px 0; }
+
+    @media (max-width: 850px) {
+      .portada-contenido,
+      .franja {
+        grid-template-columns: 1fr;
+      }
+
+      .portada-imagen img { height: 300px; }
+
+      .tarjetas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .tarjetas { grid-template-columns: 1fr; }
+
+      .portada { padding: 50px 0; }
+
+      section { padding: 48px 0; }
+
+      .franja { padding: 23px; }
+
+      .portada-imagen img { height: 230px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="contenedor barra">
+    <a class="logo" href="index.html" aria-label="Vida Silvestre, página principal">
+      🌿 VIDA SILVESTRE
+      <small>Conócelas, cuídalas</small>
+      <span class="marca-linea"></span>
+    </a>
+  </div>
+</header>
+
+<main>
+
+  <section class="portada">
+    <div class="contenedor portada-contenido">
+
+      <div>
+        <span class="etiqueta">📚 APRENDER PARA CONSERVAR</span>
+
+        <h1>
+          La educación ambiental nos ayuda a
+          <span>proteger la vida</span>
+        </h1>
+
+        <p>
+          Descubre conceptos esenciales sobre la biodiversidad, aprende
+          sobre los ecosistemas y encuentra acciones prácticas para cuidar
+          la riqueza natural del departamento del Cauca.
+        </p>
+
+        <a class="boton" href="#recursos">
+          Explorar recursos educativos ↓
+        </a>
+      </div>
+
+      <div class="portada-imagen">
+        <img
+          src="imagenes/educacion-portada.jpg"
+          alt="Biodiversidad y vegetación de los ecosistemas del Cauca"
+        >
+      </div>
+
+    </div>
+  </section>
+
+  <section id="recursos">
+    <div class="contenedor">
+
+      <div class="encabezado">
+        <h2>Explora, aprende y participa</h2>
+        <p>
+          Encuentra información organizada y actividades sencillas para
+          comprender mejor la naturaleza y fortalecer tus conocimientos.
+        </p>
+      </div>
+
+      <div class="tarjetas">
+
+        <article class="tarjeta">
+          <img src="imagenes/educacion-aula.jpg"
+               alt="Aprendizaje sobre la naturaleza" loading="lazy">
+          <div class="tarjeta-contenido">
+            <span class="numero">01 · APRENDIZAJE</span>
+            <h3>Aula ambiental</h3>
+            <p>Comprende qué es la biodiversidad, cómo funcionan los ecosistemas y por qué debemos conservarlos.</p>
+            <a class="enlace" href="detalle-educacion.html?tema=aula">Entrar al aula ambiental →</a>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <img src="imagenes/educacion-glosario.jpg"
+               alt="Material educativo para aprender conceptos" loading="lazy">
+          <div class="tarjeta-contenido">
+            <span class="numero">02 · CONCEPTOS</span>
+            <h3>Aprende conceptos clave</h3>
+            <p>Consulta definiciones sencillas para entender los términos ambientales más importantes.</p>
+            <a class="enlace" href="detalle-educacion.html?tema=glosario">Consultar el glosario →</a>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <img src="imagenes/educacion-reto.jpg"
+               alt="Actividad de preguntas y aprendizaje" loading="lazy">
+          <div class="tarjeta-contenido">
+            <span class="numero">03 · ACTIVIDAD</span>
+            <h3>Reto de conocimientos</h3>
+            <p>Pon a prueba lo que sabes sobre fauna, flora, amenazas y conservación.</p>
+            <a class="enlace" href="detalle-educacion.html?tema=reto">Comenzar el reto →</a>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <img src="imagenes/educacion-compromiso.jpg"
+               alt="Persona cuidando una planta" loading="lazy">
+          <div class="tarjeta-contenido">
+            <span class="numero">04 · PARTICIPACIÓN</span>
+            <h3>Mi compromiso ambiental</h3>
+            <p>Elige acciones que puedes poner en práctica en casa, en la escuela o en tu comunidad.</p>
+            <a class="enlace" href="detalle-educacion.html?tema=compromiso">Elegir mis compromisos →</a>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <img src="imagenes/educacion-biblioteca.jpg"
+               alt="Libros y recursos para aprender" loading="lazy">
+          <div class="tarjeta-contenido">
+            <span class="numero">05 · CONSULTA</span>
+            <h3>Biblioteca ambiental</h3>
+            <p>Accede a instituciones y recursos confiables para profundizar en los temas ambientales.</p>
+            <a class="enlace" href="detalle-educacion.html?tema=biblioteca">Explorar fuentes →</a>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <img src="imagenes/educacion-actividad.jpg"
+               alt="Observación de plantas en un entorno natural" loading="lazy">
+          <div class="tarjeta-contenido">
+            <span class="numero">06 · EXPERIENCIA</span>
+            <h3>Aprender en mi entorno</h3>
+            <p>Realiza una actividad de observación y reconoce elementos naturales que te rodean.</p>
+            <a class="enlace" href="detalle-educacion.html?tema=actividad">Realizar la actividad →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="contenedor franja">
+      <div>
+        <h2>Aprender también es actuar</h2>
+        <p>
+          La educación ambiental no se limita a conocer palabras o especies.
+          También invita a reflexionar sobre nuestros hábitos y a tomar
+          decisiones responsables frente al entorno.
+        </p>
+      </div>
+
+      <ul>
+        <li>Conoce y respeta las especies silvestres.</li>
+        <li>Protege el agua y evita contaminar las fuentes hídricas.</li>
+        <li>Reduce los residuos y promueve su manejo responsable.</li>
+        <li>Previene las quemas y cuida los hábitats naturales.</li>
+        <li>Comparte información ambiental verificada.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SE ELIMINÓ EL BLOQUE "TU APRENDIZAJE PUEDE INSPIRAR A OTROS" -->
+
+  <section>
+    <div class="contenedor llamado">
+      <h2>¿Lista para seguir explorando?</h2>
+      <p>
+        Regresa a la página principal y continúa descubriendo
+        la biodiversidad del Cauca.
+      </p>
+      <a class="boton" href="index.html">← Volver al inicio</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="contenedor">
+    <strong>🌿 VIDA SILVESTRE</strong>
+    <p>Conócelas, cuídalas.</p>
+    <p>Plataforma educativa para la divulgación y conservación de la biodiversidad del Cauca.</p>
+    <p>Aprender sobre la naturaleza es parte de protegerla.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+
+{
+  "name": "Vida Silvestre: Conócelas, Cuídalas",
+  "short_name": "Vida Silvestre",
+  "description": "Plataforma web para la divulgación y conservación de la biodiversidad del departamento del Cauca.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#174d35"
+}

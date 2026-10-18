@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Recursos interactivos para aprender sobre biodiversidad y educación ambiental.">
+<title>Aprende y participa | Vida Silvestre</title>
+
+<style>
+:root {
+  --verde: #168b2f;
+  --verde-oscuro: #064d1c;
+  --verde-brillante: #43e52b;
+  --verde-claro: #eaffdf;
+  --blanco: #ffffff;
+  --texto: #314332;
+  --borde: #c9f0bd;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--verde-oscuro);
+  color: var(--texto);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.65;
+}
+
+a { color: inherit; }
+.contenedor { width: min(1000px, 92%); margin: auto; }
+
+header {
+  background: #ffffff;
+  border-bottom: 4px solid var(--verde-brillante);
+  text-align: center;
+}
+
+.barra {
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.logo {
+  color: var(--verde-oscuro);
+  text-decoration: none;
+  font-weight: 900;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  text-align: center;
+  line-height: 1.25;
+}
+
+.logo small {
+  display: block;
+  color: var(--verde);
+  font-weight: 700;
+  font-size: .9rem;
+  margin-top: 5px;
+}
+
+.marca-linea {
+  display: block;
+  width: 76px;
+  height: 4px;
+  background: var(--verde-brillante);
+  border-radius: 10px;
+  margin: 10px auto 0;
+}
+
+nav, .migas { display: none; }
+
+/* PORTADA VERDE CON IMAGEN AL LADO DEL TÍTULO */
+.portada {
+  padding: 55px 0;
+  background: linear-gradient(120deg, #043d16 0%, #087329 58%, #baff9f 100%);
+}
+
+.portada-contenido {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 35px;
+  align-items: center;
+}
+
+.etiqueta {
+  display: inline-block;
+  padding: 8px 13px;
+  border-radius: 30px;
+  background: #ffffff;
+  color: var(--verde-oscuro);
+  font-weight: 800;
+  font-size: .8rem;
+  letter-spacing: .5px;
+}
+
+h1, h2, h3 { line-height: 1.25; }
+
+h1 {
+  color: #ffffff;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 12px 0;
+}
+
+h1 span { color: #baff9f; }
+
+.portada p {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+/* IMAGEN DINÁMICA JUNTO AL TÍTULO */
+.portada-imagen {
+  width: 100%;
+  min-width: 0;
+}
+
+.portada-imagen img {
+  display: block;
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+  object-position: center;
+  border: 3px solid #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 14px 35px #002b12a6;
+}
+
+section {
+  padding: 42px 0;
+  background: var(--verde-oscuro);
+}
+
+h2 {
+  color: var(--verde-oscuro);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.panel {
+  background: #ffffff;
+  color: var(--texto);
+  border: 2px solid var(--verde-brillante);
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 22px;
+  box-shadow: 0 8px 24px #001e0c40;
+}
+
+.panel h2 { margin-top: 0; }
+
+.panel h3 { color: var(--verde-oscuro); }
+
+.dos-columnas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.suave, .lila {
+  padding: 20px;
+  border-radius: 15px;
+  color: var(--texto);
+}
+
+.suave {
+  background: #ffffff;
+  border: 1px solid var(--borde);
+}
+
+.lila {
+  background: var(--verde-claro);
+  border: 1px solid var(--borde);
+}
+
+.boton {
+  display: inline-block;
+  background: var(--verde-brillante);
+  color: var(--verde-oscuro);
+  border: 2px solid var(--verde-brillante);
+  border-radius: 12px;
+  padding: 13px 22px;
+  margin: 6px 5px 6px 0;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: .95rem;
+  transition: .2s;
+}
+
+.boton:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: var(--verde-oscuro);
+  transform: translateY(-2px);
+}
+
+.secundario {
+  background: var(--verde-claro);
+  border-color: var(--borde);
+  color: var(--verde-oscuro);
+}
+
+.secundario:hover {
+  background: #ffffff;
+  border-color: var(--verde-brillante);
+}
+
+.concepto {
+  border-bottom: 1px solid var(--borde);
+  padding: 14px 0;
+}
+
+.concepto h3 {
+  color: var(--verde-oscuro);
+  margin: 0 0 5px;
+}
+
+.buscador {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #bde9ad;
+  border-radius: 12px;
+  font-size: 1rem;
+  margin: 5px 0 15px;
+  font-family: inherit;
+}
+
+.buscador:focus {
+  outline: 2px solid var(--verde-brillante);
+}
+
+.pregunta {
+  border: 1px solid var(--borde);
+  padding: 18px;
+  border-radius: 15px;
+  margin: 16px 0;
+  background: #ffffff;
+}
+
+.pregunta h3 {
+  color: var(--verde-oscuro);
+  font-size: 1.05rem;
+  margin-top: 0;
+}
+
+.opcion {
+  display: block;
+  padding: 9px 12px;
+  margin: 8px 0;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.opcion:hover { background: var(--verde-claro); }
+.opcion input { margin-right: 8px; accent-color: var(--verde); }
+
+.explicacion {
+  font-weight: 600;
+  color: var(--verde-oscuro);
+}
+
+.resultado {
+  font-weight: 800;
+  color: var(--verde-oscuro);
+}
+
+.compromiso {
+  display: block;
+  background: #ffffff;
+  border: 1px solid var(--borde);
+  padding: 14px;
+  border-radius: 12px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.compromiso:hover {
+  background: var(--verde-claro);
+  border-color: var(--verde-brillante);
+}
+
+.compromiso input { margin-right: 9px; accent-color: var(--verde); }
+
+.fuente { font-size: .9rem; }
+.fuente a { color: var(--verde-oscuro); overflow-wrap: anywhere; }
+
+.nota {
+  border-left: 5px solid var(--verde-brillante);
+  background: var(--verde-claro);
+  color: var(--texto);
+  padding: 15px;
+  border-radius: 9px;
+}
+
+/* BLOQUE FINAL */
+.volver-inicio {
+  text-align: center;
+  background: #ffffff;
+  border: 2px solid var(--verde-brillante);
+  padding: 35px 25px;
+}
+
+.volver-inicio h2 { color: var(--verde-oscuro); }
+
+.volver-inicio p {
+  max-width: 700px;
+  margin: 0 auto 12px;
+}
+
+footer {
+  background: #033613;
+  border-top: 4px solid var(--verde-brillante);
+  color: #ffffff;
+  text-align: center;
+  padding: 25px 0;
+  margin-top: 25px;
+  font-size: .9rem;
+}
+
+footer strong {
+  color: var(--verde-claro);
+  font-size: 1.1rem;
+}
+
+[hidden] { display: none !important; }
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--verde-brillante);
+  outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+  .portada-contenido,
+  .dos-columnas {
+    grid-template-columns: 1fr;
+  }
+
+  .portada-imagen img { height: 260px; }
+  .panel { padding: 19px; }
+  .barra { min-height: 90px; }
+  .volver-inicio { padding: 28px 18px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="contenedor barra">
+    <a class="logo" href="educacion.html" aria-label="Vida Silvestre">
+      🌿 VIDA SILVESTRE
+      <small>Conócelas, cuídalas</small>
+      <span class="marca-linea"></span>
+    </a>
+  </div>
+</header>
+
+<main>
+
+  <section class="portada">
+    <div class="contenedor portada-contenido">
+
+      <div>
+        <span class="etiqueta">APRENDER · COMPRENDER · ACTUAR</span>
+
+        <h1 id="titulo">
+          Aula ambiental y la <span>biodiversidad</span>
+        </h1>
+
+        <p id="intro">
+          Comprende qué es la biodiversidad, cómo funcionan los ecosistemas
+          y por qué debemos conservarlos.
+        </p>
+
+        <a class="boton" href="#contenido">Comenzar a aprender ↓</a>
+      </div>
+
+      <div class="portada-imagen">
+        <img id="imagenTema"
+             src="imagenes/educacion-aula.jpg"
+             alt="Aula ambiental y biodiversidad"
+             onerror="this.onerror=null; this.src='imagenes/educacion-portada.jpg';">
+      </div>
+
+    </div>
+  </section>
+
+  <section id="contenido">
+    <div class="contenedor">
+
+      <article class="panel" id="panelAula" hidden>
+        <h2>¿Qué es la biodiversidad?</h2>
+        <p>
+          La biodiversidad comprende la variedad de seres vivos, sus
+          diferencias y las relaciones que mantienen entre sí y con los
+          ecosistemas. Incluye plantas, animales, hongos, microorganismos
+          y los ambientes donde viven.
+        </p>
+
+        <div class="dos-columnas">
+          <div class="suave">
+            <h3>Fauna y flora</h3>
+            <p>La fauna reúne los animales de una región; la flora comprende las plantas que forman parte de sus ambientes naturales.</p>
+          </div>
+
+          <div class="lila">
+            <h3>Ecosistemas</h3>
+            <p>Son sistemas donde los seres vivos interactúan entre sí y con elementos como el agua, el suelo, el aire y la luz.</p>
+          </div>
+        </div>
+
+        <h2>¿Por qué es importante conservarla?</h2>
+        <ul>
+          <li>Contribuye al equilibrio y funcionamiento de los ecosistemas.</li>
+          <li>Proporciona hábitats y recursos necesarios para diferentes especies.</li>
+          <li>Se relaciona con el agua, los suelos y el bienestar de las comunidades.</li>
+          <li>Representa una riqueza natural que debemos conocer y proteger.</li>
+        </ul>
+
+        <h2>La biodiversidad del Cauca</h2>
+        <p>
+          El departamento del Cauca reúne diversos ambientes naturales.
+          Conocer las especies y los ecosistemas de cada territorio ayuda
+          a valorar su importancia y a comprender las amenazas que pueden afectarlos.
+        </p>
+      </article>
+
+      <article class="panel" id="panelGlosario" hidden>
+        <h2>Glosario ambiental</h2>
+        <p>Busca una palabra para consultar su significado.</p>
+        <input class="buscador" id="buscarConcepto" type="search"
+               placeholder="Ejemplo: hábitat" aria-label="Buscar concepto">
+        <div id="listaConceptos"></div>
+        <p id="sinConceptos" hidden>No encontramos conceptos con esa búsqueda. Prueba con otra palabra.</p>
+      </article>
+
+      <article class="panel" id="panelReto" hidden>
+        <h2>🧠 Reto de conocimientos ambientales</h2>
+        <p>Responde las diez preguntas y revisa la explicación de cada respuesta.</p>
+        <form id="formQuiz"></form>
+        <button class="boton" id="calificar" type="button">Calificar mis respuestas</button>
+        <button class="boton secundario" id="reiniciarQuiz" type="button">Volver a intentarlo</button>
+        <p id="resultadoQuiz" class="resultado" aria-live="polite"></p>
+      </article>
+
+      <article class="panel" id="panelCompromiso" hidden>
+        <h2>🌱 Mi compromiso con la naturaleza</h2>
+        <p>
+          Selecciona las acciones que te comprometes a practicar.
+          Esta selección funciona en esta página y no se envía a ningún servidor.
+        </p>
+        <div id="listaCompromisos"></div>
+        <button class="boton" id="resumirCompromiso" type="button">Ver mi compromiso</button>
+        <button class="boton secundario" id="limpiarCompromiso" type="button">Limpiar selección</button>
+        <div class="suave" id="resultadoCompromiso" aria-live="polite" hidden></div>
+      </article>
+
+      <article class="panel" id="panelBiblioteca" hidden>
+        <h2>Biblioteca ambiental</h2>
+        <p>
+          Consulta estas instituciones para ampliar la información.
+          Sus sitios pueden ofrecer publicaciones, orientaciones y materiales
+          que conviene revisar según el tema de interés.
+        </p>
+        <ul class="fuente">
+          <li><strong>Ministerio de Ambiente y Desarrollo Sostenible.</strong> <a href="https://www.minambiente.gov.co/" target="_blank" rel="noopener noreferrer">Visitar sitio oficial</a></li>
+          <li><strong>Parques Nacionales Naturales de Colombia.</strong> <a href="https://www.parquesnacionales.gov.co/" target="_blank" rel="noopener noreferrer">Visitar sitio oficial</a></li>
+          <li><strong>Instituto de Hidrología, Meteorología y Estudios Ambientales (IDEAM).</strong> <a href="https://www.ideam.gov.co/" target="_blank" rel="noopener noreferrer">Visitar sitio oficial</a></li>
+          <li><strong>Instituto de Investigación de Recursos Biológicos Alexander von Humboldt.</strong> <a href="https://www.humboldt.org.co/" target="_blank" rel="noopener noreferrer">Visitar sitio oficial</a></li>
+        </ul>
+        <div class="nota">
+          <strong>Recomendación:</strong> verifica la fecha, la autoría y la procedencia de los materiales antes de utilizarlos o compartirlos.
+        </div>
+      </article>
+
+      <article class="panel" id="panelActividad" hidden>
+        <h2>🔎 Aprender en mi entorno</h2>
+        <p>
+          Realiza esta actividad de observación sin capturar animales ni
+          retirar plantas de su ambiente. Puedes hacerla desde un patio,
+          jardín, camino seguro o espacio verde.
+        </p>
+        <ol>
+          <li>Observa el lugar durante unos minutos sin alterar el entorno.</li>
+          <li>Identifica elementos naturales: plantas, aves, insectos, agua, suelo o árboles.</li>
+          <li>Describe qué seres vivos observaste y qué podrían necesitar para vivir.</li>
+          <li>Reconoce una posible amenaza, como residuos o deterioro de la vegetación, si la hay.</li>
+          <li>Escribe una acción sencilla que ayudaría a cuidar ese lugar.</li>
+        </ol>
+        <label for="reflexion"><strong>Mi observación y aprendizaje:</strong></label>
+        <textarea id="reflexion" class="buscador" rows="5" placeholder="Escribe aquí lo que observaste y una acción para cuidar el entorno."></textarea>
+        <button class="boton" id="verReflexion" type="button">Revisar mi reflexión</button>
+        <p id="resultadoReflexion" class="resultado" aria-live="polite"></p>
+        <p class="fuente">La reflexión permanece en esta página; no se guarda ni se envía a otras personas.</p>
+
+        <!-- FORMULARIO DE OPINIÓN SOBRE VIDA SILVESTRE -->
+        <div class="suave" id="opinionPlataforma">
+          <h2>💚 Tu opinión sobre Vida Silvestre</h2>
+          <p>Queremos conocer tu experiencia al explorar la plataforma.</p>
+
+          <form action="https://formsubmit.co/angiecarolinajm@gmail.com" method="post">
+            <input type="hidden" name="_subject" value="Opinión sobre la plataforma Vida Silvestre">
+            <input type="hidden" name="_template" value="table">
+
+            <label for="zonaOpinion"><strong>¿En qué zona vives?</strong></label>
+            <select class="buscador" id="zonaOpinion" name="Zona donde vive" required>
+              <option value="">Selecciona una opción</option>
+              <option value="Zona urbana">Zona urbana</option>
+              <option value="Zona rural">Zona rural</option>
+            </select>
+
+            <label for="edadOpinion"><strong>¿Qué edad tienes?</strong></label>
+            <select class="buscador" id="edadOpinion" name="Edad" required>
+              <option value="">Selecciona tu rango de edad</option>
+              <option value="Menos de 18 años">Menos de 18 años</option>
+              <option value="18 a 25 años">18 a 25 años</option>
+              <option value="26 a 40 años">26 a 40 años</option>
+              <option value="41 a 59 años">41 a 59 años</option>
+              <option value="60 años o más">60 años o más</option>
+            </select>
+
+            <label for="gustoOpinion"><strong>¿Te gustó la plataforma Vida Silvestre?</strong></label>
+            <select class="buscador" id="gustoOpinion" name="¿Te gustó la plataforma Vida Silvestre?" required>
+              <option value="">Selecciona tu respuesta</option>
+              <option value="Sí, me gustó mucho">Sí, me gustó mucho</option>
+              <option value="Sí, me gustó">Sí, me gustó</option>
+              <option value="Más o menos">Más o menos</option>
+              <option value="No me gustó">No me gustó</option>
+            </select>
+
+            <label for="aprendizajeOpinion"><strong>¿Qué aprendiste al explorar la plataforma?</strong></label>
+            <textarea class="buscador" id="aprendizajeOpinion" name="¿Qué aprendiste al explorar la plataforma?" rows="4" placeholder="Escribe aquí lo que aprendiste..." required></textarea>
+
+            <button class="boton" type="submit">Enviar mi opinión ✓</button>
+          </form>
+        </div>
+      </article>
+
+      <div class="panel volver-inicio">
+        <h2>¡Sigue aprendiendo y cuidando la naturaleza!</h2>
+        <p>Todo pequeño compromiso cuenta para proteger la biodiversidad del Cauca.</p>
+        <a class="boton" href="educacion.html">← Volver a Educación</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="contenedor">
+    <strong>🌿 VIDA SILVESTRE</strong>
+    <p>Conócelas, cuídalas.</p>
+    <p>Aprender sobre la naturaleza es parte de protegerla.</p>
+  </div>
+</footer>
+
+<script>
+const secciones = {
+  aula: {
+    titulo: "Aula ambiental",
+    intro: "Comprende qué es la biodiversidad, cómo funcionan los ecosistemas y por qué debemos conservarlos.",
+    imagen: "imagenes/educacion-aula.jpg",
+    panel: "panelAula"
+  },
+  glosario: {
+    titulo: "Conceptos clave",
+    intro: "Consulta definiciones sencillas para comprender el lenguaje de la conservación ambiental.",
+    imagen: "imagenes/educacion-glosario.jpg",
+    panel: "panelGlosario"
+  },
+  reto: {
+    titulo: "Reto de conocimientos",
+    intro: "Pon a prueba tus conocimientos sobre biodiversidad y aprende con las explicaciones de cada respuesta.",
+    imagen: "imagenes/educacion-reto.jpg",
+    panel: "panelReto"
+  },
+  compromiso: {
+    titulo: "Mi compromiso ambiental",
+    intro: "Elige acciones que puedes poner en práctica para contribuir al cuidado de la naturaleza.",
+    imagen: "imagenes/educacion-compromiso.jpg",
+    panel: "panelCompromiso"
+  },
+  biblioteca: {
+    titulo: "Biblioteca ambiental",
+    intro: "Encuentra instituciones confiables para ampliar tus conocimientos sobre biodiversidad y conservación.",
+    imagen: "imagenes/educacion-biblioteca.jpg",
+    panel: "panelBiblioteca"
+  },
+  actividad: {
+    titulo: "Aprender en mi entorno",
+    intro: "Observa la naturaleza que te rodea, reflexiona sobre su importancia y propón una acción de cuidado.",
+    imagen: "imagenes/educacion-actividad.jpg",
+    panel: "panelActividad"
+  }
+};
+
+const conceptos = [
+  ["Biodiversidad", "Variedad de seres vivos, su diversidad y las relaciones que mantienen en los ecosistemas."],
+  ["Conservación", "Acciones y medidas orientadas a proteger la naturaleza, las especies y sus hábitats."],
+  ["Ecosistema", "Conjunto de seres vivos y elementos del ambiente que interactúan en un lugar."],
+  ["Especie nativa", "Especie que forma parte de manera natural de una región o ecosistema."],
+  ["Especie amenazada", "Especie que enfrenta un riesgo de desaparición, de acuerdo con evaluaciones y criterios especializados."],
+  ["Fauna", "Conjunto de animales presentes en una región o ambiente."],
+  ["Flora", "Conjunto de plantas presentes en una región o ambiente."],
+  ["Hábitat", "Lugar y conjunto de condiciones donde vive un organismo."],
+  ["Contaminación", "Introducción o presencia de agentes que pueden causar efectos perjudiciales en el ambiente."],
+  ["Deforestación", "Eliminación o pérdida de cobertura forestal."],
+  ["Fuente hídrica", "Lugar o sistema natural del que proviene o por el que circula el agua, como ríos, quebradas y nacimientos."],
+  ["Restauración ecológica", "Proceso orientado a apoyar la recuperación de un ecosistema degradado, dañado o destruido."],
+  ["Residuos sólidos", "Materiales descartados después de su uso, que deben manejarse de acuerdo con su tipo y las normas aplicables."],
+  ["Educación ambiental", "Proceso de aprendizaje que ayuda a comprender el ambiente y a desarrollar conocimientos y prácticas responsables."]
+];
+
+const compromisos = [
+  "Ahorrar agua y evitar su contaminación.",
+  "Separar y disponer adecuadamente los residuos.",
+  "Reducir el uso innecesario de productos desechables.",
+  "No provocar quemas ni dejar fuego sin supervisión.",
+  "Respetar los animales silvestres y no capturarlos.",
+  "Proteger la vegetación y los hábitats naturales.",
+  "Compartir información ambiental de fuentes confiables.",
+  "Participar en actividades responsables de cuidado ambiental."
+];
+
+const preguntas = [
+  ["¿Qué comprende la biodiversidad?", ["Solo los animales", "La variedad de seres vivos y sus relaciones con los ecosistemas", "Únicamente los árboles"], 1, "La biodiversidad comprende distintos seres vivos y sus relaciones con los ambientes."],
+  ["¿Qué es un hábitat?", ["El lugar y las condiciones donde vive un organismo", "Una clase de residuo", "Un tipo de contaminación"], 0, "El hábitat ofrece condiciones y recursos para la vida de un organismo."],
+  ["¿Qué acción ayuda a proteger las fuentes hídricas?", ["Arrojar basura al agua", "Verter aceite por el desagüe", "Evitar residuos y vertimientos contaminantes"], 2, "Prevenir la contaminación ayuda a proteger las fuentes hídricas."],
+  ["¿Qué debemos hacer ante un incendio forestal?", ["Acercarnos a las llamas", "Alejarnos y avisar a los servicios competentes", "Ignorarlo"], 1, "La seguridad es prioritaria; se debe informar a las autoridades o servicios de emergencia."],
+  ["¿Qué significa conservar la biodiversidad?", ["Proteger especies, hábitats y procesos ecológicos", "Capturar animales silvestres", "Eliminar toda vegetación"], 0, "La conservación busca proteger la naturaleza y los procesos que la sostienen."],
+  ["¿Qué práctica ayuda a manejar mejor los residuos?", ["Arrojarlos al bosque", "Quemarlos siempre", "Reducir, separar y disponerlos adecuadamente"], 2, "El manejo responsable ayuda a prevenir la contaminación."],
+  ["¿Por qué es importante la vegetación nativa?", ["No tiene función ecológica", "Puede brindar hábitat y contribuir al funcionamiento del ecosistema", "Solo sirve para decoración"], 1, "La vegetación nativa puede sostener numerosas relaciones ecológicas."],
+  ["¿Cómo debemos tratar a los animales silvestres?", ["Observarlos sin perseguirlos ni capturarlos", "Llevarlos a casa", "Alimentarlos con cualquier producto"], 0, "La observación responsable evita perturbar a los animales."],
+  ["¿Qué debemos hacer antes de compartir información ambiental?", ["Inventar los datos que falten", "Publicarla sin leerla", "Verificar su procedencia y confiabilidad"], 2, "La verificación ayuda a divulgar información precisa."],
+  ["¿Quién puede contribuir a la conservación?", ["Solo las instituciones", "Las personas, comunidades e instituciones desde sus responsabilidades", "Nadie fuera de los científicos"], 1, "Distintos actores pueden contribuir mediante acciones apropiadas."]
+];
+
+/* CARGAR EL TEMA Y SU IMAGEN */
+const parametro = new URLSearchParams(window.location.search).get("tema") || "aula";
+const seccion = secciones[parametro] || secciones.aula;
+
+document.title = seccion.titulo + " | Vida Silvestre";
+
+document.getElementById("titulo").innerHTML =
+  seccion.titulo + ' y la <span>biodiversidad</span>';
+
+document.getElementById("intro").textContent = seccion.intro;
+
+const imagen = document.getElementById("imagenTema");
+imagen.src = seccion.imagen;
+imagen.alt = seccion.titulo + " y biodiversidad";
+imagen.onerror = function () {
+  this.onerror = null;
+  this.src = "imagenes/educacion-portada.jpg";
+};
+
+document.getElementById(seccion.panel).hidden = false;
+
+/* GLOSARIO */
+const listaConceptos = document.getElementById("listaConceptos");
+const buscarConcepto = document.getElementById("buscarConcepto");
+const sinConceptos = document.getElementById("sinConceptos");
+
+function mostrarConceptos(filtro = "") {
+  if (!listaConceptos) return;
+
+  listaConceptos.innerHTML = "";
+
+  const encontrados = conceptos.filter(([nombre, definicion]) =>
+    (nombre + " " + definicion).toLowerCase().includes(filtro.toLowerCase())
+  );
+
+  encontrados.forEach(([nombre, definicion]) => {
+    const caja = document.createElement("article");
+    caja.className = "concepto";
+
+    const titulo = document.createElement("h3");
+    titulo.textContent = nombre;
+
+    const texto = document.createElement("p");
+    texto.textContent = definicion;
+
+    caja.append(titulo, texto);
+    listaConceptos.appendChild(caja);
+  });
+
+  sinConceptos.hidden = encontrados.length > 0;
+}
+
+if (buscarConcepto) {
+  buscarConcepto.addEventListener("input", () => mostrarConceptos(buscarConcepto.value));
+  mostrarConceptos();
+}
+
+/* CUESTIONARIO */
+const formQuiz = document.getElementById("formQuiz");
+const resultadoQuiz = document.getElementById("resultadoQuiz");
+
+function crearQuiz() {
+  if (!formQuiz) return;
+
+  formQuiz.innerHTML = "";
+  resultadoQuiz.textContent = "";
+
+  preguntas.forEach((pregunta, i) => {
+    const caja = document.createElement("fieldset");
+    caja.className = "pregunta";
+
+    const titulo = document.createElement("h3");
+    titulo.textContent = (i + 1) + ". " + pregunta[0];
+    caja.appendChild(titulo);
+
+    pregunta[1].forEach((opcion, j) => {
+      const label = document.createElement("label");
+      label.className = "opcion";
+
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = "pregunta" + i;
+      input.value = j;
+      input.required = true;
+
+      label.append(input, document.createTextNode(opcion));
+      caja.appendChild(label);
+    });
+
+    formQuiz.appendChild(caja);
+  });
+}
+
+const calificar = document.getElementById("calificar");
+
+if (calificar) {
+  calificar.addEventListener("click", () => {
+    let puntaje = 0;
+    let respondidas = 0;
+
+    preguntas.forEach((pregunta, i) => {
+      const caja = formQuiz.children[i];
+      const elegida = formQuiz.querySelector(
+        'input[name="pregunta' + i + '"]:checked'
+      );
+
+      const anterior = caja.querySelector(".explicacion");
+      if (anterior) anterior.remove();
+
+      const explicacion = document.createElement("p");
+      explicacion.className = "explicacion";
+
+      if (!elegida) {
+        explicacion.textContent = "Pregunta pendiente. " + pregunta[3];
+      } else {
+        respondidas++;
+
+        if (Number(elegida.value) === pregunta[2]) {
+          puntaje++;
+          explicacion.textContent = "¡Correcto! " + pregunta[3];
+        } else {
+          explicacion.textContent = "Respuesta incorrecta. " + pregunta[3];
+        }
+      }
+
+      caja.appendChild(explicacion);
+    });
+
+    if (respondidas < preguntas.length) {
+      resultadoQuiz.textContent =
+        "Has respondido " + respondidas + " de " + preguntas.length +
+        ". Completa las preguntas pendientes para obtener tu resultado final.";
+    } else {
+      resultadoQuiz.textContent =
+        "Tu resultado es " + puntaje + " de " + preguntas.length +
+        " respuestas correctas. " +
+        (puntaje === preguntas.length
+          ? "¡Excelente! Dominas estos conceptos."
+          : "Revisa las explicaciones y vuelve a intentarlo.");
+    }
+  });
+}
+
+const reiniciarQuiz = document.getElementById("reiniciarQuiz");
+if (reiniciarQuiz) reiniciarQuiz.addEventListener("click", crearQuiz);
+crearQuiz();
+
+/* COMPROMISOS AMBIENTALES */
+const listaCompromisos = document.getElementById("listaCompromisos");
+const resultadoCompromiso = document.getElementById("resultadoCompromiso");
+
+if (listaCompromisos) {
+  compromisos.forEach((texto, i) => {
+    const label = document.createElement("label");
+    label.className = "compromiso";
+
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.value = i;
+    input.name = "compromiso";
+
+    label.append(input, document.createTextNode(texto));
+    listaCompromisos.appendChild(label);
+  });
+}
+
+const resumirCompromiso = document.getElementById("resumirCompromiso");
+
+if (resumirCompromiso) {
+  resumirCompromiso.addEventListener("click", () => {
+    const elegidos = [...listaCompromisos.querySelectorAll("input:checked")];
+
+    resultadoCompromiso.hidden = false;
+    resultadoCompromiso.innerHTML = "";
+
+    const titulo = document.createElement("h3");
+    titulo.textContent = "Mi compromiso ambiental";
+    resultadoCompromiso.appendChild(titulo);
+
+    if (elegidos.length === 0) {
+      const texto = document.createElement("p");
+      texto.textContent = "Selecciona al menos una acción que puedas practicar.";
+      resultadoCompromiso.appendChild(texto);
+      return;
+    }
+
+    const introduccion = document.createElement("p");
+    introduccion.textContent =
+      "Me comprometo a contribuir al cuidado de la naturaleza mediante estas acciones:";
+    resultadoCompromiso.appendChild(introduccion);
+
+    const lista = document.createElement("ul");
+
+    elegidos.forEach(input => {
+      const li = document.createElement("li");
+      li.textContent = compromisos[Number(input.value)];
+      lista.appendChild(li);
+    });
+
+    resultadoCompromiso.appendChild(lista);
+  });
+}
+
+const limpiarCompromiso = document.getElementById("limpiarCompromiso");
+
+if (limpiarCompromiso) {
+  limpiarCompromiso.addEventListener("click", () => {
+    listaCompromisos.querySelectorAll("input").forEach(input => input.checked = false);
+    resultadoCompromiso.hidden = true;
+    resultadoCompromiso.innerHTML = "";
+  });
+}
+
+/* ACTIVIDAD DE OBSERVACIÓN */
+const verReflexion = document.getElementById("verReflexion");
+
+if (verReflexion) {
+  verReflexion.addEventListener("click", () => {
+    const texto = document.getElementById("reflexion").value.trim();
+    const resultado = document.getElementById("resultadoReflexion");
+
+    if (texto.length < 10) {
+      resultado.textContent =
+        "Escribe un poco más sobre lo que observaste y una acción de cuidado.";
+    } else {
+      resultado.textContent =
+        "¡Muy bien! Has registrado una observación y una reflexión sobre el cuidado del entorno. Recuerda respetar los seres vivos y sus hábitats.";
+    }
+  });
+}
+</script>
+
+</body>
+</html>
